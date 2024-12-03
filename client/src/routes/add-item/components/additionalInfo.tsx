@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const AdditionalInfo = () => {
   const [additionalInfo, setAdditionalInfo] = useState<string>("");
@@ -9,11 +9,6 @@ const AdditionalInfo = () => {
     setAdditionalInfo(value);
     setValue("");
   };
-
-  // Obserwuj zmiany w additionalInfo
-  useEffect(() => {
-    console.log(additionalInfo);
-  }, [additionalInfo]);
 
   return (
     <section className="border-t-2 border-black mt-14">

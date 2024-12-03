@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Resistance = () => {
   const [resistList, setResistList] = useState<string[]>([]);
   const [value, setValue] = useState("");
   const [desc, setDesc] = useState("");
   const [descDisplay, setDescDisplay] = useState("");
-
-  useEffect(() => {
-    console.log(resistList);
-    console.log(descDisplay);
-  }, [resistList, descDisplay]);
 
   // add item
   const addItem = () => {

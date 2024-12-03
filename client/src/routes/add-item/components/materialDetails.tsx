@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { capitalizeFirstLetter } from "../../../utils/functions";
 
 type Detail = {
@@ -17,10 +17,6 @@ const MaterialDetails = () => {
     setKey("");
     setValue("");
   };
-
-  useEffect(() => {
-    console.log(materialDetails);
-  }, [materialDetails]);
 
   return (
     <section className="border-t-2 border-black mt-14">
