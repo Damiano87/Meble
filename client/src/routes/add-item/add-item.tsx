@@ -31,7 +31,7 @@ const AddItemPage = () => {
         {/* additional info */}
         <AdditionalInfo />
         {/* care tips */}
-        <CareTips />
+        {/* <CareTips /> */}
       </div>
     </main>
   );
