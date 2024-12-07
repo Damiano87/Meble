@@ -43,7 +43,7 @@ model Product {
   resistance      Resistance?
   additionalInfo  String?
   careTips        CareTip[]
-  packing         String?
+  packing         String[]
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   cartItem        CartItem[]
@@ -66,11 +66,11 @@ type MaterialDetail {
 
 type Resistance {
   resistFrom String[]
-  resistDesc String
+  resistDesc String?
 }
 
 type CareTip {
-  tip  String
+  tip  String?
   list String[]
 }
 
