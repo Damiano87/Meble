@@ -899,4 +899,289 @@ const products = [
       "1 X Regał, KEENE, ciemne drewno, karton 1/1 (24.3 kg) 112.00 x 16.00 x 62.00 cm (dł. x szer. x wys.)",
     ],
   },
+  {
+    name: "Fotel VIBORG II Tkanina Beżowy",
+    price: 114900,
+    category: "salon",
+    likes: 123,
+    title: "Stylowy pikowany fotel",
+    description:
+      "Elegancki fotel, który szybko stanie się niezbędnym meblem w każdym salonie. Jest tapicerowany wysokiej jakości tkaniną, posiada drewnianą ramę, która jest wytrzymała i odporna na zużycie. Dzięki przyciągającemu wzrok designowi, uroczemu pikowaniu oraz zakrzywionym nóżkom, fotel ożywi każde wnętrze w stylu glamour, retro lub skandynawskim.",
+    images: [
+      "https://res.cloudinary.com/damiano/image/upload/v1733423619/fotel1_hupcgy.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423620/fotel2_mnke4s.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423621/fotel3_cbbwrt.webp",
+    ],
+    stock: 7,
+    features: [
+      "Wygodne, tapicerowane siedzisko",
+      "Wykończenie nitami doskonale podkreślające kształt mebla",
+      "Pikowane ozdobnymi guzikami",
+      "Wytrzymała i solidna konstrukcja",
+      "Wykonanie z wysokiej jakości materiałów",
+    ],
+    offers: ["1 x Fotel"],
+    details: [
+      { name: "Numer artykułu", description: "237062-103279" },
+      { name: "Gwarancja", description: "24 miesiące" },
+      { name: "Rodzaj", description: "Fotel" },
+      { name: "Kolor", description: "Beżowy, Ciemne drewno" },
+      { name: "Materiał", description: "Poliester" },
+      {
+        name: "Materiał dodatkowy",
+        description: "Drewno brzozowe",
+      },
+      { name: "Wypełnienie", description: "Pianka" },
+      {
+        name: "Konstrukcja siedziska",
+        description: "Sprężyny faliste, Pasy elastyczne",
+      },
+      { name: "Wzór", description: "Jednolity" },
+      { name: "Waga", description: "18 kg" },
+      { name: "Maks. obciążenie", description: "125 kg" },
+      { name: "Montaż", description: "Wymaga montażu nóżek" },
+      { name: "Podłokietniki", description: "Proste" },
+    ],
+    dimensions: [
+      { name: "Szerokość", dim: "75 cm" },
+      { name: "Głębokość", dim: "90 cm" },
+      { name: "Wysokość", dim: "93 cm" },
+      { name: "Powierzchnia siedziska", dim: "57 x 50 cm" },
+      { name: "wysokość podłokietników", dim: "55 cm" },
+      { name: "Grubość siedziska", dim: "26 cm" },
+      { name: "Wysokość siedziska", dim: "45 cm" },
+      { name: "Gęstość pianki", dim: "22 kg/m3" },
+    ],
+    additionalInfo:
+      "By zagwarantować stabilność konstrukcji i bezpieczeństwo podczas korzystania z produktu, zaleca się sprawdzenie czy montaż przebiegł poprawnie po 2 tygodniach od pierwszego złożenia. Dodatkowo zalecamy sprawdzanie, czy śruby są dokręcone co 3 miesiące.",
+    materialDetails: [
+      { name: "Skład materiału", description: ["100% Poliester"] },
+      { name: "Gatunek drewna", description: ["Betula chinensis"] },
+      { name: "Pochodzenie drewna", description: ["Chiny"] },
+    ],
+    careTips: [
+      {
+        tip: "Poliester",
+        list: [
+          "Plamy należy usuwać za pomocą środka do czyszczenia tapicerki i wilgotnej gąbki lub łagodnego detergentu.",
+          "Odkurzać wyłącznie przy pomocy odpowiedniej końcówki.",
+        ],
+      },
+      {
+        tip: "Drewno brzozowe",
+        list: [
+          "Do czyszczenia należy używać wyłącznie łagodnych detergentów oraz miękkiej ściereczki, wycierając powierzchnię w kierunku słojów.",
+          "Aby chronić mebel przed wilgocią, po przetarciu na mokro należy go dokładnie wytrzeć do sucha.",
+          "Dla produktów drewnianych z olejowanym wykończeniem: można ponownie olejować po dłuższym użytkowaniu, by utrzymać jego dobry wygląd.",
+        ],
+      },
+    ],
+    packing: [
+      "1 X Fotel, VIBORG II, beżowy (22.5 kg) 88.00 x 77.50 x 80.50 cm (dł. x szer. x wys.)",
+    ],
+  },
+  {
+    name: "Sofa rozkładana welurowa żółta",
+    price: 359000,
+    category: "salon",
+    likes: 91,
+    title: "Welurowa sofa z funkcją spania",
+    description:
+      "Ta sofa jest idealnym dodatkiem do każdego nowoczesnego, tradycyjnego lub minimalistycznego salonu. Tapicerowany gładkim welurem mebel posiada gęsto wyściełane siedzisko i oparcie, a także stabilne, drewniane nogi zapewniające najwyższy poziom komfortu. Poduszki oparcia mają zdejmowane pokrycie, które ułatwia czyszczenie bez obaw o plamy. Tę elegancką i nowoczesną sofę można łatwo przekształcić w łóżko, zapewniając wygodną alternatywę do spania dla Twoich gości. Posiada poręczny schowek, w którym możesz schować całą pościel i akcesoria.",
+    images: [
+      "https://res.cloudinary.com/damiano/image/upload/v1733423625/sofa1_jqowq1.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423625/sofa2_vo3arz.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423626/sofa3_zrxhi5.webp",
+    ],
+    stock: 6,
+    features: [
+      "Welurowa sofa z funkcją spania",
+      "Klasyczny design",
+      "Doskonale uzupełnia wnętrze w każdym stylu",
+      "Antypoślizgowe podkładki na nóżki",
+      "Dodatkowa przestrzeń do przechowywania",
+      "Zdejmowane poszewki z poduszek na oparciu",
+    ],
+    offers: ["1 x Sofa"],
+    details: [
+      { name: "Numer artykułu", description: "291216-369579" },
+      { name: "Gwarancja", description: "24 miesiące" },
+      { name: "Rodzaj", description: "Sofa rozkładana" },
+      { name: "Kolor", description: "Żółty" },
+      { name: "Odcień", description: "Musztardowy" },
+      { name: "Materiał", description: "Welur" },
+      {
+        name: "Materiał dodatkowy",
+        description: "Drewno eukaliptusowe",
+      },
+      { name: "Wypełnienie", description: "Pianka" },
+      {
+        name: "Konstrukcja siedziska",
+        description: "Sprężyny faliste, Pasy elastyczne, Sprężyny kieszeniowe",
+      },
+      { name: "Waga", description: "96 kg" },
+      { name: "Miejsce dla", description: "3 osób" },
+      { name: "Maks. obciążenie na os.", description: "150 kg" },
+      { name: "Montaż", description: "Wymaga kompletnego montażu" },
+      { name: "Mechanizm rozkładania", description: "Wysuwany stelaż" },
+      { name: "Podłokietniki", description: "Proste" },
+    ],
+    dimensions: [
+      { name: "Wysokość", dim: "87 cm" },
+      { name: "Szerokość", dim: "220 cm" },
+      { name: "Głębokość", dim: "102 cm" },
+      { name: "Grubość siedziska", dim: "21 cm" },
+      { name: "Wysokość siedziska", dim: "43 cm" },
+      { name: "Wysokość podłokietników", dim: "74 cm" },
+      { name: "Poduszki", dim: "96 x 45 cm" },
+      { name: "Powierzchnia siedziska", dim: "203 x 48 cm" },
+      { name: "Gęstość pianki", dim: "50 kg/m3" },
+      { name: "Powierzchnia spania", dim: "146 x 203 cm" },
+    ],
+    materialDetails: [
+      { name: "Skład materiału", description: ["100% Poliester"] },
+      { name: "Gatunek drewna", description: ["Eucalyptus Globulus"] },
+      { name: "Pochodzenie drewna", description: ["Chiny"] },
+    ],
+    careTips: [
+      {
+        tip: "Welur",
+        list: [
+          "Plamy należy usuwać za pomocą środka do czyszczenia tapicerki i wilgotnej gąbki lub łagodnego detergentu.",
+          "Odkurzać wyłącznie przy pomocy odpowiedniej końcówki.",
+        ],
+      },
+    ],
+    packing: [
+      "1 X Sofa EKSJO, żółta, karton 1/2, TI (68.0 kg) 204.00 x 42.00 x 78.00 cm (dł. x szer. x wys.)",
+      "1 X Sofa EKSJO, żółta, karton 2/2, TI (28.0 kg) 203.00 x 27.00 x 71.00 cm (dł. x szer. x wys.)",
+    ],
+  },
+  {
+    name: "Szafa biurowa",
+    price: 116900,
+    category: "salon",
+    likes: 45,
+    title: "Wysoka stalowa szafka do biura domowego",
+    description:
+      "Zadbaj o swoje domowe biuro dzięki tej metalowej szafie z pięcioma przestronnymi półkami i drzwiami zamykanymi na klucz, zapewniającymi bezpieczne przechowywanie. Solidna metalowa konstrukcja gwarantuje trwałość, a elegancki wygląd doskonale pasuje do każdego wystroju biura. Idealna do organizowania dokumentów i przedmiotów osobistych, dzięki czemu jest idealnym dodatkiem do Twojego miejsca pracy.",
+    images: [
+      "https://res.cloudinary.com/damiano/image/upload/v1733423630/szafasalon1_pxjqrg.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423631/szafasalon2_akhtrd.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423632/szafasalon3_vtcb8i.webp",
+    ],
+    stock: 10,
+    features: [
+      "Przestawne półki",
+      "Solidne i trwałe wykonanie",
+      "Niezwykle wytrzymały",
+      "Bezpieczne zamknięcie na kluczyk",
+      "Wiele miejsca do przechowywania",
+    ],
+    offers: ["1 x Szafa biurowa"],
+    details: [
+      { name: "Numer artykułu", description: "304277-519538" },
+      { name: "Gwarancja", description: "24 miesiące" },
+      { name: "Rodzaj", description: "Szafa" },
+      { name: "Kolor", description: "Drewno, Czarny" },
+      { name: "Kolor RAL", description: "RAL 9016 Drogowy biały" },
+      { name: "Materiał", description: "Drewno, Stal" },
+      { name: "Wykończenie", description: "Matowy" },
+      { name: "Waga", description: "48 kg" },
+      { name: "Maks. obciążenie góry", description: "40 kg" },
+      { name: "Liczba półek", description: "5" },
+      { name: "Montaż", description: "Wymaga kompletnego montażu" },
+      { name: "Typ drzwi", description: "Standardowy" },
+    ],
+    dimensions: [
+      { name: "Wysokość", dim: "184 cm" },
+      { name: "Szerokość", dim: "90 cm" },
+      { name: "Głębokość", dim: "40 cm" },
+    ],
+    careTips: [
+      {
+        tip: "Stal",
+        list: [
+          "Czyścić za pomocą ogólnodostępnych, delikatnych środków myjących oraz miękkiej ściereczki, po przetarciu na mokro wytrzeć do sucha.",
+          "Aby uniknąć zarysowań, nie używać mleczka do czyszczenia.",
+          "Elementy miedziane lub chromowane należy polerować przeznaczonymi do tego środkami.",
+        ],
+      },
+    ],
+    packing: [
+      "1 X Metalowa szafka biurowa , FELDSPAR, biała, karton 1/2 (27.5 kg) 197.50 x 11.50 x 52.50 cm (dł. x szer. x wys.)",
+      "1 X Metalowa szafka biurowa , FELDSPAR, biała, karton 2/2 (28.0 kg) 197.50 x 10.50 x 102.50 cm (dł. x szer. x wys.)",
+    ],
+  },
+  {
+    name: "Stolik kawowy szklany",
+    price: 45900,
+    category: "salon",
+    likes: 75,
+    title: "Nowoczesny stolik kawowy z szklanym blatem i metalowym stelażem",
+    description:
+      "Klasyczny stolik kawowy, który wspaniale uzupełni każdy wystrój w stylu nowoczesnym czy glamour. Błyszcząca, złota rama o unikalnym kształcie oraz przezroczysty blat wykonany z hartowanego szkła tworzą przejrzystą, lekką atmosferę w pomieszczeniu. Dodatkowe dekoracje, takie jak kwiaty lub świece podkreślą jego ponadczasowy wygląd.",
+    images: [
+      "https://res.cloudinary.com/damiano/image/upload/v1733423627/stolik1_yezwqz.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423628/stolik2_hfrbs9.webp",
+      "https://res.cloudinary.com/damiano/image/upload/v1733423629/stolik3_yvsdoz.webp",
+    ],
+    stock: 12,
+    features: [
+      "Blat wykonany z grubego hartowanego szkła",
+      "Elegancki wygląd",
+      "Doskonale uzupełnia wnętrze w każdym stylu",
+      "Wysoka jakość wykonania",
+      "Stabilna i wytrzymała konstrukcja",
+    ],
+    offers: ["1 x Stolik kawowy"],
+    details: [
+      { name: "Numer artykułu", description: "216387-139637" },
+      { name: "Gwarancja", description: "24 miesiące" },
+      { name: "Rodzaj", description: "Stolik kawowy" },
+      { name: "Kolor", description: "Przezroczysty" },
+      { name: "Materiał", description: "Szkło hartowane" },
+      {
+        name: "Materiał dodatkowy",
+        description: "Stal nierdzewna",
+      },
+      { name: "Wykończenie", description: "Błyszczący" },
+      { name: "Waga", description: "16 kg" },
+      { name: "Maks. obciążenie", description: "15 kg" },
+      { name: "Montaż", description: "Częściowo zmontowany" },
+      { name: "Kształt", description: "Kwadratowy" },
+    ],
+    dimensions: [
+      { name: "Wysokość", dim: "40 cm" },
+      { name: "Szerokość", dim: "80 cm" },
+      { name: "Długość", dim: "40 cm" },
+      { name: "Wysokość nóżek", dim: "39 cm" },
+    ],
+    careTips: [
+      {
+        tip: "Szkło hartowane",
+        list: [
+          "Do czyszczenia używać wyłącznie łagodnych środków czystości lub detergentów do szkła oraz miękkiej ściereczki. Po przetarciu na mokro, wytrzeć do sucha.",
+          "Aby uniknąć zarysowań, nie używać mleczka do czyszczenia.",
+        ],
+      },
+      {
+        tip: "Stal nierdzewna",
+        list: [
+          "Czyścić za pomocą ogólnodostępnych, delikatnych środków myjących oraz miękkiej ściereczki, po przetarciu na mokro wytrzeć do sucha.",
+          "Aby uniknąć zarysowań, nie używać mleczka do czyszczenia.",
+          "Elementy miedziane lub chromowane należy polerować przeznaczonymi do tego środkami.",
+        ],
+      },
+    ],
+    packing: [
+      "1 X Metalowa szafa biurowa , FELDSPAR, biała, karton 1/2 (27.5 kg) 197.50 x 11.50 x 52.50 cm (dł. x szer. x wys.)",
+      "1 X Metalowa szafka biurowa , FELDSPAR, biała, karton 2/2 (28.0 kg) 197.50 x 10.50 x 102.50 cm (dł. x szer. x wys.)",
+    ],
+  },
 ];
+
+importProducts(products).catch((e) => {
+  console.error("Error importing products:", e);
+  prisma.$disconnect();
+});
