@@ -4,13 +4,13 @@ import prisma from "./lib/prisma.js";
 import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 import path from "path";
-import morgan from "morgan";
 import errorHandler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import root from "./routes/root.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import productsRoutes from "./routes/productsRoutes.js";
 
 const PORT = process.env.PORT || 3500;
 
@@ -18,8 +18,6 @@ dotenv.config();
 console.log(process.env.NODE_ENV);
 
 const app = express();
-
-// app.use(morgan("dev"));
 
 app.use(cookieParser());
 
@@ -35,6 +33,7 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 // routes
 app.use("/", root);
 app.use("/users", userRoutes);
+app.use("/products", productsRoutes);
 app.use("/auth", authRoutes);
 
 // show 404 site if there is no resources

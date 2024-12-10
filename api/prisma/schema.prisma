@@ -38,6 +38,7 @@ model Product {
   offers          String[]
   details         Detail[]
   dimensions      Dimension[]
+  techData        Tech[]
   // for info component
   materialDetails MaterialDetail[]
   resistance      Resistance?
@@ -72,6 +73,11 @@ type Resistance {
 type CareTip {
   tip  String?
   list String[]
+}
+
+type Tech {
+  name String?
+  data String?
 }
 
 // cart item model

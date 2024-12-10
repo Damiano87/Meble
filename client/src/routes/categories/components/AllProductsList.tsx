@@ -2,7 +2,7 @@
 // import { resetImgIndex } from "@/lib/features/singleProductSlice";
 // import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
-import { formatToPLN } from "~/utils/functions";
+import { formatToPLN } from "../../../utils/functions";
 import data from "../../../data";
 
 const CategoriesButtons = () => {

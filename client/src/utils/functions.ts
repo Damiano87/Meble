@@ -1,10 +1,15 @@
 // Format the price above to PLN using the locale, style, and currency.
-export const formatToPLN = (price: number) => {
-  return new Intl.NumberFormat("en-PL", {
+
+export function formatToPLN(price: number): string {
+  // Konwersja na złotówki z zaokrągleniem do 2 miejsc po przecinku
+  const zloty = price / 100;
+
+  // Formatowanie z separatorem tysięcy i 2 miejscami po przecinku
+  return zloty.toLocaleString("pl-PL", {
     style: "currency",
     currency: "PLN",
-  }).format(price);
-};
+  });
+}
 
 // Uppercase first letter of a string
 export const capitalizeFirstLetter = (str: string) =>
