@@ -1,11 +1,21 @@
 import apiRequest from "../api/apiRequest";
 
-export const getTopEightLoader = async () => {
+export const getCombinedLoader = async () => {
   try {
-    const response = await apiRequest("/products/top-eight");
+    const [topEight, trendyProducts] = await Promise.all([
+      apiRequest("/products/top-eight"),
+      apiRequest("/products/trendy"),
+    ]);
 
-    return response.data;
+    return {
+      topEight: topEight.data,
+      trendyProducts: trendyProducts.data,
+    };
   } catch (error) {
     console.log(error);
+    return {
+      topEight: [],
+      trendyProducts: [],
+    };
   }
 };

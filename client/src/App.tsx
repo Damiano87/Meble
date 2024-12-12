@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import Home from "./routes/home/home";
 import AddItemPage from "./routes/add-item/add-item";
 import Register from "./routes/register/Register";
-import { getTopEightLoader } from "./loaders/productsLoader";
+import { getCombinedLoader } from "./loaders/productsLoader";
 import Categories from "./routes/categories/categories";
 
 const router = createBrowserRouter([
@@ -14,11 +14,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    hydrateFallbackElement: <div>Ładowanie...</div>,
     children: [
       {
         index: true,
         element: <Home />,
-        loader: getTopEightLoader,
+        loader: getCombinedLoader,
       },
       {
         path: "add-item",

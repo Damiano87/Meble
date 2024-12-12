@@ -1,7 +1,7 @@
 import prisma from "../lib/prisma.js";
 
 // @desc Get top liked products
-// @route GET /products
+// @route GET /products/top-eight
 // @access Public
 const getTopLikedProducts = async (req, res) => {
   const topLikedProducts = await prisma.product.findMany({
@@ -20,6 +20,26 @@ const getTopLikedProducts = async (req, res) => {
   res.json(topLikedProducts);
 };
 
+// @desc Get trendy products
+// @route GET /products/trendy
+// @access Public
+const getTrendyProducts = async (req, res) => {
+  const trendyProducts = await prisma.product.findMany({
+    where: {
+      trendy: true,
+    },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      images: true,
+    },
+  });
+
+  res.json(trendyProducts);
+};
+
 export default {
   getTopLikedProducts,
+  getTrendyProducts,
 };
