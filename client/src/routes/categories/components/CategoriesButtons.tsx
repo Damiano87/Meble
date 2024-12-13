@@ -6,11 +6,14 @@ const CategoriesButtons = () => {
   const currentCategory = searchParams.get("category") || "all";
 
   const searchCategories = (param: string) => {
+    const params = new URLSearchParams(searchParams);
+
     if (param === "all") {
-      setSearchParams("");
+      params.delete("category");
     } else {
-      setSearchParams({ category: param });
+      params.set("category", param);
     }
+    setSearchParams(params);
   };
 
   return (

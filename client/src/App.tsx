@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Layout from "./Layout";
-import Home from "./routes/home/home";
+import Home from "./routes/home/Home";
 import AddItemPage from "./routes/add-item/add-item";
 import Register from "./routes/register/Register";
-import { getCombinedLoader } from "./loaders/productsLoader";
+import { getCombinedLoader, getProductsLoader } from "./loaders/productsLoader";
 import Categories from "./routes/categories/categories";
 
 const router = createBrowserRouter([
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <Categories />,
+        loader: getProductsLoader,
       },
     ],
   },
