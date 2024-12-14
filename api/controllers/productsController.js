@@ -1,5 +1,54 @@
 import prisma from "../lib/prisma.js";
 
+// @desc Get all products
+// @route GET /products
+// @access Public
+const getProducts = async (req, res) => {
+  const { search, sort, category } = req.query;
+
+  const allProducts = await prisma.product.findMany({
+    where: {
+      AND: [
+        search
+          ? {
+              name: {
+                contains: search,
+                mode: "insensitive",
+              },
+            }
+          : {},
+        category
+          ? {
+              category,
+            }
+          : {},
+      ],
+    },
+    orderBy: (() => {
+      switch (sort) {
+        case "price-up":
+          return { price: "asc" };
+        case "price-down":
+          return { price: "desc" };
+        case "most-popular":
+          return { likes: "desc" };
+        case "alphabetic":
+          return { name: "asc" };
+        default:
+          return undefined;
+      }
+    })(),
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      images: true,
+    },
+  });
+
+  res.status(200).json(allProducts);
+};
+
 // @desc Get top liked products
 // @route GET /products/top-eight
 // @access Public
@@ -40,6 +89,7 @@ const getTrendyProducts = async (req, res) => {
 };
 
 export default {
+  getProducts,
   getTopLikedProducts,
   getTrendyProducts,
 };

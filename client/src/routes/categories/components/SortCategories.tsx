@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import { debounce } from "lodash";
 import { useCallback, useMemo, useState } from "react";
+import ClearFilters from "./ClearFilters";
 
 const SortCategories = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,25 +49,28 @@ const SortCategories = () => {
   };
 
   return (
-    <div className="mt-20">
-      <input
-        type="text"
-        name="search"
-        value={inputValue}
-        placeholder="Szukaj..."
-        className="block input input-bordered border-2 border-black w-full max-w-xs rounded-none"
-        onChange={handleSearchChange}
-      />
-      <select
-        onChange={(e) => handleSortChange(e.target.value)}
-        className="select select-bordered border-2 border-black w-full max-w-xs rounded-none mt-5"
-      >
-        <option disabled>Sortuj wg</option>
-        <option value={"price-up"}>Od najtańszych do najdroższych</option>
-        <option value={"price-down"}>Od najdroższych do najtańszych</option>
-        <option value={"most-popular"}>Od najpopularniejszych</option>
-        <option value={"alphabetic"}>Alfabetycznie (A-Z)</option>
-      </select>
+    <div className="flex items-start gap-20 mt-20">
+      <div>
+        <input
+          type="text"
+          name="search"
+          value={inputValue}
+          placeholder="Szukaj..."
+          className="block input input-bordered border-2 border-black w-full max-w-xs rounded-none"
+          onChange={handleSearchChange}
+        />
+        <select
+          onChange={(e) => handleSortChange(e.target.value)}
+          className="select select-bordered border-2 border-black w-full max-w-xs rounded-none mt-5"
+        >
+          <option disabled>Sortuj wg</option>
+          <option value={"price-up"}>Od najtańszych do najdroższych</option>
+          <option value={"price-down"}>Od najdroższych do najtańszych</option>
+          <option value={"most-popular"}>Od najpopularniejszych</option>
+          <option value={"alphabetic"}>Alfabetycznie (A-Z)</option>
+        </select>
+      </div>
+      <ClearFilters setInputValue={setInputValue} />
     </div>
   );
 };

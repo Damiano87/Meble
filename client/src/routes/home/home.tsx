@@ -11,7 +11,7 @@ const PopularProducts = React.lazy(
 const Trendy = React.lazy(() => import("./components/Trendy"));
 
 export default function Home() {
-  const { topEight, trendyProducts } = useLoaderData();
+  const { products, trendyProducts } = useLoaderData();
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -21,7 +21,7 @@ export default function Home() {
           <div className="text-[1.5rem] font-semibold">Ładowanie...</div>
         }
       >
-        <PopularProducts topEight={topEight} />
+        <PopularProducts products={products} />
       </Suspense>
       <ShopNow />
       <Suspense

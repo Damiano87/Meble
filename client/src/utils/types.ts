@@ -13,3 +13,13 @@ export type MainInputsProps = {
   label: string;
   input: string;
 };
+
+// type for all products
+export type Products = {
+  products: {
+    id: string;
+    name: string;
+    price: number;
+    images: string[];
+  }[];
+};

@@ -20,7 +20,8 @@ export const getProductsLoader = async ({ request }: LoaderFunctionArgs) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Failed to load products");
   }
 };
 
