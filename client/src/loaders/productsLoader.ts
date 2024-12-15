@@ -33,7 +33,7 @@ export const getCombinedLoader = async () => {
     ]);
 
     return {
-      topEight: topEight.data,
+      products: topEight.data,
       trendyProducts: trendyProducts.data,
     };
   } catch (error) {
@@ -42,5 +42,23 @@ export const getCombinedLoader = async () => {
       topEight: [],
       trendyProducts: [],
     };
+  }
+};
+
+export const getSingleProductLoader = async ({
+  params,
+}: LoaderFunctionArgs) => {
+  try {
+    const { id } = params;
+
+    if (!id) {
+      throw new Error("ID is missing");
+    }
+
+    const response = await apiRequest(`/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to load product");
   }
 };

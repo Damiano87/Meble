@@ -88,8 +88,28 @@ const getTrendyProducts = async (req, res) => {
   res.json(trendyProducts);
 };
 
+// @desc Get single product
+// @route GET /products/:id
+// @access Public
+const getSingleProduct = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: "Please provide an ID" });
+  }
+
+  const product = await prisma.product.findUnique({ where: { id } });
+
+  if (!product) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  res.status(200).json(product);
+};
+
 export default {
   getProducts,
   getTopLikedProducts,
   getTrendyProducts,
+  getSingleProduct,
 };

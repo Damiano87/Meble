@@ -11,6 +11,7 @@ router.route("/top-eight").get(productsController.getTopLikedProducts);
 //   .delete(vehicleController.deleteAtv);
 
 router.route("/trendy").get(productsController.getTrendyProducts);
-// router.route("/:id").get(vehicleController.getSingleAtv);
+
+router.route("/:id").get(productsController.getSingleProduct);
 
 export default router;
