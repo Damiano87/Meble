@@ -1,11 +1,57 @@
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   category: string;
-  inStore: boolean;
-  images: string[];
   likes: number;
+  trendy: boolean;
+  title: string;
+  description: string;
+  images: string[];
+  stock: number;
+  features: string[];
+  offers: string[];
+  details: Detail[];
+  dimensions: Dimension[];
+  techData: Tech[];
+  // for info component
+  materialDetails: MaterialDetail[];
+  resistance?: Resistance;
+  additionalInfo?: string;
+  careTips: CareTip[];
+  packing: string[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type Detail = {
+  name?: string;
+  description?: string;
+};
+
+type Dimension = {
+  name?: string;
+  dim?: string;
+};
+
+type MaterialDetail = {
+  name?: string;
+  description: string[];
+};
+
+type Resistance = {
+  resistFrom: string[];
+  resistDesc?: string;
+};
+
+type CareTip = {
+  tip?: string;
+  list: string[];
+};
+
+type Tech = {
+  name?: string;
+  data?: string;
 };
 
 // type for add-item route
