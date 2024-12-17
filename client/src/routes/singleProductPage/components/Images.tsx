@@ -41,14 +41,14 @@ const Images = ({ name, images }: ImagesProps) => {
   };
 
   return (
-    <div>
+    <div className="flex-1 px-5">
       <Carousel
         setApi={setApi}
         opts={{
           align: "start",
-          duration: 15,
+          duration: 25,
         }}
-        className="relative flex h-[15rem] w-[15rem] mx-auto mb-10"
+        className="relative flex h-[25rem] w-full max-w-[25rem]  mb-10"
       >
         <CarouselContent className="w-full h-full ml-0">
           {images?.map((image, index) => {
@@ -76,10 +76,10 @@ const Images = ({ name, images }: ImagesProps) => {
           } right-3 md:-right-14 bg-black text-white h-6 w-6 md:h-9 md:w-9 bg-opacity-35`}
         />
       </Carousel>
-      <div className="bg-gray-200 px-2 w-fit mb-3 mx-auto">
+      <div className="bg-gray-200 px-2 w-fit mb-3">
         <span>{imgIndex + 1}</span> / <span>{images.length}</span>
       </div>
-      <div className="flex justify-evenly items-center max-w-[25rem] mx-auto">
+      <div className="flex justify-evenly items-center max-w-[25rem]">
         {images?.map((image, index) => {
           return (
             <div

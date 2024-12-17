@@ -1,14 +1,11 @@
 const AddToCart = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 mt-8">
+    <div className="mt-8">
       <button
         // onClick={() => dispatch(addItem(singleProduct))}
-        className="block w-full uppercase font-semibold cursor-pointer bg-transparent hover:bg-black hover:text-white duration-300 px-3 py-2 border border-black"
+        className="block w-full font-semibold cursor-pointer bg-red-900 hover:bg-white text-white hover:text-red-900 duration-500 px-3 py-2 border-2 border-red-900 rounded-sm"
       >
-        dodaj do koszyka
-      </button>
-      <button className="block w-full uppercase text-white font-semibold cursor-pointer bg-yellow-600 px-3 py-2 border border-transparent hover:text-yellow-600 hover:border-yellow-600 hover:bg-white duration-300">
-        kup teraz
+        Do koszyka
       </button>
     </div>
   );

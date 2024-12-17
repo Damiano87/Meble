@@ -1,5 +1,8 @@
+import AdditionalInfo from "./AdditionalInfo";
 import AddToCart from "./AddToCart";
 import Amount from "./Amount";
+import Delivery from "./Delivery";
+import Price from "./Price";
 
 type MainInfoProps = {
   category: string;
@@ -8,14 +11,12 @@ type MainInfoProps = {
 
 const MainInfo = ({ category, price }: MainInfoProps) => {
   return (
-    <div className="md:flex flex-col justify-between bg-slate-300 p-4 md:p-7 mt-8 md:mt-0">
-      <div>
-        <p className="text-[1.2rem] font-semibold">
-          Kategoria: <span className="capitalize">{category}</span>
-        </p>
-      </div>
-      <Amount price={price} />
+    <div className="mt-8 md:mt-0">
+      <Price category={category} price={price} />
+      <Amount />
+      <Delivery />
       <AddToCart />
+      <AdditionalInfo />
     </div>
   );
 };

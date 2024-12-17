@@ -14,7 +14,7 @@ const SingleProductPage = () => {
   const { name, images, category, price } = product;
 
   return (
-    <div className="w-[90vw] lg:w-full mx-auto mt-32 max-w-6xl lg:px-5">
+    <div className="mx-auto mt-32 max-w-6xl px-5 lg:px-0">
       <Link
         to={"/categories"}
         className="inline-flex items-center cursor-pointer"
@@ -22,15 +22,15 @@ const SingleProductPage = () => {
         <IoIosArrowBack />
         <h4>Kategorie</h4>
       </Link>
-      <div className="mt-4">
+      <section className="mt-4">
         <h1 className="text-[1.3rem] text-center capitalize font-semibold">
           {name}
         </h1>
-        <div className="md:grid grid-cols-2 gap-14 mt-6">
+        <div className="flex flex-col md:flex-row gap-24 mt-6">
           <Images name={name} images={images} />
           <MainInfo category={category} price={price} />
         </div>
-      </div>
+      </section>
     </div>
   );
 };

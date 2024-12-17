@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { formatToPLN } from "../../../utils/functions";
 
-const Amount = ({ price }: { price: number }) => {
+const Amount = () => {
   const [quantity, setQuantity] = useState(1);
 
   // increment quantity function
@@ -21,7 +20,7 @@ const Amount = ({ price }: { price: number }) => {
       <div className="flex items-center">
         <button
           onClick={decrement}
-          className="border border-black bg-white hover:bg-slate-300 duration-300 text-[1.3rem] w-8 cursor-pointer"
+          className="flex justify-center items-center border border-black bg-white hover:bg-slate-300 duration-300 text-[1.3rem] w-8 aspect-square cursor-pointer"
         >
           -
         </button>
@@ -30,14 +29,11 @@ const Amount = ({ price }: { price: number }) => {
         </p>
         <button
           onClick={increment}
-          className="border border-black bg-white hover:bg-slate-300 duration-300 text-[1.3rem] w-8 cursor-pointer"
+          className="flex justify-center items-center border border-black bg-white hover:bg-slate-300 duration-300 text-[1.3rem] w-8 aspect-square cursor-pointer"
         >
           +
         </button>
       </div>
-      <h2 className="text-[1.3rem] font-semibold">
-        {formatToPLN(price * quantity)}
-      </h2>
     </div>
   );
 };
