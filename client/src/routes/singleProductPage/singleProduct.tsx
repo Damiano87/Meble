@@ -4,11 +4,10 @@ import { Link, useLoaderData } from "react-router";
 import { Product } from "../../utils/types";
 import Images from "./components/Images";
 import MainInfo from "./components/MainInfo";
+import SecondInfo from "./components/SecondInfo";
 
 const SingleProductPage = () => {
   const product = useLoaderData() as Product;
-
-  console.log(product);
 
   // desctructured product
   const { name, images, category, price } = product;
@@ -31,6 +30,7 @@ const SingleProductPage = () => {
           <MainInfo category={category} price={price} />
         </div>
       </section>
+      <SecondInfo product={product} />
     </div>
   );
 };

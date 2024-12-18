@@ -24,32 +24,32 @@ export type Product = {
   updatedAt: Date;
 };
 
-type Detail = {
+export type Detail = {
   name?: string;
   description?: string;
 };
 
-type Dimension = {
+export type Dimension = {
   name?: string;
   dim?: string;
 };
 
-type MaterialDetail = {
+export type MaterialDetail = {
   name?: string;
   description: string[];
 };
 
-type Resistance = {
+export type Resistance = {
   resistFrom: string[];
   resistDesc?: string;
 };
 
-type CareTip = {
+export type CareTip = {
   tip?: string;
   list: string[];
 };
 
-type Tech = {
+export type Tech = {
   name?: string;
   data?: string;
 };
