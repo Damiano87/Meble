@@ -19,9 +19,9 @@ export default CareTips;
 const CareTipItem = ({ careTip }: { careTip: CareTip }) => (
   <li>
     <p>{careTip.tip}</p>
-    {careTip.list.length > 0 && (
+    {careTip?.list?.length > 0 && (
       <ul className="list-['-_']">
-        {careTip.list.map((subTip, index) => (
+        {careTip?.list?.map((subTip, index) => (
           <li key={`${careTip.tip}-${index}`} className="ml-4">
             {subTip}
           </li>

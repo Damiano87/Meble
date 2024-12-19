@@ -5,6 +5,7 @@ import { Product } from "../../utils/types";
 import Images from "./components/Images";
 import MainInfo from "./components/MainInfo";
 import SecondInfo from "./components/SecondInfo";
+import ThirdInfo from "./components/ThirdInfo";
 
 const SingleProductPage = () => {
   const product = useLoaderData() as Product;
@@ -31,6 +32,7 @@ const SingleProductPage = () => {
         </div>
       </section>
       <SecondInfo product={product} />
+      <ThirdInfo product={product} />
     </div>
   );
 };

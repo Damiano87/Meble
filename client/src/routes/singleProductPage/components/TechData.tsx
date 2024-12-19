@@ -4,16 +4,22 @@ const TechData = ({ techData }: { techData: Tech[] }) => {
   return (
     <div className="flex-1">
       <h3 className="text-[1.4rem] font-semibold mb-2">Dane techniczne</h3>
-      <ul>
-        {techData?.map((tech, index) => {
-          return (
-            <li key={index}>
-              <b className="inline-block font-medium w-[200px]">{tech.name}:</b>
-              <span>{tech.data}</span>
-            </li>
-          );
-        })}
-      </ul>
+      <table cellPadding={4}>
+        <tbody>
+          {techData?.map((tech, index) => {
+            return (
+              <tr key={index}>
+                <th className="align-top text-left pr-4">
+                  <b className="font-medium">{tech.name}:</b>
+                </th>
+                <td>
+                  <span>{tech.data}</span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
