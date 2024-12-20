@@ -15,12 +15,14 @@ const CollapsibleButton = ({
   return (
     <button
       onClick={() => setIsOpen(!isOpen)}
-      className={`${
-        !isOpen && "border-b-2"
-      } flex items-center justify-between w-full border-t-2 py-2`}
+      className="flex items-center justify-between w-full border-t-2 py-2"
     >
-      <h3 className="text-[1.3rem] font-semibold">{title}</h3>
-      {isOpen ? <HiOutlineMinus size={30} /> : <GoPlus size={30} />}
+      <h3 className="text-[.9rem] md:text-[1.3rem] font-semibold">{title}</h3>
+      {isOpen ? (
+        <HiOutlineMinus className="text-[1.3rem] md:text-[1.7rem]" />
+      ) : (
+        <GoPlus className="text-[1.3rem] md:text-[1.7rem]" />
+      )}
     </button>
   );
 };

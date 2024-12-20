@@ -18,7 +18,7 @@ const MaterialDetails = ({
       />
       {/* data table */}
       {isOpen && (
-        <table className="mt-4">
+        <table className="my-4">
           <tbody>
             {materialDetails?.map((material, index) => {
               return (

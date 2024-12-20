@@ -27,11 +27,12 @@ const CategoriesButtons = () => {
           current category
         </h1>
         <div className="flex justify-center flex-wrap gap-3 md:gap-6 mt-4">
-          {["all", "sypialnia", "kuchnia", "salon"].map((category, index) => {
-            return (
-              <button
-                key={index}
-                className={`
+          {["all", "sypialnia", "kuchnia", "salon", "ogród"].map(
+            (category, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`
               ${
                 currentCategory === category
                   ? "text-white bg-yellow-600"
@@ -50,12 +51,13 @@ const CategoriesButtons = () => {
               px-2 
               py-[0.025rem]
             `}
-                onClick={() => searchCategories(category)}
-              >
-                {category}
-              </button>
-            );
-          })}
+                  onClick={() => searchCategories(category)}
+                >
+                  {category}
+                </button>
+              );
+            }
+          )}
         </div>
       </div>
     </div>

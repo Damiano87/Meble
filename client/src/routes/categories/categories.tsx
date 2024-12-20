@@ -6,7 +6,6 @@ import { useLoaderData } from "react-router";
 const Categories = () => {
   const products = useLoaderData();
 
-  console.log(products);
   return (
     <div className="max-w-7xl mx-auto pt-40 px-5">
       <CategoriesButtons />
