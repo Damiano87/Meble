@@ -17,15 +17,17 @@ const ThirdInfo = ({ product }: { product: Product }) => {
 
   return (
     <section className="mt-14 border-b-2">
-      {materialDetails && <MaterialDetails materialDetails={materialDetails} />}
+      {materialDetails.length > 0 && (
+        <MaterialDetails materialDetails={materialDetails} />
+      )}
       {resistance && <Resistance resistance={resistance} />}
       {additionalInfo && (
         <AdditionalInformation additionalInfo={additionalInfo} />
       )}
-      {careTips && techData.length === 0 && (
+      {careTips.length > 0 && techData.length === 0 && (
         <CareTipsWithButton careTips={careTips} />
       )}
-      {packing && <Packing packing={packing} />}
+      {packing.length > 0 && <Packing packing={packing} />}
     </section>
   );
 };

@@ -67,6 +67,7 @@ const Register = () => {
       return;
     }
     try {
+      setErrMsg("");
       const response = await apiRequest.post(
         REGISTER_URL,
         JSON.stringify({ user, email, pwd }),
@@ -88,12 +89,15 @@ const Register = () => {
       }, 2000);
     } catch (err) {
       const error = new AxiosError(err as string);
-      if (!error?.response) {
+
+      if (error?.response) {
         setErrMsg("No Server Response");
-      } else if (error.response?.status === 409) {
+      } else if (error.status === 409) {
         setErrMsg("Username Taken");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg(
+          error.message?.response?.data?.message || "Registration Failed"
+        );
       }
       errRef.current?.focus();
     }
