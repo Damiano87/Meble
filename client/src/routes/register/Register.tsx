@@ -4,6 +4,7 @@ import { FaTimes } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import apiRequest from "../../api/apiRequest";
 import { Link, useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -11,7 +12,22 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/auth/register";
 
+interface RegisterCredentials {
+  user: string;
+  email: string;
+  pwd: string;
+}
+
+interface RegisterResponse {
+  message: string;
+}
+
+interface ErrorResponse {
+  message: string;
+}
+
 const Register = () => {
+  const navigate = useNavigate();
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -30,10 +46,41 @@ const Register = () => {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  const navigate = useNavigate();
+  const registerMutation = useMutation<
+    RegisterResponse,
+    AxiosError<ErrorResponse>,
+    RegisterCredentials
+  >({
+    mutationFn: async (credentials) => {
+      const response = await apiRequest.post(
+        REGISTER_URL,
+        JSON.stringify(credentials),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      setUser("");
+      setPwd("");
+      setMatchPwd("");
+      setEmail("");
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 2000);
+    },
+    onError: (error) => {
+      if (!error.response) {
+        return "No Server Response";
+      }
+      if (error.response.status === 409) {
+        return "Username Taken";
+      }
+      return error.response.data?.message || "Registration Failed";
+    },
+  });
 
   useEffect(() => {
     userRef.current?.focus();
@@ -52,64 +99,23 @@ const Register = () => {
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd]);
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd, matchPwd]);
-
-  // submit form for register
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
-      setErrMsg("Invalid Entry");
       return;
     }
-    try {
-      setErrMsg("");
-      const response = await apiRequest.post(
-        REGISTER_URL,
-        JSON.stringify({ user, email, pwd }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      // TODO: remove console.logs before deployment
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
-      setSuccess(true);
-      //clear state and controlled inputs
-      setUser("");
-      setPwd("");
-      setMatchPwd("");
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 2000);
-    } catch (err) {
-      const error = new AxiosError(err as string);
-
-      if (error?.response) {
-        setErrMsg("No Server Response");
-      } else if (error.status === 409) {
-        setErrMsg("Username Taken");
-      } else {
-        setErrMsg(
-          error.message?.response?.data?.message || "Registration Failed"
-        );
-      }
-      errRef.current?.focus();
-    }
+    registerMutation.mutate({ user, email, pwd });
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      {success ? (
+      {registerMutation.isSuccess ? (
         <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <Link to="/login">Sign In</Link>
           </p>
         </section>
       ) : (
@@ -117,13 +123,14 @@ const Register = () => {
           <p
             ref={errRef}
             className={
-              errMsg
+              registerMutation.error
                 ? "bg-pink-400 text-red-700 font-bold p-2 mb-2"
                 : "absolute -left-[9999px]"
             }
             aria-live="assertive"
           >
-            {errMsg}
+            {registerMutation.error?.response?.data?.message ||
+              "Registration Failed"}
           </p>
           <h1>Register</h1>
           <form
@@ -234,6 +241,7 @@ const Register = () => {
               <span aria-label="percent">%</span>
             </p>
 
+            {/* confirm password input */}
             <label
               htmlFor="confirm_pwd"
               className="mt-4 mb-2 flex items-center"
@@ -276,13 +284,15 @@ const Register = () => {
 
             <button
               disabled={
-                !validName || !validEmail || !validPwd || !validMatch
-                  ? true
-                  : false
+                !validName ||
+                !validEmail ||
+                !validPwd ||
+                !validMatch ||
+                registerMutation.isPending
               }
-              className="mt-7 p-2 border-2 cursor-pointer font-semibold hover:bg-white hover:text-black"
+              className="mt-7 p-2 border-2 cursor-pointer font-semibold hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign Up
+              {registerMutation.isPending ? "Signing up..." : "Sign Up"}
             </button>
           </form>
           <p>

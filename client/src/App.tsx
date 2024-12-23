@@ -11,11 +11,16 @@ import {
 import Categories from "./routes/categories/categories";
 import HydrationFallback from "./components/HydrationFallback";
 import SingleProductPage from "./routes/singleProductPage/singleProduct";
+import Login from "./routes/login/Login";
 
 const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/",

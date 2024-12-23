@@ -4,13 +4,18 @@ import "./index.css";
 import App from "./App.tsx";
 import { OverlayProvider } from "./context/overlayContext.tsx";
 import { CartProvider } from "./context/cartContext.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <OverlayProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </OverlayProvider>
+    <QueryClientProvider client={queryClient}>
+      <OverlayProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </OverlayProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
