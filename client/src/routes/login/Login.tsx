@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import apiRequest from "../../api/apiRequest";
+import { Helmet } from "react-helmet-async";
 
 const LOGIN_URL = "/auth/login";
 
@@ -73,6 +74,13 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
+      <Helmet>
+        <title>Logowanie | H Meble</title>
+        <meta
+          name="description"
+          content="Zaloguj się do swojego konta w H Meble. Bezpieczny dostęp do historii zamówień, zapisanych projektów i personalizowanych ustawień. Dołącz do naszej społeczności."
+        />
+      </Helmet>
       <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
         <p
           ref={errRef}

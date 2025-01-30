@@ -4,6 +4,7 @@ import Resistance from "./Resistance";
 import AdditionalInformation from "./AdditionalInformation";
 import CareTipsWithButton from "./CareTipsWithButton";
 import Packing from "./Packing";
+import Rating from "./Rating";
 
 const ThirdInfo = ({ product }: { product: Product }) => {
   const {
@@ -28,6 +29,7 @@ const ThirdInfo = ({ product }: { product: Product }) => {
         <CareTipsWithButton careTips={careTips} />
       )}
       {packing.length > 0 && <Packing packing={packing} />}
+      <Rating />
     </section>
   );
 };

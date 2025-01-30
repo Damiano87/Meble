@@ -1,11 +1,12 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLoaderData } from "react-router";
-
 import { Product } from "../../utils/types";
 import Images from "./components/Images";
 import MainInfo from "./components/MainInfo";
 import SecondInfo from "./components/SecondInfo";
 import ThirdInfo from "./components/ThirdInfo";
+import { Helmet } from "react-helmet-async";
+import { capitalizeFirstLetter } from "@/utils/functions";
 
 const SingleProductPage = () => {
   const product = useLoaderData() as Product;
@@ -15,6 +16,10 @@ const SingleProductPage = () => {
 
   return (
     <div className="mx-auto mt-32 max-w-6xl px-5 lg:px-0">
+      <Helmet>
+        <title>{capitalizeFirstLetter(name)} | H Meble</title>
+        <meta name="description" content={`${name}`} />
+      </Helmet>
       <Link
         to={"/categories"}
         className="inline-flex items-center cursor-pointer"

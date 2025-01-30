@@ -6,6 +6,7 @@ import apiRequest from "../../api/apiRequest";
 import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { Helmet } from "react-helmet-async";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -111,6 +112,10 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
+      <Helmet>
+        <title>Rejestracja | H Meble</title>
+        <meta name="description" content="Rejestracja do serwisu H Meble" />
+      </Helmet>
       {registerMutation.isSuccess ? (
         <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
           <h1>Success!</h1>
