@@ -1,11 +1,13 @@
 import prisma from "../lib/prisma.js";
 
+// rate product ======================================================
 const rateProduct = async (req, res) => {
   try {
     const { productId } = req.params;
     const { rating, comment } = req.body;
-    const userId = req.user.id;
+    const userId = req.userId;
 
+    console.log(userId);
     // check if rating is between 1 and 5
     if (rating < 1 || rating > 5) {
       return res.status(400).json({ message: "Ocena musi być między 1 a 5" });
@@ -108,10 +110,15 @@ const rateProduct = async (req, res) => {
   }
 };
 
-// get product ratings
+// get product ratings  ================================================
 const getProductRatings = async (req, res) => {
   try {
     const { productId } = req.params;
+
+    // check if productId exists
+    if (!productId) {
+      return res.status(400).json({ message: "Nie podano ID produktu" });
+    }
 
     const productRating = await prisma.productRating.findUnique({
       where: { productId: productId },
@@ -136,11 +143,11 @@ const getProductRatings = async (req, res) => {
   }
 };
 
-// get user rating
+// get single user rating ====================================================
 const getUserRating = async (req, res) => {
   try {
     const { productId } = req.params;
-    const userId = req.user.id;
+    const userId = req.userId;
 
     const rating = await prisma.rating.findUnique({
       where: {
@@ -160,7 +167,7 @@ const getUserRating = async (req, res) => {
   }
 };
 
-// delete rating
+// delete rating ======================================================
 const deleteRating = async (req, res) => {
   try {
     const { productId } = req.params;
