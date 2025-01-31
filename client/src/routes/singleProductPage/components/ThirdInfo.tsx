@@ -36,6 +36,7 @@ const ThirdInfo = forwardRef<HTMLDivElement, ThirdInfoProps>(
     ref
   ) => {
     const {
+      id,
       materialDetails,
       resistance,
       additionalInfo,
@@ -58,6 +59,7 @@ const ThirdInfo = forwardRef<HTMLDivElement, ThirdInfoProps>(
         )}
         {packing.length > 0 && <Packing packing={packing} />}
         <RatingButton
+          id={id}
           averageRating={averageRating}
           totalRatings={totalRatings}
           ratings={ratings}

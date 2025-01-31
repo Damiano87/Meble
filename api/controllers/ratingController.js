@@ -143,6 +143,78 @@ const getProductRatings = async (req, res) => {
   }
 };
 
+// Get users who rated product =========================================
+const getProductRaters = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { numberOfStars } = req.query;
+
+    // convert numberOfStars to array of numbers
+    const numberOfStarsArray = numberOfStars?.map(Number);
+
+    // Validate productId
+    if (!productId) {
+      return res.status(400).json({
+        message: "ID nie istnieje",
+      });
+    }
+
+    // Check if product exists
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Nie znaleziono produktu",
+      });
+    }
+
+    // Get all ratings with user data for this product
+    const productRaters = await prisma.rating.findMany({
+      where: {
+        productId,
+        // if array exists get specific ratings othrwise get all
+        ...(numberOfStarsArray && {
+          rating: {
+            in: numberOfStarsArray,
+          },
+        }),
+      },
+      select: {
+        rating: true,
+        comment: true,
+        createdAt: true,
+        user: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // Transform data to cleaner format
+    const formattedRaters = productRaters.map((rater) => ({
+      id: rater.user.id,
+      username: rater.user.username,
+      rating: rater.rating,
+      comment: rater.comment,
+      createdAt: rater.createdAt,
+    }));
+
+    res.json(formattedRaters);
+  } catch (error) {
+    console.error("Error in getProductRaters:", error);
+    res.status(500).json({
+      message: "Wystąpił błąd podczas pobierania listy oceniających",
+    });
+  }
+};
+
 // get single user rating ====================================================
 const getUserRating = async (req, res) => {
   try {
@@ -242,4 +314,10 @@ const deleteRating = async (req, res) => {
   }
 };
 
-export default { rateProduct, getProductRatings, getUserRating, deleteRating };
+export default {
+  rateProduct,
+  getProductRatings,
+  getProductRaters,
+  getUserRating,
+  deleteRating,
+};

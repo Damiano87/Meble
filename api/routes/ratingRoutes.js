@@ -9,6 +9,7 @@ router.post(
   ratingController.rateProduct
 );
 router.get("/products/:productId/ratings", ratingController.getProductRatings);
+router.get("/products/:productId/raters", ratingController.getProductRaters);
 router.get("/products/:productId/my-rating", ratingController.getUserRating);
 router.delete(
   "/products/:productId/rate",
