@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { FaSort } from "react-icons/fa";
 import { useSearchParams } from "react-router";
+import { useClickAway } from "react-use";
 
 const SortRaters = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,27 +37,8 @@ const SortRaters = () => {
     }
   };
 
-  useEffect(() => {
-    // close dropdown
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isOpen, setIsOpen]);
+  // click away dropdown
+  useClickAway(dropdownRef, () => setIsOpen(false));
 
   return (
     <div className="relative">

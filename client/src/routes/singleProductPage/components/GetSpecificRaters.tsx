@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { useClickAway } from "react-use";
 
 const GetSpecificRaters = ({
   ratings,
@@ -12,6 +13,7 @@ const GetSpecificRaters = ({
   const [selectedStars, setSelectedStars] = useState<number[]>([]);
   const [isOpen, setIsOpen] = useState(false); // state for dropdown button
   const [searchParams, setSearchParams] = useSearchParams();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // get proper naming
   const getProperNaming = (star: number) => {
@@ -58,6 +60,9 @@ const GetSpecificRaters = ({
     setSearchParams(params);
   };
 
+  // click away dropdown
+  useClickAway(dropdownRef, () => setIsOpen(false));
+
   return (
     <div>
       <Button
@@ -74,23 +79,24 @@ const GetSpecificRaters = ({
         />
       </Button>
       <div
-        className="
-          absolute 
+        className={`
+          md:absolute 
           bg-white 
           border 
           border-black 
           max-w-[250px] 
-          p-4 
           rounded-sm 
           overflow-hidden 
           transition-[height] 
           duration-300 
           ease-in-out
-        "
+          ${isOpen ? "p-4 " : "p-0"}
+        `}
         style={{
           height: isOpen ? "auto" : "0",
           visibility: isOpen ? "visible" : "hidden",
         }} // set height based on isOpen state
+        ref={dropdownRef}
       >
         {[5, 4, 3, 2, 1].map((star) => {
           return (

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "../../../api/apiRequest";
 import Rater from "./Rater";
-import { MoonLoader } from "react-spinners";
 import GetSpecificRaters from "./GetSpecificRaters";
 import { useSearchParams } from "react-router";
 import SortRaters from "./SortRaters";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 type ProductRater = {
   id: string;
@@ -53,12 +53,7 @@ const Raters = ({
   });
 
   // pending state
-  if (isPending)
-    return (
-      <div className="flex items-center justify-center h-[200px] w-[200px]">
-        <MoonLoader />
-      </div>
-    );
+  if (isPending) return <LoadingIndicator />;
 
   // if rror
   if (error) return <div>Error: {error.message}</div>;
@@ -73,7 +68,7 @@ const Raters = ({
 
   return (
     <div className="borde border-red-600">
-      <div className="flex items-start justify-between">
+      <div className="md:flex items-start justify-between space-y-4 md:space-y-0">
         <GetSpecificRaters ratings={ratings} />
         <SortRaters />
       </div>

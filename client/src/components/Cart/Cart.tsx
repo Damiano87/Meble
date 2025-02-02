@@ -2,9 +2,10 @@ import { IoMdClose } from "react-icons/io";
 import emptyCart from "/images/emptycart.svg";
 
 import CartItem from "./CartItem";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useCart } from "../../hooks/useCart";
 import { useOverlay } from "../../hooks/useOverlay";
+import { useClickAway } from "react-use";
 
 const Cart = () => {
   const { openCart, setOpenCart } = useCart();
@@ -12,25 +13,11 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const cartRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // close cart
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
-        setOpenCart(false);
-        setIsOverlayVisible(false);
-      }
-    };
-
-    if (openCart) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [openCart, setIsOverlayVisible, setOpenCart]);
+  // click away cart
+  useClickAway(cartRef, () => {
+    setOpenCart(false);
+    setIsOverlayVisible(false);
+  });
 
   return (
     <aside
