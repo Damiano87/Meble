@@ -44,11 +44,12 @@ const SortRaters = () => {
     <div className="relative">
       <Button
         variant={"outline"}
-        className="border-black"
+        className="border-none group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <FaSort />
-        Sortuj: {handleNaming()}
+        Sortuj:
+        <span className="group-hover:underline">{handleNaming()}</span>
       </Button>
       <div
         className="absolute right-0 w-[18rem] border border-black p-4 rounded-sm bg-white overflow-hidden 
