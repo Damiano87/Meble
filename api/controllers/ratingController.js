@@ -147,10 +147,10 @@ const getProductRatings = async (req, res) => {
 const getProductRaters = async (req, res) => {
   try {
     const { productId } = req.params;
-    const { numberOfStars } = req.query;
+    const { numberOfStars, page = 1, limit = 10 } = req.query;
 
-    // convert numberOfStars to array of numbers
-    const numberOfStarsArray = numberOfStars?.map(Number);
+    // calculate skip for pagination
+    const skip = (parseInt(page) - 1) * parseInt(limit);
 
     // Validate productId
     if (!productId) {
@@ -170,14 +170,26 @@ const getProductRaters = async (req, res) => {
       });
     }
 
+    // first get total count of ratings for this product
+    const totalCount = await prisma.rating.count({
+      where: {
+        productId,
+        ...(numberOfStars && {
+          rating: {
+            in: numberOfStars.map(Number),
+          },
+        }),
+      },
+    });
+
     // Get all ratings with user data for this product
     const productRaters = await prisma.rating.findMany({
       where: {
         productId,
         // if array exists get specific ratings othrwise get all
-        ...(numberOfStarsArray && {
+        ...(numberOfStars && {
           rating: {
-            in: numberOfStarsArray,
+            in: numberOfStars?.map(Number),
           },
         }),
       },
@@ -195,6 +207,8 @@ const getProductRaters = async (req, res) => {
       orderBy: {
         createdAt: "desc",
       },
+      skip,
+      take: parseInt(limit),
     });
 
     // Transform data to cleaner format
@@ -206,7 +220,12 @@ const getProductRaters = async (req, res) => {
       createdAt: rater.createdAt,
     }));
 
-    res.json(formattedRaters);
+    res.json({
+      raters: formattedRaters,
+      totalPages: Math.ceil(totalCount / parseInt(limit)),
+      currentPage: parseInt(page),
+      totalCount,
+    });
   } catch (error) {
     console.error("Error in getProductRaters:", error);
     res.status(500).json({

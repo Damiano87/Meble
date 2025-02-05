@@ -12,6 +12,7 @@ import Categories from "./routes/categories/categories";
 import HydrationFallback from "./components/HydrationFallback";
 import SingleProductPage from "./routes/singleProductPage/singleProduct";
 import Login from "./routes/login/Login";
+import PersistLogin from "./routes/login/PersistLogin";
 
 const router = createBrowserRouter([
   {
@@ -28,23 +29,28 @@ const router = createBrowserRouter([
     hydrateFallbackElement: <HydrationFallback />,
     children: [
       {
-        index: true,
-        element: <Home />,
-        loader: getCombinedLoader,
-      },
-      {
-        path: "add-item",
-        element: <AddItemPage />,
-      },
-      {
-        path: "categories",
-        element: <Categories />,
-        loader: getProductsLoader,
-      },
-      {
-        path: "categories/:id",
-        element: <SingleProductPage />,
-        loader: getSingleProductLoader,
+        element: <PersistLogin />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+            loader: getCombinedLoader,
+          },
+          {
+            path: "add-item",
+            element: <AddItemPage />,
+          },
+          {
+            path: "categories",
+            element: <Categories />,
+            loader: getProductsLoader,
+          },
+          {
+            path: "categories/:id",
+            element: <SingleProductPage />,
+            loader: getSingleProductLoader,
+          },
+        ],
       },
     ],
   },

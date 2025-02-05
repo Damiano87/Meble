@@ -15,22 +15,6 @@ const GetSpecificRaters = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // get proper naming
-  const getProperNaming = (star: number) => {
-    switch (star) {
-      case 1:
-        return "gwiazdka";
-      case 2:
-        return "gwiazdki";
-      case 3:
-        return "gwiazdki";
-      case 4:
-        return "gwiazdki";
-      case 5:
-        return "gwiazdek";
-    }
-  };
-
   useEffect(() => {
     // read query parameter
     const stars = searchParams.get("number_of_stars");
@@ -53,11 +37,28 @@ const GetSpecificRaters = ({
 
     if (selected.length > 0) {
       params.set("number_of_stars", selected.sort((a, b) => a - b).join(" "));
+      params.delete("page");
     } else {
       params.delete("number_of_stars");
     }
 
     setSearchParams(params);
+  };
+
+  // get proper naming
+  const getProperNaming = (star: number) => {
+    switch (star) {
+      case 1:
+        return "gwiazdka";
+      case 2:
+        return "gwiazdki";
+      case 3:
+        return "gwiazdki";
+      case 4:
+        return "gwiazdki";
+      case 5:
+        return "gwiazdek";
+    }
   };
 
   // click away dropdown

@@ -1,31 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { useMemo } from "react";
-import apiRequest from "@/api/apiRequest";
+import { RatersResponse } from "@/utils/types";
+import { fetchRaters } from "@/api/fetchRaters";
 
 type SortOption = "newest" | "oldest" | "highest" | "lowest";
-
-interface Rater {
-  id: string;
-  username: string;
-  rating: number;
-  comment: string | undefined;
-  createdAt: Date;
-}
-
-// get product ratings from api
-export const fetchRaters = async (
-  productId: string,
-  numberOfStars?: string[]
-): Promise<Rater[]> => {
-  const response = await apiRequest.get<Rater[]>(
-    `/ratings/products/${productId}/raters`,
-    {
-      params: { numberOfStars },
-    }
-  );
-  return response.data;
-};
 
 export const useRaters = (productId: string) => {
   // get query parameter
@@ -33,20 +12,18 @@ export const useRaters = (productId: string) => {
 
   const numberOfStars = searchParams.get("number_of_stars")?.split(" ") || [];
   const sortOrder = (searchParams.get("sort") as SortOption) || "newest";
+  const page = searchParams.get("page") || "1";
+  const limit = "2"; // set limit to 10 items per page
 
-  const {
-    data: raters,
-    isPending,
-    error,
-  } = useQuery<Rater[]>({
-    queryKey: ["raters", productId, numberOfStars],
-    queryFn: () => fetchRaters(productId, numberOfStars),
+  const { data, isPending, error } = useQuery<RatersResponse>({
+    queryKey: ["raters", productId, numberOfStars, page],
+    queryFn: () => fetchRaters(productId, page, limit, numberOfStars),
   });
 
   const sortedRaters = useMemo(() => {
-    if (!raters) return [];
+    if (!data?.raters) return [];
 
-    return [...raters].sort((a, b) => {
+    return [...data.raters].sort((a, b) => {
       switch (sortOrder) {
         case "newest":
           return (
@@ -70,7 +47,14 @@ export const useRaters = (productId: string) => {
           return 0;
       }
     });
-  }, [raters, sortOrder]);
+  }, [data?.raters, sortOrder]);
 
-  return { raters: sortedRaters, isPending, error };
+  return {
+    raters: sortedRaters,
+    isPending,
+    error,
+    totalPages: data?.totalPages || 0,
+    currentPage: data?.currentPage || 1,
+    totalCount: data?.totalCount || 0,
+  };
 };

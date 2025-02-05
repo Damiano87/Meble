@@ -25,7 +25,7 @@ const RatingBadge = ({
   return (
     <div className={cn("flex items-center gap-4", className)} {...props}>
       <Stars averageRating={averageRating} />
-      <div className="text-2xl font-bold">{averageRating}</div>
+      <div className="text-2xl font-bold">{averageRating?.toFixed(2)}</div>
       <div className="text-sm text-gray-500">
         ({totalRatings} {setName(totalRatings)})
       </div>

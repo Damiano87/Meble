@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Helmet } from "react-helmet-async";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -109,6 +110,8 @@ const Register = () => {
     }
     registerMutation.mutate({ user, email, pwd });
   };
+
+  if (registerMutation.isPending) return <LoadingIndicator />;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">

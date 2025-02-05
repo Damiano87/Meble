@@ -1,5 +1,6 @@
-import { useToken } from "./useToken";
+import AuthContext from "@/context/authContext";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import { useContext, useDebugValue } from "react";
 
 interface MyJwtPayload extends JwtPayload {
   UserInfo: {
@@ -10,18 +11,22 @@ interface MyJwtPayload extends JwtPayload {
 }
 
 export const useAuth = () => {
-  const { token } = useToken();
-  let isAdmin = false;
-  const myToken = token;
+  const { token, persist } = useContext(AuthContext);
 
-  if (myToken) {
-    const { username, roles, isActive } =
-      jwtDecode<MyJwtPayload>(myToken).UserInfo;
+  useDebugValue(token, (token) => (token ? "Logged In" : "Logged Out"));
 
-    isAdmin = roles.includes("Admin");
+  if (token) {
+    try {
+      const { UserInfo } = jwtDecode<MyJwtPayload>(token);
+      const { username, roles, isActive } = UserInfo;
+      const isAdmin = roles.includes("Admin");
 
-    return { username, roles, isActive, isAdmin };
+      return { username, roles, isActive, isAdmin, persist };
+    } catch (error) {
+      console.error("Invalid token", error);
+      return { username: "", roles: [], isActive: false, isAdmin: false };
+    }
   }
 
-  return { username: "", roles: [], isActive: false, isAdmin };
+  return { username: "", roles: [], isActive: false, isAdmin: false, persist };
 };

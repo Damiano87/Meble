@@ -79,3 +79,19 @@ export type ProductRating = {
   twoStars: number;
   oneStar: number;
 };
+
+// type for raters
+type Rater = {
+  id: string;
+  username: string;
+  rating: number;
+  comment: string | undefined;
+  createdAt: Date;
+};
+
+export type RatersResponse = {
+  raters: Rater[];
+  totalPages: number;
+  currentPage: number;
+  totalCount: number;
+};

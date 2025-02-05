@@ -3,6 +3,7 @@ import GetSpecificRaters from "./GetSpecificRaters";
 import SortRaters from "./SortRaters";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { useRaters } from "@/hooks/useRaters";
+import PaginationRaters from "./PaginationRaters";
 
 const Raters = ({
   id,
@@ -12,7 +13,8 @@ const Raters = ({
   ratings: Record<5 | 2 | 1 | 4 | 3, number | undefined>;
 }) => {
   // get raters
-  const { raters, isPending, error } = useRaters(id);
+  const { raters, isPending, error, totalPages, currentPage, totalCount } =
+    useRaters(id);
 
   // pending state
   if (isPending) return <LoadingIndicator />;
@@ -39,6 +41,11 @@ const Raters = ({
           <Rater key={rater.id} {...rater} />
         ))}
       </div>
+      <PaginationRaters
+        totalItems={totalCount}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
     </div>
   );
 };

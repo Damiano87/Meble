@@ -1,10 +1,11 @@
-import { useRef, useState, useEffect } from "react";
-import { useToken } from "@/hooks/useToken";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import apiRequest from "../../api/apiRequest";
 import { Helmet } from "react-helmet-async";
+import LoadingIndicator from "@/components/LoadingIndicator";
+import AuthContext from "@/context/authContext";
 
 const LOGIN_URL = "/auth/login";
 
@@ -22,7 +23,7 @@ interface ErrorResponse {
 }
 
 const Login = () => {
-  const { setToken } = useToken();
+  const { setToken, setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -55,11 +56,10 @@ const Login = () => {
     },
     onSuccess: (data) => {
       setToken(data.accessToken);
+      setPersist(true);
       setUser("");
       setPwd("");
-      setTimeout(() => {
-        navigate(from, { replace: true });
-      }, 2000);
+      navigate(from, { replace: true });
     },
     onError: (error) => {
       errRef.current?.focus();
@@ -71,6 +71,8 @@ const Login = () => {
     e.preventDefault();
     loginMutation.mutate({ user, pwd });
   };
+
+  if (loginMutation.isPending) return <LoadingIndicator />;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">

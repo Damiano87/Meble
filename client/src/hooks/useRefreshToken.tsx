@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import apiRequest from "../api/apiRequest";
-import { useToken } from "./useToken";
+import AuthContext from "@/context/authContext";
 
 const useRefreshToken = () => {
-  const { setToken } = useToken();
+  const { setToken } = useContext(AuthContext);
 
   const refresh = async () => {
     try {

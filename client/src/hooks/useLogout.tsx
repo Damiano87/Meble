@@ -1,11 +1,14 @@
 import apiRequest from "@/api/apiRequest";
-import { useToken } from "./useToken";
+import { useContext } from "react";
+import AuthContext from "@/context/authContext";
 
 const useLogout = () => {
-  const { setToken } = useToken();
+  const { setToken, setPersist } = useContext(AuthContext);
 
   const logout = async () => {
     setToken(null);
+    setPersist(false);
+    localStorage.removeItem("persist");
 
     try {
       await apiRequest.post(
