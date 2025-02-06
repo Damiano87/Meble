@@ -1,11 +1,11 @@
 import AdditionalInfo from "./AdditionalInfo";
 import AddToCart from "./AddToCart";
-import Amount from "./Amount";
 import Delivery from "./Delivery";
 import Price from "./Price";
 import RatingBadge from "./RatingBadge";
 
 type MainInfoProps = {
+  id: string;
   category: string;
   price: number;
   averageRating: number | undefined;
@@ -15,6 +15,7 @@ type MainInfoProps = {
 };
 
 const MainInfo = ({
+  id,
   category,
   price,
   averageRating,
@@ -43,9 +44,8 @@ const MainInfo = ({
           className="my-5"
         />
       </button>
-      <Amount />
       <Delivery />
-      <AddToCart />
+      <AddToCart productId={id} />
       <AdditionalInfo />
     </div>
   );

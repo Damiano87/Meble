@@ -98,6 +98,7 @@ const SingleProductPage = () => {
         <div className="flex flex-col md:flex-row gap-24 mt-6">
           <Images name={name} images={images} />
           <MainInfo
+            id={id}
             category={category}
             price={price}
             averageRating={averageRating}

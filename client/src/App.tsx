@@ -13,6 +13,7 @@ import HydrationFallback from "./components/HydrationFallback";
 import SingleProductPage from "./routes/singleProductPage/singleProduct";
 import Login from "./routes/login/Login";
 import PersistLogin from "./routes/login/PersistLogin";
+import Cart from "./routes/cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             path: "categories/:id",
             element: <SingleProductPage />,
             loader: getSingleProductLoader,
+          },
+          {
+            path: "cart",
+            element: <Cart />,
           },
         ],
       },

@@ -12,6 +12,7 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import productsRoutes from "./routes/productsRoutes.js";
 import ratingsRoutes from "./routes/ratingRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 const PORT = process.env.PORT || 3500;
 
@@ -37,6 +38,7 @@ app.use("/users", userRoutes);
 app.use("/products", productsRoutes);
 app.use("/auth", authRoutes);
 app.use("/ratings", ratingsRoutes);
+app.use("/cart", cartRoutes);
 
 // show 404 site if there is no resources
 app.all("*", (req, res) => {
