@@ -1,25 +1,33 @@
 import { TfiClose } from "react-icons/tfi";
 import ChangeAmount from "./ChangeAmount";
+import { formatToPLN } from "@/utils/functions";
+import { type CartItemType } from "@/utils/types";
 
-const CartItem = () => {
+const CartItem = ({
+  id,
+  product: { name, images, stock, price },
+  quantity,
+}: CartItemType) => {
   return (
     <div className="rounded-md p-4 flex flex-col md:flex-row gap-y-5 justify-between">
       <div className="flex items-start gap-6">
         <div className="w-24 aspect-square flex items-center">
           <img
-            src="https://res.cloudinary.com/damiano/image/upload/v1733423471/bed1_pzllhw.jpg"
+            src={images[0]}
             className="max-w-full max-h-full object-cover"
             alt="bed"
           />
         </div>
         <div>
           <div className="flex items-center gap-5">
-            <h4>Zestaw 2 krzeseł do jadalni CRAIG Drewno Ciemne drewno</h4>
+            <h4>{name}</h4>
             <button className="cursor-pointer">
               <TfiClose size={20} />
             </button>
           </div>
-          <p className="text-[.8rem] mt-2">Dostępne: TAK</p>
+          <p className="text-[.8rem] mt-2">
+            Dostępne: {stock > 0 ? "TAK" : "NIE"}
+          </p>
           <p className="text-[.8rem]">
             <span>Prawo zwrotu: </span>
             <span className="text-red-900">365 dni</span>
@@ -27,8 +35,8 @@ const CartItem = () => {
         </div>
       </div>
       <div className="flex items-center justify-end md:justify-normal gap-5 h-fit">
-        <ChangeAmount />
-        <span className="text-[1.1rem]">639,-</span>
+        <ChangeAmount cartItemId={id} quantity={quantity} />
+        <span className="text-[1.1rem]">{formatToPLN(price)}</span>
       </div>
     </div>
   );

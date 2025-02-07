@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js";
 
-// add to cart
+// add to cart =========================================================
 const addToCart = async (req, res) => {
   const productId = req.params.productId;
   const userId = req.userId;
@@ -49,4 +49,32 @@ const addToCart = async (req, res) => {
   }
 };
 
-export default { addToCart };
+// get all cart items ===============================================
+const getCartItems = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    // get all cart items for a specific user
+    const cartItems = await prisma.cartItem.findMany({
+      where: { userId },
+      include: {
+        product: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            images: true,
+            stock: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json(cartItems);
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export default { addToCart, getCartItems };

@@ -95,3 +95,19 @@ export type RatersResponse = {
   currentPage: number;
   totalCount: number;
 };
+
+type CartProduct = {
+  id: string;
+  name: string;
+  price: number;
+  images: string[];
+  stock: number;
+};
+// type for cart item
+export type CartItemType = {
+  id: string;
+  userId: string;
+  productId: string;
+  quantity: number;
+  product: CartProduct;
+};

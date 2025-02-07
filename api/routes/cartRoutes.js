@@ -5,5 +5,6 @@ import verifyJWT from "../middleware/verifyJWT.js";
 const router = express.Router();
 
 router.post("/:productId/add-to-cart", verifyJWT, cartController.addToCart);
+router.get("/cart-items", verifyJWT, cartController.getCartItems);
 
 export default router;
