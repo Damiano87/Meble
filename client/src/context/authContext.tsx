@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     return storedPersist ? JSON.parse(storedPersist) : false;
   });
 
-  // Synchronizacja persist w localStorage
+  // sync persist in localStorage
   useEffect(() => {
     localStorage.setItem("persist", JSON.stringify(persist));
   }, [persist]);

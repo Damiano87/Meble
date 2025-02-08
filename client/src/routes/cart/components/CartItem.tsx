@@ -1,7 +1,7 @@
-import { TfiClose } from "react-icons/tfi";
 import ChangeAmount from "./ChangeAmount";
-import { formatToPLN } from "@/utils/functions";
+import { capitalizeFirstLetter, formatToPLN } from "@/utils/functions";
 import { type CartItemType } from "@/utils/types";
+import RemoveItemFromCart from "./RemoveItemFromCart";
 
 const CartItem = ({
   id,
@@ -20,10 +20,8 @@ const CartItem = ({
         </div>
         <div>
           <div className="flex items-center gap-5">
-            <h4>{name}</h4>
-            <button className="cursor-pointer">
-              <TfiClose size={20} />
-            </button>
+            <h4>{capitalizeFirstLetter(name)}</h4>
+            <RemoveItemFromCart cartItemId={id} />
           </div>
           <p className="text-[.8rem] mt-2">
             Dostępne: {stock > 0 ? "TAK" : "NIE"}

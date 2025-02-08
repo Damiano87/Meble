@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useChangeQuantity } from "@/hooks/useChangeQuantity";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import { useDeleteCartItem } from "@/hooks/useDeleteCartItem";
 
 const ChangeAmount = ({
   quantity,
@@ -13,13 +14,16 @@ const ChangeAmount = ({
   cartItemId: string;
 }) => {
   const [amount, setAmount] = useState(quantity);
-  const { mutate, isPending, error } = useChangeQuantity(cartItemId);
+  const { mutate: changeQuantity, isPending } = useChangeQuantity();
+  const deleteCartItem = useDeleteCartItem();
 
   // change quantity
   const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity >= 1 && newQuantity <= 99) {
+    if (newQuantity === 0) {
+      deleteCartItem(cartItemId);
+    } else if (newQuantity <= 99) {
       setAmount(newQuantity);
-      mutate(newQuantity);
+      changeQuantity({ newQuantity, cartItemId });
     }
   };
 
@@ -35,11 +39,7 @@ const ChangeAmount = ({
       </button>
       <Input
         value={amount}
-        onChange={(e) => {
-          const value = Number(e.target.value);
-          handleQuantityChange(value);
-        }}
-        min={1}
+        onChange={(e) => handleQuantityChange(Number(e.target.value))}
         max={99}
         maxLength={2}
         className="w-7 h-7 px-[5px] font-medium border-none focus-visible:ring-0 text-center"

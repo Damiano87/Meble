@@ -77,4 +77,50 @@ const getCartItems = async (req, res) => {
   }
 };
 
-export default { addToCart, getCartItems };
+// update or delete cart item quantity ======================================
+const updateCartItemQuantity = async (req, res) => {
+  const { newQuantity } = req.body;
+  const cartItemId = req.params.cartItemId;
+
+  try {
+    // update cart item quantity query
+    const updateQuantity = await prisma.cartItem.update({
+      where: {
+        id: cartItemId,
+      },
+      data: {
+        quantity: newQuantity,
+      },
+    });
+
+    res.status(200).json(updateQuantity);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// delete cart item
+const deleteCartItem = async (req, res) => {
+  const cartItemId = req.params.cartItemId;
+
+  try {
+    await prisma.cartItem.delete({
+      where: {
+        id: cartItemId,
+      },
+    });
+
+    res.status(200).json({ message: "Cart item deleted" });
+  } catch (error) {
+    console.error("Error deleting cart item:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export default {
+  addToCart,
+  getCartItems,
+  updateCartItemQuantity,
+  deleteCartItem,
+};

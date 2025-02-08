@@ -23,7 +23,6 @@ const PersistLogin = () => {
       }
     };
 
-    // Zmiana sposobu wywoływania funkcji
     if (!username && persist) {
       verifyRefreshToken();
     } else {
@@ -37,7 +36,7 @@ const PersistLogin = () => {
 
   useEffect(() => {
     console.log(`isLoading: ${isLoading}`);
-    console.log(`aT: ${username}`);
+    console.log(`user: ${username}`);
   }, [isLoading, username]);
 
   return (
