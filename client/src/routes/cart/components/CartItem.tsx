@@ -32,9 +32,11 @@ const CartItem = ({
           </p>
         </div>
       </div>
-      <div className="flex items-center justify-end md:justify-normal gap-5 h-fit">
+      <div className="grid grid-cols-2 items-center gap-5 h-fit">
         <ChangeAmount cartItemId={id} quantity={quantity} />
-        <span className="text-[1.1rem]">{formatToPLN(price)}</span>
+        <span className="text-[1.1rem] justify-self-end">
+          {formatToPLN(price)}
+        </span>
       </div>
     </div>
   );

@@ -25,13 +25,12 @@ export const useAddToCart = () => {
     AxiosErrorResponse,
     { productId: string; quantity: number }
   >({
-    mutationFn: (params: { productId: string; quantity: number }) =>
-      addToCart(params.productId, params.quantity),
+    mutationFn: ({ productId, quantity }) => addToCart(productId, quantity),
     onSuccess: (data) => {
       console.log(data);
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error.response?.data?.message);
       return error.response?.data?.message ?? "Login Failed";
     },
   });

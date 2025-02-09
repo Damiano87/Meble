@@ -118,9 +118,31 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+// delete all cart items
+const deleteAllCartItems = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    // delete cart items
+    await prisma.cartItem.deleteMany({
+      where: {
+        userId,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: `Cart items of user with Id ${userId} deleted` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export default {
   addToCart,
   getCartItems,
   updateCartItemQuantity,
   deleteCartItem,
+  deleteAllCartItems,
 };
