@@ -99,6 +99,8 @@ const SingleProductPage = () => {
           <Images name={name} images={images} />
           <MainInfo
             id={id}
+            name={name}
+            images={images}
             category={category}
             price={price}
             averageRating={averageRating}

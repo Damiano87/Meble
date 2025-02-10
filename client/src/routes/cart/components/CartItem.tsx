@@ -11,7 +11,7 @@ const CartItem = ({
   return (
     <div className="rounded-md p-4 flex flex-col md:flex-row gap-y-5 justify-between">
       <div className="flex items-start gap-6">
-        <div className="w-24 aspect-square flex items-center">
+        <div className="w-24 aspect-square flex items-center justify-center">
           <img
             src={images[0]}
             className="max-w-full max-h-full object-cover"

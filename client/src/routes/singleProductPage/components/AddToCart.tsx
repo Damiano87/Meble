@@ -2,17 +2,29 @@ import Amount from "./Amount";
 import { useState } from "react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { useAddToCart } from "@/hooks/useAddToCart";
+import { useModal } from "@/hooks/useModal";
+import ErrorAddToCartDialog from "./ErrorAddToCartDialog";
+import SuccessAddToCartDialog from "./SuccesAddToCartDialog";
 
-const AddToCart = ({ productId }: { productId: string }) => {
+type AddToCartProps = {
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+};
+const AddToCart = ({ productId, name, price, image }: AddToCartProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { mutate, isPending, error } = useAddToCart();
+
+  // hooks for modals
+  const successModal = useModal();
+  const errorModal = useModal();
+
+  const { mutate, isPending } = useAddToCart({
+    onSuccess: successModal.openModal,
+    onError: errorModal.openModal,
+  });
 
   if (isPending) return <LoadingIndicator />;
-
-  if (error)
-    return (
-      <div>{error.response?.data?.message || "Wystąpił nieznany błąd"}</div>
-    );
 
   return (
     <div className="flex items-center gap-2 mt-8">
@@ -23,6 +35,24 @@ const AddToCart = ({ productId }: { productId: string }) => {
       >
         Do koszyka
       </button>
+
+      {/* error dialog */}
+      <ErrorAddToCartDialog
+        open={errorModal.isOpen}
+        onOpenChange={errorModal.closeModal}
+        setQuantity={setQuantity}
+      />
+
+      {/* success dialog */}
+      <SuccessAddToCartDialog
+        open={successModal.isOpen}
+        onOpenChange={successModal.closeModal}
+        name={name}
+        price={price}
+        image={image}
+        quantity={quantity}
+        setQuantity={setQuantity}
+      />
     </div>
   );
 };

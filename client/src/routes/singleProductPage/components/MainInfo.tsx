@@ -6,6 +6,8 @@ import RatingBadge from "./RatingBadge";
 
 type MainInfoProps = {
   id: string;
+  name: string;
+  images: string[];
   category: string;
   price: number;
   averageRating: number | undefined;
@@ -16,6 +18,8 @@ type MainInfoProps = {
 
 const MainInfo = ({
   id,
+  name,
+  images,
   category,
   price,
   averageRating,
@@ -45,7 +49,7 @@ const MainInfo = ({
         />
       </button>
       <Delivery />
-      <AddToCart productId={id} />
+      <AddToCart productId={id} name={name} image={images[0]} price={price} />
       <AdditionalInfo />
     </div>
   );

@@ -9,7 +9,15 @@ interface AxiosErrorResponse extends Error {
   };
 }
 
-export const useAddToCart = () => {
+type UseAddToCartProps = {
+  onSuccess?: () => void;
+  onError?: () => void;
+};
+
+export const useAddToCart = ({
+  onSuccess,
+  onError,
+}: UseAddToCartProps = {}) => {
   const axiosPrivate = useAxiosPrivate();
 
   // get product ratings from api
@@ -26,12 +34,15 @@ export const useAddToCart = () => {
     { productId: string; quantity: number }
   >({
     mutationFn: ({ productId, quantity }) => addToCart(productId, quantity),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      onSuccess?.();
     },
     onError: (error) => {
-      console.log(error.response?.data?.message);
-      return error.response?.data?.message ?? "Login Failed";
+      const errorMessage =
+        error.response?.data?.message ?? "Add to cart failed";
+      console.error(errorMessage);
+      onError?.();
+      return errorMessage;
     },
   });
 
