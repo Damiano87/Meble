@@ -8,7 +8,6 @@ import UserButton from "./UserButton";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [cartItems] = useState([]);
   const [scrolling, setScrolling] = useState(false);
   const navbarRef = useRef(null);
 
@@ -41,7 +40,7 @@ const Navbar = () => {
           <div className="flex items-center gap-x-5 mr-7">
             <LinkToCategories />
             <UserButton />
-            <CartButton cartItems={cartItems} />
+            <CartButton />
             <HamburgerButton setIsVisible={setIsVisible} />
           </div>
         </div>
