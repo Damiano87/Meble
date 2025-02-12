@@ -1,16 +1,18 @@
 import { formatToPLN } from "@/utils/functions";
 import { CartItemType } from "@/utils/types";
 
-const Summary = ({ cartItems }: { cartItems: CartItemType[] }) => {
-  // Threshold values in pennies (1 PLN = 100 pennies)
+const Summary = ({ cartItems }: { cartItems: CartItemType[] | undefined }) => {
+  // Threshold values in pennies (1 PLN = 100 groszy)
   const FREE_SHIPPING_THRESHOLD = 20000; // 200 PLN
   const SHIPPING_COST = 1599; // 15.99 PLN
 
-  // Calculate total price of products (prices are already in pennies)
-  const subtotal = cartItems.reduce(
+  // Calculate total price of products (prices are already in groszy)
+  const subtotal = cartItems?.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0
   );
+
+  if (!subtotal) return null;
 
   // Check if eligible for free shipping
   const isEligibleForFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;

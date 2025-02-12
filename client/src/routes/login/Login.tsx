@@ -26,7 +26,7 @@ const Login = () => {
   const { setToken, setPersist } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
 
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
@@ -38,11 +38,11 @@ const Login = () => {
     userRef.current?.focus();
   }, []);
 
-  const loginMutation = useMutation<
-    LoginResponse,
-    AxiosError<ErrorResponse>,
-    LoginCredentials
-  >({
+  const {
+    mutate: login,
+    isPending,
+    error,
+  } = useMutation<LoginResponse, AxiosError<ErrorResponse>, LoginCredentials>({
     mutationFn: async (credentials) => {
       const response = await apiRequest.post<LoginResponse>(
         LOGIN_URL,
@@ -59,7 +59,7 @@ const Login = () => {
       setPersist(true);
       setUser("");
       setPwd("");
-      navigate(from, { replace: true });
+      navigate(from);
     },
     onError: (error) => {
       errRef.current?.focus();
@@ -69,10 +69,10 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    loginMutation.mutate({ user, pwd });
+    login({ user, pwd });
   };
 
-  if (loginMutation.isPending) return <LoadingIndicator />;
+  if (isPending) return <LoadingIndicator />;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
@@ -87,13 +87,13 @@ const Login = () => {
         <p
           ref={errRef}
           className={
-            loginMutation.error
+            error
               ? "bg-pink-400 text-red-700 font-bold p-2 mb-2"
               : "absolute -left-[9999px]"
           }
           aria-live="assertive"
         >
-          {loginMutation.error?.response?.data?.message || "Login Failed"}
+          {error?.response?.data?.message || "Login Failed"}
         </p>
         <h1>Zaloguj się</h1>
         <form
@@ -131,9 +131,9 @@ const Login = () => {
           </div>
           <button
             className="border-2 border-white py-2 mt-5 hover:bg-white hover:text-black font-semibold"
-            disabled={loginMutation.isPending}
+            disabled={isPending}
           >
-            {loginMutation.isPending ? "Logowanie..." : "Zaloguj się"}
+            {isPending ? "Logowanie..." : "Zaloguj się"}
           </button>
         </form>
         <p>

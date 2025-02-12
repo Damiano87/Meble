@@ -1,9 +1,13 @@
 import { useGetCartItems } from "@/hooks/useGetCartItems";
 import { Badge } from "../ui/badge";
 import { useMemo } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const CartBadge = () => {
-  const { data: cartItems, isPending } = useGetCartItems();
+  const { username } = useAuth(); // Ensure user is authenticated
+  const { data: cartItems, isPending } = useGetCartItems({
+    enabled: !!username, // Only fetch cart items if user is authenticated
+  });
 
   // get cart items quantity
   const cartItemsQuantity = useMemo(() => {
@@ -18,7 +22,7 @@ const CartBadge = () => {
   return (
     <Badge
       variant="destructive"
-      className="absolute bottom-3 left-3 aspect-square rounded-full text-[.7rem] hover:bg-destructive"
+      className="absolute bottom-3 left-3 flex items-center justify-center w-6 aspect-square rounded-full text-[.8rem] hover:bg-destructive"
     >
       {cartItemsQuantity}
     </Badge>

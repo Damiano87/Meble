@@ -8,6 +8,7 @@ const RemoveItemFromCart = ({ cartItemId }: { cartItemId: string }) => {
   return (
     <Button
       className="cursor-pointer outline-none border-none bg-transparent shadow-none p-0"
+      title="Usuń z koszyka"
       onClick={() => deleteCartItem(cartItemId)}
     >
       <TfiClose size={20} color="black" />

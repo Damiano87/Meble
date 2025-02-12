@@ -11,7 +11,7 @@ const CloseCart = () => {
         setOpenCart(false);
         setIsOverlayVisible(false);
       }}
-      className="text-[2rem] cursor-pointer hover:scale-110 transition-all duration-300"
+      className="text-[2rem] cursor-pointer hover:scale-110 transition-all duration-300 ml-auto"
     />
   );
 };
