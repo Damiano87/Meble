@@ -62,7 +62,11 @@ const CartItem = ({
         </div>
       </div>
       <div className="grid grid-cols-2 items-center gap-5 h-fit">
-        <ChangeAmount cartItemId={id} quantity={quantity} />
+        <ChangeAmount
+          cartItemId={id}
+          quantity={quantity}
+          isAsideCart={isAsideCart}
+        />
         <span
           className={`${
             isAsideCart ? "text-slate-500 text-[.9rem]" : "text-[1.1rem]"

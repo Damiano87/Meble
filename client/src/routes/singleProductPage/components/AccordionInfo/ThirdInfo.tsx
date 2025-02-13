@@ -4,7 +4,7 @@ import Resistance from "./Resistance";
 import AdditionalInformation from "./AdditionalInformation";
 import CareTipsWithButton from "./CareTipsWithButton";
 import Packing from "./Packing";
-import RatingButton from "./RatingButton";
+import RatingButton from "../Rating/RatingButton";
 import { ProductRating } from "@/utils/types";
 import { forwardRef } from "react";
 

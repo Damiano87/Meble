@@ -1,8 +1,8 @@
 import AdditionalInfo from "./AdditionalInfo";
-import AddToCart from "./AddToCart";
+import AddToCart from "../Cart/AddToCart";
 import Delivery from "./Delivery";
 import Price from "./Price";
-import RatingBadge from "./RatingBadge";
+import RatingBadge from "../Rating/RatingBadge";
 
 type MainInfoProps = {
   id: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CollapsibleButton from "./CollapsibleButton";
+import CollapsibleButton from "../AccordionInfo/CollapsibleButton";
 
 const AdditionalInformation = ({
   additionalInfo,

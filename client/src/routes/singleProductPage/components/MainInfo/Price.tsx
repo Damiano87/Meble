@@ -1,4 +1,4 @@
-import { formatToPLN } from "../../../utils/functions";
+import { formatToPLN } from "../../../../utils/functions";
 
 type PriceProps = {
   category: string;

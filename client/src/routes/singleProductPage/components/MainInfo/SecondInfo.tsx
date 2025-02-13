@@ -1,10 +1,10 @@
 import { Product } from "@/utils/types";
-import Details from "./Details";
-import Features from "./Features";
-import Dimensions from "./Dimensions";
-import InOffer from "./InOffer";
-import TechData from "./TechData";
-import CareTips from "./CareTips";
+import Details from "../AccordionInfo/Details";
+import Features from "../AccordionInfo/Features";
+import Dimensions from "../AccordionInfo/Dimensions";
+import InOffer from "../AccordionInfo/InOffer";
+import TechData from "../AccordionInfo/TechData";
+import CareTips from "../AccordionInfo/CareTips";
 
 const SecondInfo = ({ product }: { product: Product }) => {
   const {

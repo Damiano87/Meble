@@ -9,6 +9,9 @@ import AsideCartList from "./AsideCartList";
 import { useGetCartItems } from "@/hooks/useGetCartItems";
 import NotLogedIn from "./NotLogedIn";
 import { useAuth } from "@/hooks/useAuth";
+import Summary from "@/routes/cart/components/Summary";
+import RemoveAll from "@/routes/cart/components/RemoveAll";
+import GoToCartRoute from "./GoToCartRoute";
 
 const AsideCart = () => {
   const { username } = useAuth();
@@ -32,10 +35,15 @@ const AsideCart = () => {
       ref={cartRef}
       className={`${
         openCart ? "translate-x-0" : "translate-x-full"
-      } fixed top-0 right-0 w-screen max-w-[30rem] h-screen bg-white shadow-xl z-10 p-4 transition duration-500`}
+      } fixed top-0 right-0 w-screen h-full max-w-[30rem] bg-white shadow-xl z-10 p-5 sm:p-4 transition duration-500 overflow-scroll`}
     >
-      <div className="flex items-center">
-        <GetAmount cartItems={cartItems} />
+      <div className="flex items-start sm:items-center gap-2">
+        {cartItems && (
+          <div className="sm:flex items-center gap-x-2">
+            <GetAmount cartItems={cartItems} />
+            <GoToCartRoute />
+          </div>
+        )}
         <CloseCart />
       </div>
       {!cartItems ? (
@@ -43,7 +51,11 @@ const AsideCart = () => {
       ) : (
         <>
           {cartItems?.length > 0 ? (
-            <AsideCartList cartItems={cartItems} />
+            <div className="space-y-4 mx-auto">
+              <AsideCartList cartItems={cartItems} />
+              <Summary cartItems={cartItems} />
+              <RemoveAll />
+            </div>
           ) : (
             <EmptyCart />
           )}

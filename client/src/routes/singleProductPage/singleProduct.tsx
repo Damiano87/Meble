@@ -1,13 +1,13 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLoaderData } from "react-router";
 import { Product } from "../../utils/types";
-import Images from "./components/Images";
-import MainInfo from "./components/MainInfo";
-import SecondInfo from "./components/SecondInfo";
-import ThirdInfo from "./components/ThirdInfo";
+import Images from "./components/MainInfo/Images";
+import MainInfo from "./components/MainInfo/MainInfo";
+import SecondInfo from "./components/MainInfo/SecondInfo";
+import ThirdInfo from "./components/AccordionInfo/ThirdInfo";
 import { Helmet } from "react-helmet-async";
 import { capitalizeFirstLetter } from "@/utils/functions";
-import RatingDialog from "./components/RatingDialog";
+import RatingDialog from "./components/Rating/RatingDialog";
 import axios from "../../api/apiRequest";
 import { ProductRating } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
