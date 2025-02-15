@@ -111,3 +111,12 @@ export type CartItemType = {
   quantity: number;
   product: CartProduct;
 };
+
+// type for wishlist item
+export type WishlistItem = {
+  id: string;
+  userId: string;
+  productId: string;
+  createdAt: Date;
+  product: CartProduct;
+};

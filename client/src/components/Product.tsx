@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { formatToPLN } from "../utils/functions";
 import { useState } from "react";
+import { WishlistButton } from "./WishListButton";
 
 type ProductProps = {
   id: string;
@@ -32,6 +33,7 @@ const Product = ({ id, name, price, images }: ProductProps) => {
         <h3 className="capitalize">{name}</h3>
         <p className="font-semibold">{formatToPLN(price)}</p>
       </div>
+      <WishlistButton productId={id} />
     </Link>
   );
 };
