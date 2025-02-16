@@ -1,11 +1,10 @@
 import { AxiosInstance } from "axios";
 import { WishlistItem } from "../utils/types";
-import apiRequest from "../api/apiRequest";
 
 export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
   getWishlist: async (): Promise<WishlistItem[]> => {
     console.log("Executing getWishlist API call...");
-    const { data } = await apiRequest.get("/wishlist");
+    const { data } = await axiosPrivate.get("/wishlist");
     return data.data.items;
   },
 
@@ -18,6 +17,7 @@ export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
   },
 
   removeFromWishlist: async (productId: string): Promise<void> => {
+    console.log("Deleting from wishlist...");
     await axiosPrivate.delete("/wishlist", { data: { productId } });
   },
 
@@ -29,7 +29,7 @@ export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
     await Promise.all(
       items.map((item) => {
         console.log(item);
-        axiosPrivate.post("/wishlist", { item });
+        return axiosPrivate.post("/wishlist", { productId: item });
       })
     );
   },

@@ -4,10 +4,12 @@ import verifyJWT from "../middleware/verifyJWT.js";
 
 const router = express.Router();
 
+router.use(verifyJWT);
+
 router.get("/", wishListController.getWishlist);
 
-router.post("/", verifyJWT, wishListController.addToWishlist);
+router.post("/", wishListController.addToWishlist);
 
-router.delete("/", verifyJWT, wishListController.deleteFromWishlist);
+router.delete("/", wishListController.deleteFromWishlist);
 
 export default router;

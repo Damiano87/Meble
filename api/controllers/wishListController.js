@@ -44,7 +44,7 @@ const getWishlist = async (req, res) => {
     const hasPrevPage = page > 1;
 
     // Cache-Control header to control caching behavior
-    res.set("Cache-Control", "private, max-age=300"); // 5 minutues cache
+    // res.set("Cache-Control", "private, max-age=300"); // 5 minutues cache
 
     return res.status(200).json({
       status: "success",
@@ -76,7 +76,6 @@ const addToWishlist = async (req, res) => {
   const userId = req.userId;
   const { productId } = req.body;
 
-  console.log(userId, productId);
   try {
     await prisma.wishlist.create({
       data: {
@@ -86,7 +85,11 @@ const addToWishlist = async (req, res) => {
     });
     res.status(201).json({ message: "Product added to wishlist" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    // check if error is due to unique constraint
+    if (error.code === "P2002") {
+      return res.status(409).json({ message: "Product already in wishlist" });
+    }
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -102,6 +105,8 @@ const deleteFromWishlist = async (req, res) => {
     await prisma.wishlist.delete({
       where: { userId_productId: { userId, productId } },
     });
+
+    res.status(200).json({ message: "Product removed from wishlist" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });

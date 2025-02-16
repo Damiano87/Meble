@@ -24,7 +24,7 @@ export const WishlistButton = ({ productId }: WishlistButtonProps) => {
   if (isLoading) {
     return (
       <div className="animate-pulse">
-        <FaHeart className="text-gray-300" />
+        <FaHeart size={20} className="text-gray-300" />
       </div>
     );
   }
