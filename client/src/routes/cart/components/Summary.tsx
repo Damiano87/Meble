@@ -1,5 +1,6 @@
 import { formatToPLN } from "@/utils/functions";
 import { CartItemType } from "@/utils/types";
+import Checkout from "./RemoveAll";
 
 const Summary = ({ cartItems }: { cartItems: CartItemType[] | undefined }) => {
   // Threshold values in pennies (1 PLN = 100 groszy)
@@ -29,7 +30,7 @@ const Summary = ({ cartItems }: { cartItems: CartItemType[] | undefined }) => {
   const totalPrice = subtotal + shippingCost - discount;
 
   return (
-    <div className="pr-5 py-8 border-b-2 space-y-4">
+    <div className="pr-5 py-8 space-y-4">
       <div className="flex justify-between">
         <h4>Kwota częściowa</h4>
         <span>{formatToPLN(subtotal)}</span>
@@ -58,10 +59,11 @@ const Summary = ({ cartItems }: { cartItems: CartItemType[] | undefined }) => {
         </div>
       )}
 
-      <div className="flex justify-between font-semibold text-lg pt-4 border-t">
+      <div className="flex justify-between font-semibold text-lg py-4 border-y">
         <h4>Kwota całkowita</h4>
         <span>{formatToPLN(totalPrice)}</span>
       </div>
+      <Checkout cartItems={cartItems} totalPrice={totalPrice} />
     </div>
   );
 };

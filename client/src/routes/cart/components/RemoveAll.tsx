@@ -1,24 +1,20 @@
-import { Button } from "@/components/ui/button";
-import { useDeleteAllCartItems } from "@/hooks/useDeleteAllCartItems";
+import { CartItemType } from "@/utils/types";
+import CheckoutBtn from "./CheckoutBtn";
+import RemoveBtn from "./RemoveBtn";
 
-const RemoveAll = () => {
-  const { deleteAllCartItems, isDeleting } = useDeleteAllCartItems();
+type RemoveAllProps = {
+  cartItems?: CartItemType[];
+  totalPrice: number;
+};
 
+const Checkout = ({ cartItems, totalPrice }: RemoveAllProps) => {
   return (
     <div className="py-8 flex justify-between">
       {/* remove all items button  */}
-      <Button
-        className="bg-white text-red-900 hover:text-white hover:bg-red-900 border border-red-900 duration-500 px-7"
-        disabled={isDeleting}
-        onClick={() => deleteAllCartItems()}
-      >
-        {isDeleting ? "Usuwanie..." : "Usuń"}
-      </Button>
+      <RemoveBtn />
       {/* checkout button */}
-      <Button className="bg-red-900 text-white hover:text-red-900 hover:border-red-900 border duration-500 px-7">
-        Do kasy
-      </Button>
+      <CheckoutBtn cartItems={cartItems} totalPrice={totalPrice} />
     </div>
   );
 };
-export default RemoveAll;
+export default Checkout;

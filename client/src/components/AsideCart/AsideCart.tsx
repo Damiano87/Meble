@@ -10,7 +10,6 @@ import { useGetCartItems } from "@/hooks/useGetCartItems";
 import NotLogedIn from "./NotLogedIn";
 import { useAuth } from "@/hooks/useAuth";
 import Summary from "@/routes/cart/components/Summary";
-import RemoveAll from "@/routes/cart/components/RemoveAll";
 import GoToCartRoute from "./GoToCartRoute";
 
 const AsideCart = () => {
@@ -54,7 +53,6 @@ const AsideCart = () => {
             <div className="space-y-4 mx-auto">
               <AsideCartList cartItems={cartItems} />
               <Summary cartItems={cartItems} />
-              <RemoveAll />
             </div>
           ) : (
             <EmptyCart />

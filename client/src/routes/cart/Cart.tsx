@@ -1,5 +1,4 @@
 import CartList from "./components/CartList";
-import RemoveAll from "./components/RemoveAll";
 import Summary from "./components/Summary";
 import Title from "./components/Title";
 import { useGetCartItems } from "@/hooks/useGetCartItems";
@@ -41,7 +40,6 @@ const Cart = () => {
           <Title />
           <CartList cartItems={cartItems} />
           <Summary cartItems={cartItems} />
-          <RemoveAll />
         </>
       )}
     </div>
