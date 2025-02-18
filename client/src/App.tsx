@@ -14,6 +14,7 @@ import SingleProductPage from "./routes/singleProductPage/singleProduct";
 import Login from "./routes/login/Login";
 import PersistLogin from "./routes/login/PersistLogin";
 import Cart from "./routes/cart/Cart";
+import PaymentSuccessPage from "./routes/stripe/PaymentSuccessPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: "cart",
             element: <Cart />,
+          },
+          {
+            path: "success",
+            element: <PaymentSuccessPage />,
           },
         ],
       },

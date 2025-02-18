@@ -2,8 +2,12 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+// @desc checkout session ==============================================================
+// @route POST /stripe/api/create-checkout-session
+// @access Private
 const handler = async (req, res) => {
   const { cartItems } = req.body;
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
@@ -17,7 +21,7 @@ const handler = async (req, res) => {
     );
 
     // free shipping if subtotal is above threshold
-    const FREE_SHIPPING_THRESHOLD = 40000;
+    const FREE_SHIPPING_THRESHOLD = 20000;
     const SHIPPING_COST = 1599;
     const isEligibleForFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
     const shippingCost = isEligibleForFreeShipping ? 0 : SHIPPING_COST;
@@ -66,8 +70,8 @@ const handler = async (req, res) => {
           : []),
       ],
       mode: "payment",
-      success_url: `${req.headers.origin}/success`,
-      cancel_url: `${req.headers.origin}/cancel`,
+      success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${frontendUrl}/cart`,
       discounts: discountId ? [{ coupon: discountId }] : [],
     });
 
@@ -77,4 +81,51 @@ const handler = async (req, res) => {
   }
 };
 
-export default { handler };
+// @desc Verify payment ==============================================================
+// @route GET /stripe/api/verify-payment
+// @access Private
+const verifyPayment = async (req, res) => {
+  const { session_id } = req.query;
+
+  if (!session_id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Session ID is required" });
+  }
+
+  try {
+    // verify the payment using the session ID
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    if (session.payment_status === "paid") {
+      // get additional data from the session metadata if needed
+      const orderDetails = {
+        orderId: session.metadata?.orderId || session.id,
+        amount: session.amount_total
+          ? (session.amount_total / 100).toFixed(2)
+          : "0",
+        currency: session.currency?.toUpperCase(),
+        customer: session.customer_details?.email || "Unknown",
+      };
+
+      return res.json({
+        success: true,
+        message: "Payment successful",
+        orderDetails,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: "Payment not completed",
+      });
+    }
+  } catch (error) {
+    console.error("Error verifying Stripe payment:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error verifying payment",
+    });
+  }
+};
+
+export default { handler, verifyPayment };

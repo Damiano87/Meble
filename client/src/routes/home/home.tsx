@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { useLoaderData } from "react-router";
 import Mosaic from "./components/Mosaic";
 import ShopNow from "./components/ShopNow";
-import { Helmet } from "react-helmet-async";
+import MetaData from "@/components/Meta";
 
 const PopularProducts = React.lazy(
   () => import("./components/PopularProducts")
@@ -15,13 +15,10 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <Helmet>
-        <title>H Meble</title>
-        <meta
-          name="description"
-          content="Odkryj wyjątkowe meble na wymiar, nowoczesne kolekcje oraz klasyczne wzornictwo. Profesjonalne doradztwo, konkurencyjne ceny i najwyższa jakość wykonania. Sprawdź naszą ofertę mebli do domu i biura."
-        />
-      </Helmet>
+      <MetaData
+        title="H Meble"
+        content="Odkryj wyjątkowe meble na wymiar, nowoczesne kolekcje oraz klasyczne wzornictwo. Profesjonalne doradztwo, konkurencyjne ceny i najwyższa jakość wykonania. Sprawdź naszą ofertę mebli do domu i biura."
+      />
       <Mosaic />
       <Suspense
         fallback={

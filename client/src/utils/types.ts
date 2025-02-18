@@ -120,3 +120,11 @@ export type WishlistItem = {
   createdAt: Date;
   product: CartProduct;
 };
+
+// type for stripe order details
+export type OrderDetails = {
+  orderId: string;
+  amount: string;
+  currency: string | undefined;
+  customer: string;
+};

@@ -2,15 +2,17 @@ import { Link } from "react-router";
 import { formatToPLN } from "../utils/functions";
 import { useState } from "react";
 import { WishlistButton } from "./WishListButton";
+import { cn } from "@/lib/utils";
 
 type ProductProps = {
   id: string;
   name: string;
   price: number;
   images: string[];
+  className?: string;
 };
 
-const Product = ({ id, name, price, images }: ProductProps) => {
+const Product = ({ id, name, price, images, className }: ProductProps) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const isHovered = hoveredProductId === id;
 
@@ -18,7 +20,10 @@ const Product = ({ id, name, price, images }: ProductProps) => {
     <Link
       to={`/categories/${id}`}
       key={id}
-      className="relative flex flex-col justify-between w-full hover:border-black duration-500 cursor-pointer border-4 px-6 py-4"
+      className={cn(
+        "relative flex flex-col justify-between w-full hover:border-black duration-500 cursor-pointer border-4 px-6 py-4",
+        className
+      )}
       onMouseEnter={() => setHoveredProductId(id)}
       onMouseLeave={() => setHoveredProductId(null)}
     >

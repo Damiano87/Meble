@@ -5,5 +5,5 @@ import verifyJWT from "../middleware/verifyJWT.js";
 const router = express.Router();
 
 router.post("/api/create-checkout-session", stripeController.handler);
-
+router.get("/api/verify-payment", stripeController.verifyPayment);
 export default router;
