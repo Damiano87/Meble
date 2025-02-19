@@ -1,12 +1,33 @@
 import { OrderDetails } from "@/utils/types";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-const PaymentSuccessfull = ({
-  orderDetails,
-}: {
+type PaymentSuccessfullProps = {
+  success: boolean;
   orderDetails: OrderDetails;
-}) => {
+};
+const PaymentSuccessfull = ({
+  success,
+  orderDetails,
+}: PaymentSuccessfullProps) => {
+  const [timeLeft, setTimeLeft] = useState(10);
+
   const navigate = useNavigate();
+
+  // redirect to home page after 10 seconds if payment is successful
+  useEffect(() => {
+    if (!success || timeLeft <= 0) return;
+
+    const timer = setTimeout(() => {
+      setTimeLeft((prev) => prev - 1);
+
+      if (timeLeft === 1) {
+        navigate("/");
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [timeLeft, success, navigate]);
 
   return (
     <div className="max-w-2xl mx-auto pt-52 p-6 bg-green-50 rounded shadow">
@@ -53,7 +74,8 @@ const PaymentSuccessfull = ({
       </div>
 
       <p className="mt-8 text-sm text-gray-500">
-        Zostaniesz automatycznie przekierowany do strony głównej za 10 sekund.
+        Zostaniesz automatycznie przekierowany do strony głównej za {timeLeft}{" "}
+        {timeLeft === 1 ? "sekundę" : timeLeft < 5 ? "sekundy" : "sekund"}.
       </p>
     </div>
   );

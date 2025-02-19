@@ -15,7 +15,6 @@ export const useWishlist = () => {
 
   const WISHLIST_QUERY_KEY = ["wishlist", username];
 
-  console.log(username);
   // main query for wishlist =========================================
   const {
     data: wishlist = [],

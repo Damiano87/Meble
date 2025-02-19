@@ -15,6 +15,7 @@ import Login from "./routes/login/Login";
 import PersistLogin from "./routes/login/PersistLogin";
 import Cart from "./routes/cart/Cart";
 import PaymentSuccessPage from "./routes/stripe/PaymentSuccessPage";
+import Wishlist from "./routes/wishlist/Wishlist";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
           {
             path: "success",
             element: <PaymentSuccessPage />,
+          },
+          {
+            path: "wishlist",
+            element: <Wishlist />,
           },
         ],
       },

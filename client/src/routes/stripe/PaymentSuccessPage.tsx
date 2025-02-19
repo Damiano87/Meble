@@ -1,7 +1,6 @@
-import { useSearchParams, useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "@/api/apiRequest";
-import { useEffect } from "react";
 import PaymentSuccessfull from "./components/PaymentSuccessfull";
 import PaymentNotSuccesfull from "./components/PaymentNotSuccesfull";
 import Error from "./components/Error";
@@ -22,7 +21,6 @@ const verifyPayment = async (sessionId: string | null) => {
 
 function PaymentSuccessPage() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const sessionId = searchParams.get("session_id");
 
   // use useQuery hook to fetch payment status
@@ -34,20 +32,6 @@ function PaymentSuccessPage() {
     staleTime: Infinity, // query will not refetch until the page is refreshed
     gcTime: 5 * 60 * 1000,
   });
-
-  // redirect to home page after 10 seconds if payment is successful
-  useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null;
-    if (data?.success) {
-      timeout = setTimeout(() => {
-        navigate("/");
-      }, 10000);
-    }
-
-    return () => {
-      if (timeout) clearTimeout(timeout);
-    };
-  }, [data, navigate]);
 
   if (!sessionId) {
     return <NoSessionId />;
@@ -70,7 +54,7 @@ function PaymentSuccessPage() {
   }
 
   // payment successful
-  return <PaymentSuccessfull orderDetails={data.orderDetails} />;
+  return <PaymentSuccessfull {...data} />;
 }
 
 export default PaymentSuccessPage;
