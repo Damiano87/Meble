@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useCheckout } from "@/hooks/useCheckout";
+import { useCheckout } from "@/hooks/stripe/useCheckout";
 import { CartItemType } from "@/utils/types";
 
 type CheckoutBtnProps = {

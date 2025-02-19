@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useDeleteAllCartItems } from "@/hooks/useDeleteAllCartItems";
+import { useDeleteAllCartItems } from "@/hooks/cart/useDeleteAllCartItems";
 
 const RemoveBtn = () => {
   const { deleteAllCartItems, isDeleting } = useDeleteAllCartItems();

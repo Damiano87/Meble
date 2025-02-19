@@ -1,27 +1,30 @@
 import { AxiosInstance } from "axios";
-import { WishlistItem } from "../utils/types";
+import { WishlistItem } from "../../utils/types";
+import { ENDPOINTS } from "../endpoints";
 
 export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
-  getWishlist: async (): Promise<WishlistItem[]> => {
+  getWishlistApi: async (): Promise<WishlistItem[]> => {
     console.log("Executing getWishlist API call...");
-    const { data } = await axiosPrivate.get("/wishlist");
+    const { data } = await axiosPrivate.get(ENDPOINTS.WISHLIST.GET);
     return data.data.items;
   },
 
-  addToWishlist: async (productId: string): Promise<WishlistItem> => {
+  addToWishlistApi: async (productId: string): Promise<WishlistItem> => {
     console.log("Adding to wishlist...");
-    const { data } = await axiosPrivate.post("/wishlist", {
+    const { data } = await axiosPrivate.post(ENDPOINTS.WISHLIST.ADD, {
       productId,
     });
     return data;
   },
 
-  removeFromWishlist: async (productId: string): Promise<void> => {
+  removeFromWishlistApi: async (productId: string): Promise<void> => {
     console.log("Deleting from wishlist...");
-    await axiosPrivate.delete("/wishlist", { data: { productId } });
+    await axiosPrivate.delete(ENDPOINTS.WISHLIST.DELETE, {
+      data: { productId },
+    });
   },
 
-  syncLocalWishlist: async (
+  syncLocalWishlistApi: async (
     items: Array<{
       productId: string;
     }>

@@ -1,14 +1,15 @@
 import apiRequest from "@/api/apiRequest";
 import { type CartItemType } from "@/utils/types";
+import { ENDPOINTS } from "../endpoints";
 
 type CheckoutData = {
   cartItems: CartItemType[];
 };
 
 // create checkout session function
-export const createCheckoutSession = async (data: CheckoutData) => {
+export const createCheckoutSessionApi = async (data: CheckoutData) => {
   const response = await apiRequest.post(
-    "/stripe/api/create-checkout-session",
+    ENDPOINTS.STRIPE.CREATE_CHECKOUT_SESSION,
     data
   );
   return response.data;

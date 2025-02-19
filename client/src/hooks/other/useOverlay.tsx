@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { OverlayContext } from "../context/overlayContext";
+import { OverlayContext } from "../../context/overlayContext";
 
 export function useOverlay() {
   const context = useContext(OverlayContext);

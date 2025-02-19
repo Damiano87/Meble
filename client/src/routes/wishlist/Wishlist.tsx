@@ -1,8 +1,9 @@
-import { useWishlist } from "@/hooks/useWishList";
+import { useWishlist } from "@/hooks/wishlist/useWishList";
 import List from "./components/List";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import TotalAmount from "./components/TotalAmount";
 import MetaData from "@/components/Meta";
+import BottomPanel from "./components/BottomPanel";
 
 const Wishlist = () => {
   const { wishlist, isLoading } = useWishlist();
@@ -34,6 +35,7 @@ const Wishlist = () => {
       </div>
       <List wishlist={wishlist} />
       <TotalAmount wishlist={wishlist} />
+      <BottomPanel />
     </div>
   );
 };

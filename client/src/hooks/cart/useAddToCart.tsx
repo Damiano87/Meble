@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import useAxiosPrivate from "./useAxiosPrivate";
+import useAxiosPrivate from "../auth/useAxiosPrivate";
 import { useCartSync } from "@/context/cartSyncContext";
+import { createCartApi } from "@/api/cart/cartApi";
 
 interface AxiosErrorResponse extends Error {
   response?: {
@@ -20,22 +21,15 @@ export const useAddToCart = ({
   onError,
 }: UseAddToCartProps = {}) => {
   const axiosPrivate = useAxiosPrivate();
+  const { addToCartApi } = createCartApi(axiosPrivate);
   const { triggerSync } = useCartSync();
-
-  // get product ratings from api
-  const addToCart = async (productId: string, quantity: number) => {
-    const response = await axiosPrivate.post(`/cart/${productId}/add-to-cart`, {
-      quantity,
-    });
-    return response.data;
-  };
 
   const { mutate, isPending, error } = useMutation<
     void,
     AxiosErrorResponse,
     { productId: string; quantity: number }
   >({
-    mutationFn: ({ productId, quantity }) => addToCart(productId, quantity),
+    mutationFn: ({ productId, quantity }) => addToCartApi(productId, quantity),
     onSuccess: () => {
       onSuccess?.();
       triggerSync();

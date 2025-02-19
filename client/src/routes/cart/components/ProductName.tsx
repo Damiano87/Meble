@@ -1,5 +1,5 @@
-import { useCart } from "@/hooks/useCart";
-import { useOverlay } from "@/hooks/useOverlay";
+import { useCart } from "@/hooks/cart/useCart";
+import { useOverlay } from "@/hooks/other/useOverlay";
 import { capitalizeFirstLetter, sliceName } from "@/utils/functions";
 import { Link } from "react-router";
 

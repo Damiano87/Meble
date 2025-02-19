@@ -1,72 +1,22 @@
-import { useRef, useState, useEffect, useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import apiRequest from "../../api/apiRequest";
-import { Helmet } from "react-helmet-async";
+import { Link } from "react-router";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import AuthContext from "@/context/authContext";
-
-const LOGIN_URL = "/auth/login";
-
-interface LoginResponse {
-  accessToken: string;
-}
-
-interface LoginCredentials {
-  user: string;
-  pwd: string;
-}
-
-interface ErrorResponse {
-  message: string;
-}
+import { useLogin } from "@/hooks/auth/useLogin";
+import MetaData from "@/components/Meta";
 
 const Login = () => {
-  const { setToken, setPersist } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from || "/";
-
-  const userRef = useRef<HTMLInputElement>(null);
-  const errRef = useRef<HTMLParagraphElement>(null);
-
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
-
-  useEffect(() => {
-    userRef.current?.focus();
-  }, []);
-
   const {
-    mutate: login,
+    login,
     isPending,
     error,
-  } = useMutation<LoginResponse, AxiosError<ErrorResponse>, LoginCredentials>({
-    mutationFn: async (credentials) => {
-      const response = await apiRequest.post<LoginResponse>(
-        LOGIN_URL,
-        JSON.stringify(credentials),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      return response.data;
-    },
-    onSuccess: (data) => {
-      setToken(data.accessToken);
-      setPersist(true);
-      setUser("");
-      setPwd("");
-      navigate(from);
-    },
-    onError: (error) => {
-      errRef.current?.focus();
-      return error.response?.data?.message ?? "Login Failed";
-    },
-  });
+    user,
+    pwd,
+    setUser,
+    setPwd,
+    errRef,
+    userRef,
+  } = useLogin();
 
+  // login form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     login({ user, pwd });
@@ -76,13 +26,10 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      <Helmet>
-        <title>Logowanie | H Meble</title>
-        <meta
-          name="description"
-          content="Zaloguj się do swojego konta w H Meble. Bezpieczny dostęp do historii zamówień, zapisanych projektów i personalizowanych ustawień. Dołącz do naszej społeczności."
-        />
-      </Helmet>
+      <MetaData
+        title="Logowanie | H Meble"
+        content="Zaloguj się do swojego konta w H Meble. Bezpieczny dostęp do historii zamówień, zapisanych projektów i personalizowanych ustawień. Dołącz do naszej społeczności."
+      />
       <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
         <p
           ref={errRef}
@@ -93,7 +40,7 @@ const Login = () => {
           }
           aria-live="assertive"
         >
-          {error?.response?.data?.message || "Login Failed"}
+          {error?.response?.data?.message || "Nie udało się zalogować."}
         </p>
         <h1>Zaloguj się</h1>
         <form

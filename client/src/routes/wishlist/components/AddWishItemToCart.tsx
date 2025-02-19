@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useAddToCart } from "@/hooks/useAddToCart";
+import { useAddToCart } from "@/hooks/cart/useAddToCart";
 
 const AddWishItemToCart = ({ productId }: { productId: string }) => {
   const { mutate: addToCart } = useAddToCart();

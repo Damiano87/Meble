@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router";
 import { Button } from "../ui/button";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useCart } from "@/hooks/useCart";
-import { useOverlay } from "@/hooks/useOverlay";
+import { useCart } from "@/hooks/cart/useCart";
+import { useOverlay } from "@/hooks/other/useOverlay";
 
 const GoToCartRoute = () => {
   const { setOpenCart } = useCart();

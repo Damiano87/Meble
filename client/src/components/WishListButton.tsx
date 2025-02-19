@@ -1,4 +1,4 @@
-import { useWishlist } from "../hooks/useWishList";
+import { useWishlist } from "../hooks/wishlist/useWishList";
 import { FaHeart } from "react-icons/fa";
 import { type WishlistItem } from "@/utils/types";
 import { Toaster } from "react-hot-toast";

@@ -1,7 +1,7 @@
-import { useGetCartItems } from "@/hooks/useGetCartItems";
+import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
 import { Badge } from "../ui/badge";
 import { useMemo } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const CartBadge = () => {
   const { username } = useAuth(); // Ensure user is authenticated

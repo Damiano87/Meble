@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { useMemo } from "react";
 import { RatersResponse } from "@/utils/types";
-import { fetchRaters } from "@/api/fetchRaters";
+import { fetchRatersApi } from "@/api/rating/fetchRaters";
 
 type SortOption = "newest" | "oldest" | "highest" | "lowest";
 
@@ -17,7 +17,7 @@ export const useRaters = (productId: string) => {
 
   const { data, isPending, error } = useQuery<RatersResponse>({
     queryKey: ["raters", productId, numberOfStars, page],
-    queryFn: () => fetchRaters(productId, page, limit, numberOfStars),
+    queryFn: () => fetchRatersApi(productId, page, limit, numberOfStars),
   });
 
   const sortedRaters = useMemo(() => {

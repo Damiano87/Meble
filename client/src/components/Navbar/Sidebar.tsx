@@ -1,6 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router";
-import { useOverlay } from "../../hooks/useOverlay";
+import { useOverlay } from "../../hooks/other/useOverlay";
 
 type SidebarProps = {
   isVisible: boolean;

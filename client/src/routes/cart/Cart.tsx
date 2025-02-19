@@ -1,11 +1,11 @@
 import CartList from "./components/CartList";
 import Summary from "./components/Summary";
 import Title from "./components/Title";
-import { useGetCartItems } from "@/hooks/useGetCartItems";
+import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import NotLogedIn from "@/components/AsideCart/NotLogedIn";
 import MetaData from "@/components/Meta";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const Cart = () => {
   const { username } = useAuth();

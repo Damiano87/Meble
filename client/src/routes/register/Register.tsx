@@ -2,87 +2,44 @@ import { useRef, useState, useEffect } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import apiRequest from "../../api/apiRequest";
-import { Link, useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { Link } from "react-router";
 import { Helmet } from "react-helmet-async";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import { useRegister } from "@/hooks/auth/useRegister";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/auth/register";
-
-interface RegisterCredentials {
-  user: string;
-  email: string;
-  pwd: string;
-}
-
-interface RegisterResponse {
-  message: string;
-}
-
-interface ErrorResponse {
-  message: string;
-}
 
 const Register = () => {
-  const navigate = useNavigate();
+  const {
+    register,
+    isPending,
+    error,
+    isSuccess,
+    user,
+    setUser,
+    email,
+    setEmail,
+    pwd,
+    setPwd,
+    matchPwd,
+    setMatchPwd,
+  } = useRegister();
+
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
-  const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
 
-  const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
 
-  const [matchPwd, setMatchPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
-
-  const registerMutation = useMutation<
-    RegisterResponse,
-    AxiosError<ErrorResponse>,
-    RegisterCredentials
-  >({
-    mutationFn: async (credentials) => {
-      const response = await apiRequest.post(
-        REGISTER_URL,
-        JSON.stringify(credentials),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      setUser("");
-      setPwd("");
-      setMatchPwd("");
-      setEmail("");
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 2000);
-    },
-    onError: (error) => {
-      if (!error.response) {
-        return "No Server Response";
-      }
-      if (error.response.status === 409) {
-        return "Username Taken";
-      }
-      return error.response.data?.message || "Registration Failed";
-    },
-  });
 
   useEffect(() => {
     userRef.current?.focus();
@@ -108,10 +65,10 @@ const Register = () => {
     if (!v1 || !v2) {
       return;
     }
-    registerMutation.mutate({ user, email, pwd });
+    register({ user, email, pwd });
   };
 
-  if (registerMutation.isPending) return <LoadingIndicator />;
+  if (isPending) return <LoadingIndicator />;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
@@ -119,7 +76,7 @@ const Register = () => {
         <title>Rejestracja | H Meble</title>
         <meta name="description" content="Rejestracja do serwisu H Meble" />
       </Helmet>
-      {registerMutation.isSuccess ? (
+      {isSuccess ? (
         <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
           <h1>Success!</h1>
           <p>
@@ -131,14 +88,13 @@ const Register = () => {
           <p
             ref={errRef}
             className={
-              registerMutation.error
+              error
                 ? "bg-pink-400 text-red-700 font-bold p-2 mb-2"
                 : "absolute -left-[9999px]"
             }
             aria-live="assertive"
           >
-            {registerMutation.error?.response?.data?.message ||
-              "Registration Failed"}
+            {error?.response?.data?.message || "Registration Failed"}
           </p>
           <h1>Register</h1>
           <form
@@ -296,11 +252,11 @@ const Register = () => {
                 !validEmail ||
                 !validPwd ||
                 !validMatch ||
-                registerMutation.isPending
+                isPending
               }
               className="mt-7 p-2 border-2 cursor-pointer font-semibold hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {registerMutation.isPending ? "Signing up..." : "Sign Up"}
+              {isPending ? "Signing up..." : "Sign Up"}
             </button>
           </form>
           <p>

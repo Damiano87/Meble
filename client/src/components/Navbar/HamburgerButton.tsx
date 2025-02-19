@@ -1,4 +1,4 @@
-import { useOverlay } from "@/hooks/useOverlay";
+import { useOverlay } from "@/hooks/other/useOverlay";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const HamburgerButton = ({

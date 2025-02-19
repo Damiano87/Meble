@@ -1,7 +1,7 @@
 import { MdOutlineDashboard } from "react-icons/md";
 import { CiLogin } from "react-icons/ci";
 import { Link, useNavigate } from "react-router";
-import useLogout from "@/hooks/useLogout";
+import useLogout from "@/hooks/auth/useLogout";
 
 const Logout = () => {
   const logout = useLogout();

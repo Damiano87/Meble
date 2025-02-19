@@ -1,4 +1,4 @@
-import { useOverlay } from "../hooks/useOverlay";
+import { useOverlay } from "../hooks/other/useOverlay";
 
 const Overlay = () => {
   const { isOverlayVisible } = useOverlay();

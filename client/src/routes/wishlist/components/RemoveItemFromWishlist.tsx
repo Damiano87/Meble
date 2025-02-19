@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useWishlist } from "@/hooks/useWishList";
+import { useWishlist } from "@/hooks/wishlist/useWishList";
 import { TfiClose } from "react-icons/tfi";
 
 const RemoveItemFromWishlist = ({ wishItemId }: { wishItemId: string }) => {

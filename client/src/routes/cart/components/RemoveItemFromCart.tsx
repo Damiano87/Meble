@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useDeleteCartItem } from "@/hooks/useDeleteCartItem";
+import { useDeleteCartItem } from "@/hooks/cart/useDeleteCartItem";
 import { TfiClose } from "react-icons/tfi";
 
 const RemoveItemFromCart = ({ cartItemId }: { cartItemId: string }) => {

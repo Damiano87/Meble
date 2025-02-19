@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Star } from "lucide-react";
 import { AxiosError } from "axios";
-import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import useAxiosPrivate from "@/hooks/auth/useAxiosPrivate";
 
 interface RatingRequest {
   productId: string;

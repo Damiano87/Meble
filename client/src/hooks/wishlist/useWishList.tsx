@@ -1,16 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createWishlistApi } from "@/api/wishlistApi";
+import { createWishlistApi } from "@/api/wishlist/wishlistApi";
 // import { useAuth } from "./useAuth";
 // import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { type WishlistItem } from "@/utils/types";
-import useAxiosPrivate from "./useAxiosPrivate";
-import { useAuth } from "./useAuth";
+import useAxiosPrivate from "../auth/useAxiosPrivate";
+import { useAuth } from "../auth/useAuth";
 
 export const useWishlist = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const wishlistApi = createWishlistApi(axiosPrivate);
+  const { addToWishlistApi, getWishlistApi, removeFromWishlistApi } =
+    createWishlistApi(axiosPrivate);
   const { username } = useAuth();
 
   const WISHLIST_QUERY_KEY = ["wishlist", username];
@@ -22,7 +23,7 @@ export const useWishlist = () => {
     error,
   } = useQuery({
     queryKey: WISHLIST_QUERY_KEY,
-    queryFn: wishlistApi.getWishlist,
+    queryFn: getWishlistApi,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes
     enabled: !!username,
@@ -30,7 +31,7 @@ export const useWishlist = () => {
 
   // mutation for adding to wishlist =================================
   const addToWishlistMutation = useMutation({
-    mutationFn: wishlistApi.addToWishlist,
+    mutationFn: addToWishlistApi,
     onMutate: async () => {
       // cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: WISHLIST_QUERY_KEY });
@@ -52,7 +53,7 @@ export const useWishlist = () => {
 
   // mutation for removing from wishlist =============================
   const removeFromWishlistMutation = useMutation({
-    mutationFn: wishlistApi.removeFromWishlist,
+    mutationFn: removeFromWishlistApi,
     onMutate: async (productId) => {
       await queryClient.cancelQueries({ queryKey: WISHLIST_QUERY_KEY });
 

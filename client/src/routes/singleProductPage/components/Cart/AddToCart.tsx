@@ -1,8 +1,8 @@
 import Amount from "./Amount";
 import { useState } from "react";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { useAddToCart } from "@/hooks/useAddToCart";
-import { useModal } from "@/hooks/useModal";
+import { useAddToCart } from "@/hooks/cart/useAddToCart";
+import { useModal } from "@/hooks/cart/useModal";
 import ErrorAddToCartDialog from "./ErrorAddToCartDialog";
 import SuccessAddToCartDialog from "./SuccesAddToCartDialog";
 

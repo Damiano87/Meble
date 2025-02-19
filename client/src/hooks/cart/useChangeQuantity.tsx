@@ -1,22 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import useAxiosPrivate from "./useAxiosPrivate";
+import useAxiosPrivate from "../auth/useAxiosPrivate";
 import { useCartSync } from "@/context/cartSyncContext";
+import { createCartApi } from "@/api/cart/cartApi";
 
 export const useChangeQuantity = () => {
   const axiosPrivate = useAxiosPrivate();
+  const { updateCartItemQuantityApi } = createCartApi(axiosPrivate);
   const { triggerSync } = useCartSync();
 
   const { mutate, isPending, error } = useMutation({
-    mutationFn: async ({
-      newQuantity,
-      cartItemId,
-    }: {
-      newQuantity: number;
-      cartItemId: string;
-    }) =>
-      await axiosPrivate.patch(`/cart/update-quantity/${cartItemId}`, {
-        newQuantity,
-      }),
+    mutationFn: updateCartItemQuantityApi,
     onSuccess: () => {
       triggerSync();
     },

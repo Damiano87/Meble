@@ -2,7 +2,7 @@ import Rater from "./Rater";
 import GetSpecificRaters from "./GetSpecificRaters";
 import SortRaters from "./SortRaters";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { useRaters } from "@/hooks/useRaters";
+import { useRaters } from "@/hooks/rating/useRaters";
 import PaginationRaters from "./PaginationRaters";
 
 const Raters = ({

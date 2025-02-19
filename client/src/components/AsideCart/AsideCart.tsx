@@ -1,14 +1,14 @@
 import { useRef } from "react";
-import { useCart } from "../../hooks/useCart";
-import { useOverlay } from "../../hooks/useOverlay";
+import { useCart } from "../../hooks/cart/useCart";
+import { useOverlay } from "../../hooks/other/useOverlay";
 import { useClickAway } from "react-use";
 import EmptyCart from "./EmptyCart";
 import GetAmount from "./GetAmount";
 import CloseCart from "./CloseCart";
 import AsideCartList from "./AsideCartList";
-import { useGetCartItems } from "@/hooks/useGetCartItems";
+import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
 import NotLogedIn from "./NotLogedIn";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/auth/useAuth";
 import Summary from "@/routes/cart/components/Summary";
 import GoToCartRoute from "./GoToCartRoute";
 

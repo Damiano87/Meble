@@ -2,9 +2,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiOutlineMinus } from "react-icons/hi2";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { useChangeQuantity } from "@/hooks/useChangeQuantity";
+import { useChangeQuantity } from "@/hooks/cart/useChangeQuantity";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { useDeleteCartItem } from "@/hooks/useDeleteCartItem";
+import { useDeleteCartItem } from "@/hooks/cart/useDeleteCartItem";
 
 type ChangeAmountProps = {
   quantity: number | string;
