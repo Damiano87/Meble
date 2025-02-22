@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { useMemo } from "react";
 import { RatersResponse } from "@/utils/types";
-import { fetchRatersApi } from "@/api/rating/fetchRaters";
+import { createRatingApi } from "@/api/rating/ratingApi";
 
 type SortOption = "newest" | "oldest" | "highest" | "lowest";
 
 export const useRaters = (productId: string) => {
   // get query parameter
   const [searchParams] = useSearchParams();
+  const { fetchRatersApi } = createRatingApi();
 
   const numberOfStars = searchParams.get("number_of_stars")?.split(" ") || [];
   const sortOrder = (searchParams.get("sort") as SortOption) || "newest";

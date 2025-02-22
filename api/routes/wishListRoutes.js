@@ -10,6 +10,9 @@ router.get("/", wishListController.getWishlist);
 
 router.post("/", wishListController.addToWishlist);
 
+router.post("/send-wishlist", wishListController.sendWishlist);
 router.delete("/", wishListController.deleteFromWishlist);
+
+router.delete("/clear-wishlist", wishListController.clearWishlist);
 
 export default router;

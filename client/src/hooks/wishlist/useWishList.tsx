@@ -10,8 +10,13 @@ import { useAuth } from "../auth/useAuth";
 export const useWishlist = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const { addToWishlistApi, getWishlistApi, removeFromWishlistApi } =
-    createWishlistApi(axiosPrivate);
+  const {
+    addToWishlistApi,
+    getWishlistApi,
+    removeFromWishlistApi,
+    clearWishlistApi,
+    sendWishlistToEmailApi,
+  } = createWishlistApi(axiosPrivate);
   const { username } = useAuth();
 
   const WISHLIST_QUERY_KEY = ["wishlist", username];
@@ -76,29 +81,31 @@ export const useWishlist = () => {
     },
   });
 
-  // mutation for syncing local wishlist =============================
-  // const syncWishlistMutation = useMutation({
-  //   mutationFn: wishlistApi.syncLocalWishlist,
-  //   onSuccess: () => {
-  //     localStorage.removeItem(LOCAL_STORAGE_KEY);
-  //     queryClient.invalidateQueries({ queryKey: WISHLIST_QUERY_KEY });
-  //     toast.success("Lista życzeń została zsynchronizowana");
-  //   },
-  //   onError: () => {
-  //     toast.error("Nie udało się zsynchronizować listy życzeń");
-  //   },
-  // });
+  // mutation for clearing wishlist ==================================
+  const clearWishlistMutation = useMutation({
+    mutationFn: clearWishlistApi,
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: WISHLIST_QUERY_KEY });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: WISHLIST_QUERY_KEY });
+      toast.success("Lista życzeń jest pusta");
+    },
+    onError: () => {
+      toast.error("Nie udało się wyczyścić listy");
+    },
+  });
 
-  // Sync local wishlist with server when user logs in
-  // useEffect(() => {
-  //   if (username) {
-  //     console.log("Executing syncing...");
-  //     const localWishlist = getLocalWishlist();
-  //     if (localWishlist.length > 0) {
-  //       syncWishlistMutation.mutate(localWishlist);
-  //     }
-  //   }
-  // }, [username]);
+  // mutation for sending user wishlist to email ====================================
+  const sendWishlistMutation = useMutation({
+    mutationFn: sendWishlistToEmailApi,
+    onSuccess: () => {
+      toast.success("Lista życzeń została wysłana na Twój email");
+    },
+    onError: () => {
+      toast.error("Nie udało się wysłać listy życzeń");
+    },
+  });
 
   return {
     wishlist,
@@ -106,7 +113,35 @@ export const useWishlist = () => {
     error,
     addToWishlist: addToWishlistMutation.mutate,
     removeFromWishlist: removeFromWishlistMutation.mutate,
+    clearWishlist: clearWishlistMutation.mutate,
+    sendWishlistToEmail: sendWishlistMutation.mutate,
+    sendWishlistToEmailSuccess: sendWishlistMutation.isSuccess,
+    sendingToEmail: sendWishlistMutation.isPending,
     isAddingToWishlist: addToWishlistMutation.isPending,
     isRemovingFromWishlist: removeFromWishlistMutation.isPending,
   };
 };
+
+// mutation for syncing local wishlist =============================
+// const syncWishlistMutation = useMutation({
+//   mutationFn: wishlistApi.syncLocalWishlist,
+//   onSuccess: () => {
+//     localStorage.removeItem(LOCAL_STORAGE_KEY);
+//     queryClient.invalidateQueries({ queryKey: WISHLIST_QUERY_KEY });
+//     toast.success("Lista życzeń została zsynchronizowana");
+//   },
+//   onError: () => {
+//     toast.error("Nie udało się zsynchronizować listy życzeń");
+//   },
+// });
+
+// Sync local wishlist with server when user logs in
+// useEffect(() => {
+//   if (username) {
+//     console.log("Executing syncing...");
+//     const localWishlist = getLocalWishlist();
+//     if (localWishlist.length > 0) {
+//       syncWishlistMutation.mutate(localWishlist);
+//     }
+//   }
+// }, [username]);

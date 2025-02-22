@@ -3,9 +3,9 @@ import { CiCircleInfo } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { Link } from "react-router";
-import { Helmet } from "react-helmet-async";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { useRegister } from "@/hooks/auth/useRegister";
+import MetaData from "@/components/Meta";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -72,10 +72,10 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      <Helmet>
-        <title>Rejestracja | H Meble</title>
-        <meta name="description" content="Rejestracja do serwisu H Meble" />
-      </Helmet>
+      <MetaData
+        title="Zarejestruj się"
+        content="Rejestracja do serwisu H Meble"
+      />
       {isSuccess ? (
         <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black text-white">
           <h1>Success!</h1>

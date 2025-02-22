@@ -24,6 +24,25 @@ export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
     });
   },
 
+  clearWishlistApi: async (): Promise<void> => {
+    console.log("Clearing wishlist...");
+    await axiosPrivate.delete(ENDPOINTS.WISHLIST.CLEAR);
+  },
+
+  sendWishlistToEmailApi: async ({
+    email,
+    destinationEmail,
+  }: {
+    email: string;
+    destinationEmail: string;
+  }): Promise<void> => {
+    console.log("Sending...");
+    await axiosPrivate.post(ENDPOINTS.WISHLIST.SEND_TO_EMAIL, {
+      email,
+      destinationEmail,
+    });
+  },
+
   syncLocalWishlistApi: async (
     items: Array<{
       productId: string;

@@ -1,4 +1,4 @@
-import emptyCart from "/images/emptycart.svg";
+import emptyCart from "/images/svg/emptycart.svg";
 
 const EmptyCart = () => {
   return (

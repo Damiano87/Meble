@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import CartButton from "./CartButton";
 import HamburgerButton from "./HamburgerButton";
 import UserButton from "./UserButton";
+import WishlistNumber from "./WishlistNumber";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,9 +38,10 @@ const Navbar = () => {
       >
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           <Logo />
-          <div className="flex items-center gap-x-5 mr-7">
+          <div className="flex items-center gap-x-6 mr-7">
             <LinkToCategories />
             <UserButton />
+            <WishlistNumber />
             <CartButton />
             <HamburgerButton setIsVisible={setIsVisible} />
           </div>

@@ -104,7 +104,11 @@ const getSingleProduct = async (req, res) => {
     return res.status(404).json({ message: "Product not found" });
   }
 
-  res.status(200).json(product);
+  const wishProductCount = await prisma.wishlist.count({
+    where: { productId: id },
+  });
+
+  res.status(200).json({ ...product, wishProductCount });
 };
 
 export default {

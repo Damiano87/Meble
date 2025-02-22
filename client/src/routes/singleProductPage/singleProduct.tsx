@@ -8,33 +8,26 @@ import ThirdInfo from "./components/AccordionInfo/ThirdInfo";
 import { Helmet } from "react-helmet-async";
 import { capitalizeFirstLetter } from "@/utils/functions";
 import RatingDialog from "./components/Rating/RatingDialog";
-import axios from "../../api/apiRequest";
-import { ProductRating } from "@/utils/types";
-import { useQuery } from "@tanstack/react-query";
 import { useState, useRef } from "react";
-
-// get product ratings from api
-export const fetchProductRatings = async (
-  productId: string
-): Promise<ProductRating> => {
-  const response = await axios.get<ProductRating>(
-    `/ratings/products/${productId}/ratings`
-  );
-  return response.data;
-};
+import { useGetProductRatings } from "@/hooks/rating/useGetProductRatings";
 
 const SingleProductPage = () => {
+  // fetch product data using react router loader
+  const product = useLoaderData() as Product;
+
+  // desctructured product
+  const { id, name, images, category, price, wishProductCount } = product;
+
+  // get product ratings
+  const { productRating, isPending, error } = useGetProductRatings(id);
+
   // handle rating button state
   const [isRatingButtonOpen, setIsRatingButtonOpen] = useState(false);
 
   // ref for rating button to open it
   const ratingButtonRef = useRef<HTMLDivElement | null>(null);
 
-  // fetch product data using react router loader
-  const product = useLoaderData() as Product;
-
-  // desctructured product
-  const { id, name, images, category, price } = product;
+  console.log(productRating);
 
   // handle scroll to ratings button
   const handleScrollToRatings = () => {
@@ -45,18 +38,6 @@ const SingleProductPage = () => {
       });
     }
   };
-
-  // fetch product ratings using react query
-  const {
-    data: productRating,
-    isPending,
-    error,
-  } = useQuery({
-    queryKey: ["productRating", id],
-    queryFn: () => fetchProductRatings(id),
-    staleTime: 1000 * 60 * 5,
-    retry: 2,
-  });
 
   // destructure product rating data
   const {
@@ -107,6 +88,7 @@ const SingleProductPage = () => {
             totalRatings={totalRatings}
             handleScrollToRatings={handleScrollToRatings}
             setIsRatingButtonOpen={setIsRatingButtonOpen}
+            wishProductCount={wishProductCount}
           />
         </div>
       </section>

@@ -4,11 +4,12 @@ import {
   LoginCredentials,
   LoginResponse,
 } from "@/api/auth/authTypes";
+import { ENDPOINTS } from "../endpoints";
 
 export const createAuthApi = () => ({
   registerApi: async (credentials: RegisterCredentials) => {
     const response = await apiRequest.post(
-      "/auth/register",
+      ENDPOINTS.AUTH.REGISTER,
       JSON.stringify(credentials),
       {
         headers: { "Content-Type": "application/json" },
@@ -20,7 +21,7 @@ export const createAuthApi = () => ({
 
   loginApi: async (credentials: LoginCredentials) => {
     const response = await apiRequest.post<LoginResponse>(
-      "/auth/login",
+      ENDPOINTS.AUTH.LOGIN,
       JSON.stringify(credentials),
       {
         headers: { "Content-Type": "application/json" },
@@ -32,7 +33,7 @@ export const createAuthApi = () => ({
 
   logoutApi: async () =>
     await apiRequest.post(
-      "/auth/logout",
+      ENDPOINTS.AUTH.LOGOUT,
       {},
       {
         withCredentials: true,
@@ -40,7 +41,7 @@ export const createAuthApi = () => ({
     ),
 
   refreshTokenApi: async () => {
-    const response = await apiRequest.get("/auth/refresh", {
+    const response = await apiRequest.get(ENDPOINTS.AUTH.REFRESH, {
       withCredentials: true,
     });
 

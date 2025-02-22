@@ -3,6 +3,7 @@ import AddToCart from "../Cart/AddToCart";
 import Delivery from "./Delivery";
 import Price from "./Price";
 import RatingBadge from "../Rating/RatingBadge";
+import UserWishCount from "./UserWishCount";
 
 type MainInfoProps = {
   id: string;
@@ -10,6 +11,7 @@ type MainInfoProps = {
   images: string[];
   category: string;
   price: number;
+  wishProductCount: number;
   averageRating: number | undefined;
   totalRatings: number | undefined;
   handleScrollToRatings: () => void;
@@ -24,6 +26,7 @@ const MainInfo = ({
   price,
   averageRating,
   totalRatings,
+  wishProductCount,
   handleScrollToRatings,
   setIsRatingButtonOpen,
 }: MainInfoProps) => {
@@ -51,6 +54,7 @@ const MainInfo = ({
       <Delivery />
       <AddToCart productId={id} name={name} image={images[0]} price={price} />
       <AdditionalInfo />
+      <UserWishCount wishProductCount={wishProductCount} />
     </div>
   );
 };

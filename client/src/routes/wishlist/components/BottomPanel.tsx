@@ -1,23 +1,14 @@
-import { Button } from "@/components/ui/button";
 import ClearWishlistBtn from "./ClearWishlistBtn";
+import SendToEmailBtn from "./SendToEmailBtn";
+import TransferAllToCart from "./TransferAllToCart";
 
 const BottomPanel = () => {
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-col md:flex-row gap-y-4 justify-between">
       <ClearWishlistBtn />
-      <div className="flex gap-4">
-        <Button
-          variant={"secondary"}
-          className="border border-red-900 text-white bg-red-900 hover:text-red-900 duration-500 rounded-sm"
-        >
-          Przenieś wszystkie produkty do koszyka
-        </Button>
-        <Button
-          variant={"secondary"}
-          className="border border-red-900 text-red-900 hover:bg-red-900 hover:text-white duration-500 rounded-sm"
-        >
-          Wyślij mailem
-        </Button>
+      <div className="flex flex-col md:flex-row gap-4">
+        <TransferAllToCart />
+        <SendToEmailBtn />
       </div>
     </div>
   );

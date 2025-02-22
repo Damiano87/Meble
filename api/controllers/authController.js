@@ -55,6 +55,7 @@ const register = async (req, res) => {
       {
         UserInfo: {
           username: newUser.username,
+          email: newUser.email,
           roles: newUser.roles,
           isActive: newUser.isActive,
           id: newUser.id,
@@ -117,6 +118,7 @@ const login = async (req, res) => {
     {
       UserInfo: {
         username: foundUser.username,
+        email: foundUser.email,
         roles: foundUser.roles,
         isActive: foundUser.isActive,
         id: foundUser.id,
@@ -170,6 +172,7 @@ const refresh = (req, res) => {
         {
           UserInfo: {
             username: foundUser.username,
+            email: foundUser.email,
             roles: foundUser.roles,
             isActive: foundUser.isActive,
             id: foundUser.id,

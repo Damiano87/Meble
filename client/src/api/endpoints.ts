@@ -14,14 +14,18 @@ export const ENDPOINTS = {
   },
   RATING: {
     GET_RATERS: (productId: string) => `/ratings/products/${productId}/raters`,
+    GET_PRODUCT_RATINGS: (productId: string) =>
+      `/ratings/products/${productId}/ratings`,
   },
   WISHLIST: {
     GET: "/wishlist",
     ADD: "/wishlist",
     DELETE: "/wishlist",
-    CLEAR: "/wishlist/clear",
+    CLEAR: "/wishlist/clear-wishlist",
+    SEND_TO_EMAIL: "/wishlist/send-wishlist",
   },
   STRIPE: {
     CREATE_CHECKOUT_SESSION: "/stripe/api/create-checkout-session",
+    VERIFY_PAYMENT: "/stripe/api/verify-payment",
   },
 };

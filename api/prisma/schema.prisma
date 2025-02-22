@@ -151,5 +151,3 @@ model Wishlist {
 
   @@unique([userId, productId])
 }
-
-// [{"id":"e8700d6d-51c6-42b2-9718-533a76ccbbbc","newItem":"67576b522582afeae9e23c10","addedAt":"2025-02-15T16:29:10.469Z"},{"id":"867c955e-3e23-47d9-97c3-72192f7d06fe","newItem":"6761dfe7e486a7b2d95183f2","addedAt":"2025-02-15T16:29:15.558Z"}]

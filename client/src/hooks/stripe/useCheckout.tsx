@@ -1,10 +1,11 @@
+import { createStripeApi } from "@/api/stripe/stripeApi";
 import { loadStripe } from "@stripe/stripe-js";
 import { useMutation } from "@tanstack/react-query";
-import { createCheckoutSessionApi } from "@/api/stripe/checkoutApi";
 
 export const useCheckout = () => {
+  const { checkoutSessionApi } = createStripeApi();
   const { mutate, isPending, error } = useMutation({
-    mutationFn: createCheckoutSessionApi,
+    mutationFn: checkoutSessionApi,
     onSuccess: async (data) => {
       const stripe = await loadStripe(
         import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY

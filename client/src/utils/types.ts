@@ -9,6 +9,7 @@ export type Product = {
   description: string;
   images: string[];
   stock: number;
+  wishProductCount: number;
   features: string[];
   offers: string[];
   details: Detail[];
