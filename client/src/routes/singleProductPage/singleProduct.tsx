@@ -1,5 +1,5 @@
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useLoaderData } from "react-router";
+import { Link, useParams } from "react-router";
 import { Product } from "../../utils/types";
 import Images from "./components/MainInfo/Images";
 import MainInfo from "./components/MainInfo/MainInfo";
@@ -10,24 +10,23 @@ import { capitalizeFirstLetter } from "@/utils/functions";
 import RatingDialog from "./components/Rating/RatingDialog";
 import { useState, useRef } from "react";
 import { useGetProductRatings } from "@/hooks/rating/useGetProductRatings";
+import { useGetSingleProduct } from "@/hooks/products/useGetSingleProduct";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 const SingleProductPage = () => {
-  // fetch product data using react router loader
-  const product = useLoaderData() as Product;
+  const { id: productId } = useParams();
 
+  const { product, isLoadingProduct } = useGetSingleProduct(productId);
   // desctructured product
-  const { id, name, images, category, price, wishProductCount } = product;
 
   // get product ratings
-  const { productRating, isPending, error } = useGetProductRatings(id);
+  const { productRating, isPending, error } = useGetProductRatings(productId);
 
   // handle rating button state
   const [isRatingButtonOpen, setIsRatingButtonOpen] = useState(false);
 
   // ref for rating button to open it
   const ratingButtonRef = useRef<HTMLDivElement | null>(null);
-
-  console.log(productRating);
 
   // handle scroll to ratings button
   const handleScrollToRatings = () => {
@@ -58,6 +57,25 @@ const SingleProductPage = () => {
     2: twoStars,
     1: oneStar,
   };
+
+  if (!product)
+    return (
+      <div className="pt-44 h-screen">
+        <h1 className="text-center text-2xl font-semibold">
+          Produkt nie istnieje
+        </h1>
+      </div>
+    );
+
+  if (isLoadingProduct)
+    return (
+      <div className="h-screen">
+        <LoadingIndicator />
+      </div>
+    );
+
+  const { id, name, images, category, price, wishProductCount } =
+    product as Product;
 
   return (
     <div className="mx-auto mt-32 max-w-6xl px-5 lg:px-0">

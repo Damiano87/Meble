@@ -71,6 +71,13 @@ export type Products = {
   }[];
 };
 
+export type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  images: string[];
+};
+
 export type ProductRating = {
   averageRating: number;
   totalRatings: number;

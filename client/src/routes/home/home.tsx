@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import { useLoaderData } from "react-router";
 import Mosaic from "./components/Mosaic";
 import ShopNow from "./components/ShopNow";
 import MetaData from "@/components/Meta";
+import { useGetCombined } from "@/hooks/products/useGetCombined";
 
 const PopularProducts = React.lazy(
   () => import("./components/PopularProducts")
@@ -11,7 +11,7 @@ const PopularProducts = React.lazy(
 const Trendy = React.lazy(() => import("./components/Trendy"));
 
 export default function Home() {
-  const { products, trendyProducts } = useLoaderData();
+  const { products, trendyProducts } = useGetCombined();
 
   return (
     <div className="max-w-7xl mx-auto">

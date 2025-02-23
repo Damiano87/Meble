@@ -1,6 +1,6 @@
 import { type RatersResponse } from "@/utils/types";
 import apiRequest from "../apiRequest";
-import { ProductRating } from "@/utils/types";
+import { type ProductRating } from "@/utils/types";
 import { ENDPOINTS } from "../endpoints";
 
 export const createRatingApi = () => ({
@@ -21,9 +21,11 @@ export const createRatingApi = () => ({
   },
 
   // get product ratings from api
-  productRatingsApi: async (productId: string): Promise<ProductRating> => {
+  productRatingsApi: async (
+    productId: string | undefined
+  ): Promise<ProductRating> => {
     const response = await apiRequest.get<ProductRating>(
-      ENDPOINTS.RATING.GET_PRODUCT_RATINGS(productId)
+      ENDPOINTS.RATING.GET_PRODUCT_RATINGS(productId as string)
     );
     return response.data;
   },

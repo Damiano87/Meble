@@ -1,8 +1,8 @@
 // import data from "../../../data";
 import Product from "../../../components/Product";
-import { type Products } from "../../../utils/types";
+import { type ProductType } from "@/utils/types";
 
-const ProductList = ({ products }: Products) => {
+const ProductList = ({ products }: { products?: ProductType[] }) => {
   if (!products || products.length === 0) {
     return (
       <div className="text-[1.5rem] font-semibold my-14">
