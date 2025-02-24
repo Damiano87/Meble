@@ -5,6 +5,12 @@ export const ENDPOINTS = {
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
   },
+  PRODUCTS: {
+    GET_ALL: "/products",
+    TOP_EIGHT: "/products/top-eight",
+    TRENDY: "/products/trendy",
+    GET_BY_ID: (id: string) => `/products/${id}`,
+  },
   CART: {
     GET: "/cart/cart-items",
     ADD: (productId: string) => `/cart/${productId}/add-to-cart`,

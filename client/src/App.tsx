@@ -11,6 +11,7 @@ import PersistLogin from "./routes/login/PersistLogin";
 import Cart from "./routes/cart/Cart";
 import PaymentSuccessPage from "./routes/stripe/PaymentSuccessPage";
 import Wishlist from "./routes/wishlist/Wishlist";
+import Cabinet from "./routes/cabinet/Cabinet";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: "wishlist",
             element: <Wishlist />,
+          },
+          {
+            path: "cabinet",
+            element: <Cabinet />,
           },
         ],
       },
