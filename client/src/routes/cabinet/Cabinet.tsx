@@ -12,6 +12,9 @@ import { SecEmailField } from "./components/form/SecEmailField";
 import { StreetField } from "./components/form/StreetField";
 import { ApartmentNrField } from "./components/form/ApartmentNrField";
 import { CountryField } from "./components/form/CountryField";
+import { PostalCodeField } from "./components/form/PostalCodeField";
+import { CityField } from "./components/form/CityField";
+import { PhoneField } from "./components/form/PhoneField";
 
 const Cabinet = () => {
   const { email } = useAuth();
@@ -46,6 +49,11 @@ const Cabinet = () => {
               <ApartmentNrField form={form} />
             </div>
             <CountryField form={form} />
+            <div className="flex items-center gap-4">
+              <PostalCodeField form={form} />
+              <CityField form={form} />
+            </div>
+            <PhoneField form={form} />
             {/* <Button type="submit" className="text-black">
             Submit
           </Button> */}

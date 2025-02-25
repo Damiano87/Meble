@@ -1,0 +1,37 @@
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { UseFormReturn } from "react-hook-form";
+import { UserSchemaType } from "@/schemas/userSchema";
+
+interface PostalCodeFieldProps {
+  form: UseFormReturn<UserSchemaType>;
+}
+
+export const PostalCodeField = ({ form }: PostalCodeFieldProps) => {
+  return (
+    <FormField
+      control={form.control}
+      name="postalCode"
+      render={({ field }) => (
+        <FormItem className="grow">
+          <FormLabel>Kod pocztowy*</FormLabel>
+          <FormControl>
+            <Input
+              {...field}
+              placeholder="NN-NNN"
+              defaultValue={field.value}
+              className="border-slate-500"
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
