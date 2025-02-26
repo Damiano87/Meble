@@ -27,6 +27,16 @@ export const userSchema = z.object({
   phone: z
     .string()
     .regex(/^\d{9}$/, { message: "Numer telefonu musi się składać z 9 cyfr." }),
+  phone2: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val) return true;
+        return /^\d{9}$/.test(val);
+      },
+      { message: "Numer telefonu musi się składać z 9 cyfr." }
+    ),
 });
 
 export type UserSchemaType = z.infer<typeof userSchema>;

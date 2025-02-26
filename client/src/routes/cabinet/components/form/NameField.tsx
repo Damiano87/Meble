@@ -8,15 +8,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { UserSchemaType } from "@/schemas/userSchema";
-import { useAuth } from "@/hooks/auth/useAuth";
 
 interface NameFieldProps {
   form: UseFormReturn<UserSchemaType>;
 }
 
 export const NameField = ({ form }: NameFieldProps) => {
-  const { username } = useAuth();
-
   return (
     <FormField
       control={form.control}
@@ -25,11 +22,7 @@ export const NameField = ({ form }: NameFieldProps) => {
         <FormItem className="grow">
           <FormLabel>Imię*</FormLabel>
           <FormControl>
-            <Input
-              {...field}
-              defaultValue={username}
-              className="border-slate-500 capitalize"
-            />
+            <Input {...field} className="border-slate-500 capitalize" />
           </FormControl>
           <FormMessage />
         </FormItem>

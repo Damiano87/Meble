@@ -11,10 +11,9 @@ import { UserSchemaType } from "@/schemas/userSchema";
 
 interface EmailFieldProps {
   form: UseFormReturn<UserSchemaType>;
-  defaultEmail?: string;
 }
 
-export const EmailField = ({ form, defaultEmail }: EmailFieldProps) => {
+export const EmailField = ({ form }: EmailFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -23,11 +22,7 @@ export const EmailField = ({ form, defaultEmail }: EmailFieldProps) => {
         <FormItem>
           <FormLabel>E-mail jako nazwa użytkownika:</FormLabel>
           <FormControl>
-            <Input
-              {...field}
-              defaultValue={defaultEmail}
-              className="border-slate-500"
-            />
+            <Input {...field} className="border-slate-500" />
           </FormControl>
           <FormMessage />
         </FormItem>

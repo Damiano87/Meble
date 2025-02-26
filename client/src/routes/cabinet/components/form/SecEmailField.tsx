@@ -11,10 +11,9 @@ import { UserSchemaType } from "@/schemas/userSchema";
 
 interface SecEmailFieldProps {
   form: UseFormReturn<UserSchemaType>;
-  defaultEmail?: string;
 }
 
-export const SecEmailField = ({ form, defaultEmail }: SecEmailFieldProps) => {
+export const SecEmailField = ({ form }: SecEmailFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -23,12 +22,7 @@ export const SecEmailField = ({ form, defaultEmail }: SecEmailFieldProps) => {
         <FormItem>
           <FormLabel>E-mail*</FormLabel>
           <FormControl>
-            <Input
-              {...field}
-              placeholder="NNNNNNNNNN"
-              defaultValue={defaultEmail}
-              className="border-slate-500"
-            />
+            <Input {...field} className="border-slate-500" />
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -25,7 +25,6 @@ export const PostalCodeField = ({ form }: PostalCodeFieldProps) => {
             <Input
               {...field}
               placeholder="NN-NNN"
-              defaultValue={field.value}
               className="border-slate-500"
             />
           </FormControl>

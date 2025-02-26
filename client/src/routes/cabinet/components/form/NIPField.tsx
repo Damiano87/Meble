@@ -25,7 +25,6 @@ export const NIPField = ({ form }: NIPFieldProps) => {
             <Input
               {...field}
               placeholder="NNNNNNNNNN"
-              defaultValue={field.value}
               className="border-slate-500"
             />
           </FormControl>

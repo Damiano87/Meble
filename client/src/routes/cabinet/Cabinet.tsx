@@ -15,18 +15,53 @@ import { CountryField } from "./components/form/CountryField";
 import { PostalCodeField } from "./components/form/PostalCodeField";
 import { CityField } from "./components/form/CityField";
 import { PhoneField } from "./components/form/PhoneField";
+import SecondPhoneField from "./components/form/SecondPhoneField";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const Cabinet = () => {
-  const { email } = useAuth();
+  const { username, email } = useAuth();
+  const [selectedCountry1, setSelectedCountry1] = useState<string>("48");
+  const [selectedCountry2, setSelectedCountry2] = useState<string>("48");
+
+  // handle country code change
+  const handleCountryCodeChange1 = (countryCode: string) => {
+    setSelectedCountry1(countryCode);
+  };
+
+  const handleCountryCodeChange2 = (countryCode: string) => {
+    setSelectedCountry2(countryCode);
+  };
 
   // hook form
   const form = useForm<UserSchemaType>({
     resolver: zodResolver(userSchema),
-    defaultValues: {},
+    defaultValues: {
+      email: email || "",
+      email2: email || "",
+      country: "Polska",
+      name: username || "",
+    },
   });
 
   function onSubmit(values: UserSchemaType) {
-    console.log(values);
+    // concat country code with phone number
+    const firstNumber = selectedCountry1 + values.phone;
+    const secondNumber = values.phone2
+      ? selectedCountry2 + values.phone2
+      : null;
+
+    // remove phone and phone2 from values
+    const { phone, phone2, ...newValues } = values;
+    void phone;
+    void phone2;
+
+    // create an array of phone numbers
+    const phoneNumbers = [firstNumber, secondNumber].filter(Boolean);
+
+    // create data object with phoneNumbers array and the rest of the values
+    const data = { ...newValues, phoneNumbers };
+    console.log(data);
   }
 
   return (
@@ -35,28 +70,42 @@ const Cabinet = () => {
         <h1 className="text-2xl font-semibold mb-6">Moje dane</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <EmailField form={form} defaultEmail={email} />
+            <EmailField form={form} />
             <h2 className="text-xl font-semibold">Dane do faktury VAT:</h2>
             <CompanyField form={form} />
             <NIPField form={form} />
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <NameField form={form} />
               <LastNameField form={form} />
             </div>
-            <SecEmailField form={form} defaultEmail={email} />
-            <div className="flex items-center gap-4">
+            <SecEmailField form={form} />
+            <div className="flex items-start gap-4">
               <StreetField form={form} />
               <ApartmentNrField form={form} />
             </div>
             <CountryField form={form} />
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <PostalCodeField form={form} />
               <CityField form={form} />
             </div>
-            <PhoneField form={form} />
-            {/* <Button type="submit" className="text-black">
-            Submit
-          </Button> */}
+            <PhoneField
+              form={form}
+              name={"phone"}
+              state={selectedCountry1}
+              handleCountryCodeChange={handleCountryCodeChange1}
+            />
+            <SecondPhoneField
+              form={form}
+              state={selectedCountry2}
+              handleCountryCodeChange={handleCountryCodeChange2}
+            />
+            <Button
+              variant={"secondary"}
+              type="submit"
+              className="text-white bg-red-900 hover:bg-white hover:text-red-900 border border-red-900 duration-500"
+            >
+              Zapisz
+            </Button>
           </form>
         </Form>
       </div>

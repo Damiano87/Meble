@@ -22,11 +22,7 @@ export const CompanyField = ({ form }: CompanyFieldProps) => {
         <FormItem>
           <FormLabel>Firma</FormLabel>
           <FormControl>
-            <Input
-              {...field}
-              defaultValue={field.value}
-              className="border-slate-500"
-            />
+            <Input {...field} className="border-slate-500" />
           </FormControl>
           <FormMessage />
         </FormItem>
