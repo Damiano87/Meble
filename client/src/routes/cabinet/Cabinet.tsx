@@ -17,12 +17,14 @@ import { CityField } from "./components/form/CityField";
 import { PhoneField } from "./components/form/PhoneField";
 import SecondPhoneField from "./components/form/SecondPhoneField";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import SubmitFormBtn from "./components/form/SubmitFormBtn";
+import { useUpdateUserDelivery } from "@/hooks/users/useUpdateUserDelivery";
 
 const Cabinet = () => {
   const { username, email } = useAuth();
   const [selectedCountry1, setSelectedCountry1] = useState<string>("48");
   const [selectedCountry2, setSelectedCountry2] = useState<string>("48");
+  const { updateUserInfoForDelivery, isPending } = useUpdateUserDelivery();
 
   // handle country code change
   const handleCountryCodeChange1 = (countryCode: string) => {
@@ -61,7 +63,9 @@ const Cabinet = () => {
 
     // create data object with phoneNumbers array and the rest of the values
     const data = { ...newValues, phoneNumbers };
-    console.log(data);
+
+    // update user info for delivery
+    updateUserInfoForDelivery(data);
   }
 
   return (
@@ -99,13 +103,7 @@ const Cabinet = () => {
               state={selectedCountry2}
               handleCountryCodeChange={handleCountryCodeChange2}
             />
-            <Button
-              variant={"secondary"}
-              type="submit"
-              className="text-white bg-red-900 hover:bg-white hover:text-red-900 border border-red-900 duration-500"
-            >
-              Zapisz
-            </Button>
+            <SubmitFormBtn isPending={isPending} />
           </form>
         </Form>
       </div>

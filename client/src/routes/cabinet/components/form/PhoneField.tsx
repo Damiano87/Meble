@@ -81,7 +81,6 @@ export const PhoneField = ({
                   <Input
                     {...field}
                     placeholder="123456789"
-                    defaultValue={field.value}
                     className="border border-slate-500"
                   />
                 </FormControl>

@@ -5,6 +5,9 @@ export const ENDPOINTS = {
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
   },
+  USERS: {
+    PATCH: "/users/delivery",
+  },
   PRODUCTS: {
     GET_ALL: "/products",
     TOP_EIGHT: "/products/top-eight",

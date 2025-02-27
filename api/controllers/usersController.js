@@ -86,6 +86,69 @@ const updateUser = async (req, res) => {
   });
 };
 
+// @desc Update a user for delivery
+// @route PATCH /users/delivery
+// @access Private
+const updateUserInfoForDelivery = async (req, res) => {
+  const userId = req.userId;
+  const {
+    email,
+    NIP,
+    apartmentNr,
+    city,
+    company,
+    country,
+    name,
+    lastName,
+    phoneNumbers,
+    postalCode,
+    street,
+  } = req.body;
+
+  try {
+    // check if user exists
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // prepare data for update
+    const updateData = {};
+    const fieldsMapping = {
+      name: "username",
+      lastName: "lastName",
+      email: "email",
+      NIP: "NIP",
+      apartmentNr: "apartmentNr",
+      city: "city",
+      company: "company",
+      country: "country",
+      phoneNumbers: "phoneNumbers",
+      postalCode: "postalCode",
+      street: "street",
+    };
+
+    Object.entries(fieldsMapping).forEach(([reqField, dbField]) => {
+      if (req.body[reqField]) {
+        updateData[dbField] = req.body[reqField];
+      }
+    });
+
+    // update user
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: updateData,
+    });
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
@@ -112,4 +175,10 @@ const deleteUser = async (req, res) => {
   });
 };
 
-export default { getAllUsers, createUser, updateUser, deleteUser };
+export default {
+  getAllUsers,
+  createUser,
+  updateUser,
+  updateUserInfoForDelivery,
+  deleteUser,
+};

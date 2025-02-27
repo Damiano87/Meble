@@ -25,6 +25,21 @@ export type Product = {
   updatedAt: Date;
 };
 
+export type User = {
+  name: string;
+  lastName: string;
+  email: string;
+  email2: string;
+  NIP?: string;
+  apartmentNr: string;
+  city: string;
+  company?: string;
+  country: string;
+  phoneNumbers: (string | null)[];
+  postalCode: string;
+  street: string;
+};
+
 export type Detail = {
   name?: string;
   description?: string;
