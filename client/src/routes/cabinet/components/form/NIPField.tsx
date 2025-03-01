@@ -24,6 +24,7 @@ export const NIPField = ({ form }: NIPFieldProps) => {
           <FormControl>
             <Input
               {...field}
+              value={field.value || ""}
               placeholder="NNNNNNNNNN"
               className="border-slate-500"
             />

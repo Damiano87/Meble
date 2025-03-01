@@ -22,7 +22,11 @@ export const StreetField = ({ form }: StreetFieldProps) => {
         <FormItem className="grow">
           <FormLabel>Ulica*</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

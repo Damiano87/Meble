@@ -24,6 +24,7 @@ export const PostalCodeField = ({ form }: PostalCodeFieldProps) => {
           <FormControl>
             <Input
               {...field}
+              value={field.value || ""}
               placeholder="NN-NNN"
               className="border-slate-500"
             />

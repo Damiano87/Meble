@@ -22,7 +22,11 @@ export const SecEmailField = ({ form }: SecEmailFieldProps) => {
         <FormItem>
           <FormLabel>E-mail*</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

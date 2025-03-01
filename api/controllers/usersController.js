@@ -149,6 +149,43 @@ const updateUserInfoForDelivery = async (req, res) => {
   }
 };
 
+// @desc Update a user password
+// @route PATCH /users/password
+// @access Private
+const updateUserPassword = async (req, res) => {
+  const userId = req.userId;
+  const { userPassword } = req.body;
+
+  try {
+    // check if user exists
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // check if userPassword is provided
+    if (!userPassword) {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
+    // hash the password
+    const hashedPassword = await bcrypt.hash(userPassword, 10);
+
+    // update user password
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
@@ -180,5 +217,6 @@ export default {
   createUser,
   updateUser,
   updateUserInfoForDelivery,
+  updateUserPassword,
   deleteUser,
 };

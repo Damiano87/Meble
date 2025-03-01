@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   },
   USERS: {
     PATCH: "/users/delivery",
+    PATCH_PASSWORD: "/users/password",
   },
   PRODUCTS: {
     GET_ALL: "/products",

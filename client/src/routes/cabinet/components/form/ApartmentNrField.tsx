@@ -22,7 +22,11 @@ export const ApartmentNrField = ({ form }: ApartmentNrFieldProps) => {
         <FormItem className="grow">
           <FormLabel>Numer domu/mieszkania*</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

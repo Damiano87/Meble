@@ -19,6 +19,7 @@ import SecondPhoneField from "./components/form/SecondPhoneField";
 import { useState } from "react";
 import SubmitFormBtn from "./components/form/SubmitFormBtn";
 import { useUpdateUserDelivery } from "@/hooks/users/useUpdateUserDelivery";
+import PasswordChange from "./components/PasswordChange/PasswordChange";
 
 const Cabinet = () => {
   const { username, email } = useAuth();
@@ -72,6 +73,7 @@ const Cabinet = () => {
     <div className="pt-40 max-w-5xl mx-auto px-4 grid grid-cols-2">
       <div>
         <h1 className="text-2xl font-semibold mb-6">Moje dane</h1>
+        <PasswordChange />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <EmailField form={form} />

@@ -80,6 +80,7 @@ export const PhoneField = ({
                 <FormControl className="grow">
                   <Input
                     {...field}
+                    value={field.value || ""}
                     placeholder="123456789"
                     className="border border-slate-500"
                   />

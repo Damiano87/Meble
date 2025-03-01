@@ -22,7 +22,11 @@ export const EmailField = ({ form }: EmailFieldProps) => {
         <FormItem>
           <FormLabel>E-mail jako nazwa użytkownika:</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -12,5 +12,6 @@ router
   .patch(usersController.updateUser)
   .delete(usersController.deleteUser);
 router.patch("/delivery", usersController.updateUserInfoForDelivery);
+router.patch("/password", usersController.updateUserPassword);
 
 export default router;

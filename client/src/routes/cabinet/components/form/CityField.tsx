@@ -22,7 +22,11 @@ export const CityField = ({ form }: CityFieldProps) => {
         <FormItem className="grow">
           <FormLabel>Miasto*</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

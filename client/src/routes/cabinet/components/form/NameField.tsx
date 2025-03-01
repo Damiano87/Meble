@@ -22,7 +22,11 @@ export const NameField = ({ form }: NameFieldProps) => {
         <FormItem className="grow">
           <FormLabel>Imię*</FormLabel>
           <FormControl>
-            <Input {...field} className="border-slate-500 capitalize" />
+            <Input
+              {...field}
+              value={field.value || ""}
+              className="border-slate-500 capitalize"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
