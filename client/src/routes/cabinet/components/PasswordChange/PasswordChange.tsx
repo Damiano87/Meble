@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import PasswordChangeModal from "./components/PasswordChangeModal";
 import { useState } from "react";
+import ReusableModal from "@/components/ReusableModal";
+import PasswordChangeForm from "./components/PasswordChangeForm";
 
 const PasswordChange = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,11 @@ const PasswordChange = () => {
       <Button variant={"link"} className="text-red-900" onClick={handleOpen}>
         Nowe hasło
       </Button>
-      {isOpen && <PasswordChangeModal handleClose={handleClose} />}
+      {isOpen && (
+        <ReusableModal handleClose={handleClose} title="Nowe hasło">
+          <PasswordChangeForm />
+        </ReusableModal>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import EmailModal from "./EmailModal";
 import { useState } from "react";
+import ReusableModal from "@/components/ReusableModal";
+import SendEmailForm from "./SendEmailForm";
 
 const SendToEmailBtn = () => {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,11 @@ const SendToEmailBtn = () => {
       >
         Wyślij na email
       </Button>
-      {open && <EmailModal handleClose={handleClose} />}
+      {open && (
+        <ReusableModal handleClose={handleClose} title="Wyślij mailem">
+          <SendEmailForm />
+        </ReusableModal>
+      )}
     </>
   );
 };
