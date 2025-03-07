@@ -15,10 +15,6 @@ export const userSchema = z.object({
     .string()
     .email("Adres email jest niepoprawny.")
     .transform((val) => val.toLowerCase()),
-  email2: z
-    .string()
-    .email("Adres email jest niepoprawny.")
-    .transform((val) => val.toLowerCase()),
   street: z
     .string()
     .min(2, { message: "Ulica musi się składać minimum z 2 znaków." })

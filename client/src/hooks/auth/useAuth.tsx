@@ -4,6 +4,7 @@ import { useContext, useDebugValue } from "react";
 
 interface MyJwtPayload extends JwtPayload {
   UserInfo: {
+    id: string;
     username: string;
     email: string;
     roles: string[];
@@ -19,13 +20,14 @@ export const useAuth = () => {
   if (token) {
     try {
       const { UserInfo } = jwtDecode<MyJwtPayload>(token);
-      const { username, email, roles, isActive } = UserInfo;
+      const { id, username, email, roles, isActive } = UserInfo;
       const isAdmin = roles.includes("Admin");
 
-      return { username, email, roles, isActive, isAdmin, persist };
+      return { id, username, email, roles, isActive, isAdmin, persist };
     } catch (error) {
       console.error("Invalid token", error);
       return {
+        id: "",
         username: "",
         email: "",
         roles: [],
@@ -36,6 +38,7 @@ export const useAuth = () => {
   }
 
   return {
+    id: "",
     username: "",
     email: "",
     roles: [],

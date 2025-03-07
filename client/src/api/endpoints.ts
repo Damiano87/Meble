@@ -6,6 +6,7 @@ export const ENDPOINTS = {
     REFRESH: "/auth/refresh",
   },
   USERS: {
+    GET_USER: "/users/user",
     PATCH: "/users/delivery",
     PATCH_PASSWORD: "/users/password",
   },

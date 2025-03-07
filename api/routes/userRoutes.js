@@ -11,6 +11,9 @@ router
   .post(usersController.createUser)
   .patch(usersController.updateUser)
   .delete(usersController.deleteUser);
+
+router.get("/user", usersController.getUser);
+
 router.patch("/delivery", usersController.updateUserInfoForDelivery);
 router.patch("/password", usersController.updateUserPassword);
 

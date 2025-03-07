@@ -16,6 +16,39 @@ const getAllUsers = async (req, res) => {
   res.json(users);
 };
 
+// @desc Get specific user
+// @route GET /user
+// @access Private
+const getUser = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        lastName: true,
+        company: true,
+        city: true,
+        country: true,
+        phoneNumbers: true,
+        NIP: true,
+        apartmentNr: true,
+        street: true,
+        postalCode: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // @desc Create a user
 // @route POST /users
 // @access Private
@@ -91,19 +124,6 @@ const updateUser = async (req, res) => {
 // @access Private
 const updateUserInfoForDelivery = async (req, res) => {
   const userId = req.userId;
-  const {
-    email,
-    NIP,
-    apartmentNr,
-    city,
-    company,
-    country,
-    name,
-    lastName,
-    phoneNumbers,
-    postalCode,
-    street,
-  } = req.body;
 
   try {
     // check if user exists
@@ -214,6 +234,7 @@ const deleteUser = async (req, res) => {
 
 export default {
   getAllUsers,
+  getUser,
   createUser,
   updateUser,
   updateUserInfoForDelivery,

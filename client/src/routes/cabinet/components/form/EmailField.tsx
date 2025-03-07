@@ -9,18 +9,18 @@ import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { UserSchemaType } from "@/schemas/userSchema";
 
-interface EmailFieldProps {
+interface SecEmailFieldProps {
   form: UseFormReturn<UserSchemaType>;
 }
 
-export const EmailField = ({ form }: EmailFieldProps) => {
+export const EmailField = ({ form }: SecEmailFieldProps) => {
   return (
     <FormField
       control={form.control}
       name="email"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>E-mail jako nazwa użytkownika:</FormLabel>
+          <FormLabel>E-mail*</FormLabel>
           <FormControl>
             <Input
               {...field}

@@ -29,7 +29,6 @@ export type User = {
   name: string;
   lastName: string;
   email: string;
-  email2: string;
   NIP?: string;
   apartmentNr: string;
   city: string;
