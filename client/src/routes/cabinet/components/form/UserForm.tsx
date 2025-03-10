@@ -19,12 +19,17 @@ import { PhoneField } from "./PhoneField";
 import SecondPhoneField from "./SecondPhoneField";
 import SubmitFormBtn from "./SubmitFormBtn";
 import { Toaster } from "react-hot-toast";
+import { useCheckout } from "@/hooks/stripe/useCheckout";
+import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
 
-const UserForm = () => {
+const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
   const { username, email } = useAuth();
   const [selectedCountry1, setSelectedCountry1] = useState<string>("48");
   const [selectedCountry2, setSelectedCountry2] = useState<string>("48");
   const { updateUserInfoForDelivery, isPending } = useUpdateUserDelivery();
+  const { checkout } = useCheckout();
+  const { data: cartItems } = useGetCartItems();
+
   // hook form
   const form = useForm<UserSchemaType>({
     resolver: zodResolver(userSchema),
@@ -66,10 +71,27 @@ const UserForm = () => {
     updateUserInfoForDelivery(data);
   }
 
+  // update user delivery data and redirect to stripe payment
+  const updateDeliveryDataAndRedirectToPayment = (values: UserSchemaType) => {
+    onSubmit(values);
+    setTimeout(
+      () =>
+        checkout({
+          cartItems: cartItems ? cartItems : [],
+        }),
+      2000
+    );
+  };
+
   return (
     <Form {...form}>
       <Toaster />
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(
+          withCheckout ? updateDeliveryDataAndRedirectToPayment : onSubmit
+        )}
+        className="space-y-6"
+      >
         <h2 className="text-xl font-semibold">Dane do faktury VAT:</h2>
         <CompanyField form={form} />
         <NIPField form={form} />
@@ -98,7 +120,7 @@ const UserForm = () => {
           state={selectedCountry2}
           handleCountryCodeChange={handleCountryCodeChange2}
         />
-        <SubmitFormBtn isPending={isPending} />
+        <SubmitFormBtn isPending={isPending} withCheckout={withCheckout} />
       </form>
     </Form>
   );

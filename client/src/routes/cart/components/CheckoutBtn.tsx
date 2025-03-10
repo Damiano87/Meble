@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useCheckout } from "@/hooks/stripe/useCheckout";
 import { useGetUser } from "@/hooks/users/useGetUser";
 import { CartItemType } from "@/utils/types";
+import { useNavigate } from "react-router";
 
 type CheckoutBtnProps = {
   cartItems?: CartItemType[];
@@ -10,6 +11,7 @@ type CheckoutBtnProps = {
 const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
   const { checkout, isPending } = useCheckout();
   const user = useGetUser();
+  const navigate = useNavigate();
 
   console.log(user);
 
@@ -25,7 +27,7 @@ const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
         cartItems: cartItems ? cartItems : [],
       });
     } else {
-      console.log("user info doesnt exist");
+      navigate("/checkout");
     }
   };
 

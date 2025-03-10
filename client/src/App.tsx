@@ -12,6 +12,7 @@ import Cart from "./routes/cart/Cart";
 import PaymentSuccessPage from "./routes/stripe/PaymentSuccessPage";
 import Wishlist from "./routes/wishlist/Wishlist";
 import Cabinet from "./routes/cabinet/Cabinet";
+import CheckoutForm from "./routes/checkoutForm/CheckoutForm";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "cabinet",
             element: <Cabinet />,
+          },
+          {
+            path: "checkout",
+            element: <CheckoutForm />,
           },
         ],
       },
