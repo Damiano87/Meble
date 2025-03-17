@@ -38,7 +38,7 @@ const CartItem = ({
           <img
             src={images[0]}
             className="max-w-full max-h-full object-cover"
-            alt="bed"
+            alt={name}
           />
         </div>
         <div>

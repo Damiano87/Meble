@@ -13,6 +13,7 @@ import PaymentSuccessPage from "./routes/stripe/PaymentSuccessPage";
 import Wishlist from "./routes/wishlist/Wishlist";
 import Cabinet from "./routes/cabinet/Cabinet";
 import CheckoutForm from "./routes/checkoutForm/CheckoutForm";
+import OrderSummary from "./routes/order-summary/OrderSummary";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +65,12 @@ const router = createBrowserRouter([
             element: <Cabinet />,
           },
           {
-            path: "checkout",
+            path: "shipping-address-form",
             element: <CheckoutForm />,
+          },
+          {
+            path: "order-summary",
+            element: <OrderSummary />,
           },
         ],
       },

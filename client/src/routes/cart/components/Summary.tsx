@@ -2,7 +2,7 @@ import { formatToPLN } from "@/utils/functions";
 import { CartItemType } from "@/utils/types";
 import Checkout from "./RemoveAll";
 
-const Summary = ({ cartItems }: { cartItems: CartItemType[] | undefined }) => {
+const Summary = ({ cartItems }: { cartItems?: CartItemType[] }) => {
   // Threshold values in pennies (1 PLN = 100 groszy)
   const FREE_SHIPPING_THRESHOLD = 20000; // 200 PLN
   const SHIPPING_COST = 1599; // 15.99 PLN

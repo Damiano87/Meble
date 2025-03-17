@@ -27,8 +27,9 @@ model User {
   isActive     Boolean    @default(true)
   createdAt    DateTime   @default(now())
   cartItems    CartItem[]
-  ratings      Rating[] // one to many
+  ratings      Rating[]
   wishlist     Wishlist[]
+  orders       Order[]
 }
 
 // product model
@@ -60,6 +61,7 @@ model Product {
   ratings         Rating[]
   productRating   ProductRating? // one to one
   wishItem        Wishlist[]
+  orderItems      OrderItem[]
 }
 
 type Detail {
@@ -157,4 +159,47 @@ model Wishlist {
   product   Product @relation(fields: [productId], references: [id])
 
   @@unique([userId, productId])
+}
+
+// model of orders
+model Order {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  totalAmount Int
+  status      String // "PENDING", "COMPLETED", "CANCELLED"
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+
+  // relation with order items 
+  orderItems OrderItem[]
+
+  // info about shipping
+  shippingAddress String?
+  shippingMethod  String?
+  shippingCost    Float?
+
+  // info about payment
+  paymentMethod String?
+  paymentStatus String? // "PENDING", "PAID", "FAILED"
+
+  @@index([userId])
+}
+
+// model of order item
+model OrderItem {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity Int
+  price    Float
+
+  // relation to order
+  orderId String @db.ObjectId
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  // relation to product
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
 }

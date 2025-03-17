@@ -26,7 +26,7 @@ export type Product = {
 };
 
 export type User = {
-  name: string;
+  username: string;
   lastName: string;
   email: string;
   NIP?: string;

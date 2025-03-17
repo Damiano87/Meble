@@ -15,6 +15,7 @@ import ratingsRoutes from "./routes/ratingRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import wishListRoutes from "./routes/wishListRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 const PORT = process.env.PORT || 3500;
 
@@ -43,6 +44,8 @@ app.use("/ratings", ratingsRoutes);
 app.use("/cart", cartRoutes);
 app.use("/wishlist", wishListRoutes);
 app.use("/stripe", stripeRoutes);
+app.use("/orders", orderRoutes);
+
 // show 404 site if there is no resources
 app.all("*", (req, res) => {
   res.status(404);

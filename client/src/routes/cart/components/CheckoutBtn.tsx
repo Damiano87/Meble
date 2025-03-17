@@ -15,6 +15,7 @@ const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
 
   console.log(user);
 
+  // if user exists go to checkout, if not go to checkout form
   const handleCheckout = () => {
     if (
       user.country &&
@@ -27,7 +28,7 @@ const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
         cartItems: cartItems ? cartItems : [],
       });
     } else {
-      navigate("/checkout");
+      navigate("/shipping-address-form");
     }
   };
 

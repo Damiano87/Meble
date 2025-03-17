@@ -6,9 +6,6 @@ const router = express.Router();
 router.route("/").get(productsController.getProducts);
 
 router.route("/top-eight").get(productsController.getTopLikedProducts);
-//   .post(vehicleController.createAtv)
-//   .patch(vehicleController.updateAtv)
-//   .delete(vehicleController.deleteAtv);
 
 router.route("/trendy").get(productsController.getTrendyProducts);
 
