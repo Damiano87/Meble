@@ -175,7 +175,7 @@ model Order {
   orderItems OrderItem[]
 
   // info about shipping
-  shippingAddress String?
+  shippingAddress ShippingAddress
   shippingMethod  String?
   shippingCost    Float?
 
@@ -184,6 +184,20 @@ model Order {
   paymentStatus String? // "PENDING", "PAID", "FAILED"
 
   @@index([userId])
+}
+
+type ShippingAddress {
+  username     String
+  lastName     String
+  email        String
+  NIP          String?
+  apartmentNr  String
+  city         String
+  company      String?
+  country      String
+  phoneNumbers String[]
+  postalCode   String
+  street       String
 }
 
 // model of order item

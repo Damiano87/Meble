@@ -1,9 +1,7 @@
-import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
+import { CartItemType } from "@/utils/types";
 import CartItemForOrder from "./CartItemForOrder";
 
-const CartItemsList = () => {
-  const { data: cartItems } = useGetCartItems();
-
+const CartItemsList = ({ cartItems }: { cartItems?: CartItemType[] }) => {
   return (
     <div className="space-y-3 flex-1">
       {cartItems?.map((item) => {

@@ -1,19 +1,17 @@
-import { CartItemType } from "@/utils/types";
+import CreateOrderBtn from "@/routes/order-summary/components/CreateOrderBtn";
 import CheckoutBtn from "./CheckoutBtn";
 import RemoveBtn from "./RemoveBtn";
+import { useLocation } from "react-router";
+import GoBackBtn from "@/routes/order-summary/components/GoBackBtn";
 
-type RemoveAllProps = {
-  cartItems?: CartItemType[];
-  totalPrice: number;
-};
+const Checkout = () => {
+  const isOrderSummary = useLocation().pathname === "/order-summary";
 
-const Checkout = ({ cartItems, totalPrice }: RemoveAllProps) => {
   return (
-    <div className="py-8 flex justify-between">
+    <div className="py-8 flex flex-col md:flex-row gap-y-2 justify-between">
       {/* remove all items button  */}
-      <RemoveBtn />
-      {/* checkout button */}
-      <CheckoutBtn cartItems={cartItems} totalPrice={totalPrice} />
+      {isOrderSummary ? <GoBackBtn /> : <RemoveBtn />}
+      {isOrderSummary ? <CreateOrderBtn /> : <CheckoutBtn />}
     </div>
   );
 };

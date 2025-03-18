@@ -1,9 +1,11 @@
 import { createStripeApi } from "@/api/stripe/stripeApi";
 import { loadStripe } from "@stripe/stripe-js";
 import { useMutation } from "@tanstack/react-query";
+import useAxiosPrivate from "../auth/useAxiosPrivate";
 
 export const useCheckout = () => {
-  const { checkoutSessionApi } = createStripeApi();
+  const axiosPrivate = useAxiosPrivate();
+  const { checkoutSessionApi } = createStripeApi(axiosPrivate);
   const { mutate, isPending, error } = useMutation({
     mutationFn: checkoutSessionApi,
     onSuccess: async (data) => {

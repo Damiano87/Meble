@@ -1,21 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { useCheckout } from "@/hooks/stripe/useCheckout";
+import { useCart } from "@/hooks/cart/useCart";
+import { useOverlay } from "@/hooks/other/useOverlay";
 import { useGetUser } from "@/hooks/users/useGetUser";
-import { CartItemType } from "@/utils/types";
 import { useNavigate } from "react-router";
 
-type CheckoutBtnProps = {
-  cartItems?: CartItemType[];
-};
-
-const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
-  const { checkout, isPending } = useCheckout();
+const CheckoutBtn = () => {
   const user = useGetUser();
+  const { setOpenCart } = useCart();
+  const { setIsOverlayVisible } = useOverlay();
   const navigate = useNavigate();
 
-  console.log(user);
-
-  // if user exists go to checkout, if not go to checkout form
+  // if user exists go to order summary, if not go to checkout form
   const handleCheckout = () => {
     if (
       user.country &&
@@ -24,21 +19,20 @@ const CheckoutBtn = ({ cartItems }: CheckoutBtnProps) => {
       user.apartmentNr &&
       user.postalCode
     ) {
-      checkout({
-        cartItems: cartItems ? cartItems : [],
-      });
+      navigate("/order-summary");
     } else {
       navigate("/shipping-address-form");
     }
+    setOpenCart(false);
+    setIsOverlayVisible(false);
   };
 
   return (
     <Button
       className="bg-red-900 text-white hover:text-red-900 hover:border-red-900 border duration-500 px-7"
-      disabled={isPending}
       onClick={handleCheckout}
     >
-      {isPending ? "Przetwarzanie..." : "Do kasy"}
+      Do kasy
     </Button>
   );
 };

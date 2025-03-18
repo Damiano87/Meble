@@ -30,7 +30,7 @@ const Summary = ({ cartItems }: { cartItems?: CartItemType[] }) => {
   const totalPrice = subtotal + shippingCost - discount;
 
   return (
-    <div className="pr-5 py-8 space-y-4">
+    <div className="md:pr-5 py-8 space-y-4">
       <div className="flex justify-between">
         <h4>Kwota częściowa</h4>
         <span>{formatToPLN(subtotal)}</span>
@@ -63,7 +63,7 @@ const Summary = ({ cartItems }: { cartItems?: CartItemType[] }) => {
         <h4>Kwota całkowita</h4>
         <span>{formatToPLN(totalPrice)}</span>
       </div>
-      <Checkout cartItems={cartItems} totalPrice={totalPrice} />
+      <Checkout />
     </div>
   );
 };

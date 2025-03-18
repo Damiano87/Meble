@@ -5,7 +5,6 @@ import { Link } from "react-router";
 
 const ShippingAddress = () => {
   const user = useGetUser();
-  console.log(user);
 
   if (!user) {
     return null;

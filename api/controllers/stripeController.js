@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import prisma from "../lib/prisma.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -6,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // @route POST /stripe/api/create-checkout-session
 // @access Private
 const handler = async (req, res) => {
-  const { cartItems } = req.body;
+  const userId = req.userId;
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
   if (req.method !== "POST") {
@@ -14,23 +15,38 @@ const handler = async (req, res) => {
   }
 
   try {
-    // subtotal of the cart items
-    const subtotal = cartItems.reduce(
+    // 1. get latest order items of specific user
+    const latestOrder = await prisma.order.findFirst({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      include: {
+        orderItems: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    console.log(latestOrder?.orderItems);
+
+    // 2.1. subtotal of the cart items
+    const subtotal = latestOrder?.orderItems?.reduce(
       (acc, item) => acc + item.product.price * item.quantity,
       0
     );
 
-    // free shipping if subtotal is above threshold
+    // 2.2. free shipping if subtotal is above threshold
     const FREE_SHIPPING_THRESHOLD = 20000;
     const SHIPPING_COST = 1599;
     const isEligibleForFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
     const shippingCost = isEligibleForFreeShipping ? 0 : SHIPPING_COST;
 
-    // discount based on subtotal
+    // 2.3. discount based on subtotal
     const discountPercentage =
       subtotal >= 50000 ? 10 : subtotal >= 30000 ? 5 : 0;
 
-    // create a coupon for the discount if discountPercentage > 0
+    // 2.4. create a coupon for the discount if discountPercentage > 0
     let discountId = null;
     if (discountPercentage > 0) {
       const coupon = await stripe.coupons.create({
@@ -43,7 +59,7 @@ const handler = async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
-        ...cartItems.map((item) => ({
+        ...latestOrder?.orderItems?.map((item) => ({
           price_data: {
             currency: "pln",
             product_data: {

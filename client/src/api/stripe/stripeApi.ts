@@ -1,18 +1,14 @@
 import apiRequest from "@/api/apiRequest";
-import { type CartItemType } from "@/utils/types";
 import { ENDPOINTS } from "../endpoints";
+import { AxiosInstance } from "axios";
 
-type CheckoutData = {
-  cartItems: CartItemType[];
-};
-
-export const createStripeApi = () => ({
+export const createStripeApi = (axiosPrivate: AxiosInstance) => ({
   // create checkout session function
-  checkoutSessionApi: async (data: CheckoutData) => {
-    const response = await apiRequest.post(
-      ENDPOINTS.STRIPE.CREATE_CHECKOUT_SESSION,
-      data
+  checkoutSessionApi: async () => {
+    const response = await axiosPrivate.post(
+      ENDPOINTS.STRIPE.CREATE_CHECKOUT_SESSION
     );
+    console.log("Executing checkout api call...");
     return response.data;
   },
 

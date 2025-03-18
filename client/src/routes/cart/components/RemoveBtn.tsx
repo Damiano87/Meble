@@ -6,7 +6,7 @@ const RemoveBtn = () => {
 
   return (
     <Button
-      className="bg-white text-red-900 hover:text-white hover:bg-red-900 border border-red-900 duration-500 px-7"
+      className="order-1 md:order-none bg-white text-red-900 hover:text-white hover:bg-red-900 border border-red-900 duration-500 px-7"
       disabled={isDeleting}
       onClick={() => deleteAllCartItems()}
     >

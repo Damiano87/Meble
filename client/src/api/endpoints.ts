@@ -39,4 +39,8 @@ export const ENDPOINTS = {
     CREATE_CHECKOUT_SESSION: "/stripe/api/create-checkout-session",
     VERIFY_PAYMENT: "/stripe/api/verify-payment",
   },
+  ORDERS: {
+    GET_ORDERS: "/orders",
+    CREATE_ORDER: "/orders",
+  },
 };
