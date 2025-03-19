@@ -8,17 +8,24 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // @access Private
 const handler = async (req, res) => {
   const userId = req.userId;
+  const { orderId } = req.body;
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
+  console.log(orderId);
 
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
   try {
-    // 1. get latest order items of specific user
-    const latestOrder = await prisma.order.findFirst({
-      where: { userId },
-      orderBy: { createdAt: "desc" },
+    // 1. get order items of specific user
+    const latestOrder = await prisma.order.findUnique({
+      where: {
+        userId_id: {
+          userId,
+          id: orderId,
+        },
+      },
       include: {
         orderItems: {
           include: {
@@ -27,8 +34,6 @@ const handler = async (req, res) => {
         },
       },
     });
-
-    console.log(latestOrder?.orderItems);
 
     // 2.1. subtotal of the cart items
     const subtotal = latestOrder?.orderItems?.reduce(
@@ -85,6 +90,9 @@ const handler = async (req, res) => {
             ]
           : []),
       ],
+      metadata: {
+        orderId: latestOrder.id,
+      },
       mode: "payment",
       success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${frontendUrl}/cart`,
@@ -124,10 +132,21 @@ const verifyPayment = async (req, res) => {
         customer: session.customer_details?.email || "Unknown",
       };
 
+      // change order status to "COMPLETED" and payment status to "PAID"
+      const orderId = session.metadata.orderId; // session metadata
+      const updatedOrder = await prisma.order.update({
+        where: { id: orderId },
+        data: {
+          status: "COMPLETED",
+          paymentStatus: "PAID",
+        },
+      });
+
       return res.json({
         success: true,
         message: "Payment successful",
         orderDetails,
+        updatedOrder,
       });
     } else {
       return res.json({

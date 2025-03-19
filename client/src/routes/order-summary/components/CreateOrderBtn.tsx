@@ -9,8 +9,8 @@ const CreateOrderBtn = () => {
   // create order
   const create = async () => {
     try {
-      await createOrder();
-      checkout();
+      const newOrder = await createOrder();
+      checkout({ orderId: newOrder.orderId });
     } catch (error) {
       console.log(error);
     }

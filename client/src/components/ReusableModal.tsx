@@ -3,16 +3,19 @@ import { TfiClose } from "react-icons/tfi";
 import { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { createPortal } from "react-dom";
+import { capitalizeFirstLetter } from "@/utils/functions";
 
 type ReusableModalProps = {
   handleClose: () => void;
   title: string;
+  username?: string;
   children: React.ReactNode;
 };
 
 const ReusableModal = ({
   handleClose,
   title,
+  username,
   children,
 }: ReusableModalProps) => {
   const ref = useRef(null);
@@ -51,7 +54,7 @@ const ReusableModal = ({
       >
         <div className="flex justify-between items-center mb-4">
           <h2 id="modal-title" className="text-2xl font-semibold">
-            {title}
+            {title} {username && capitalizeFirstLetter(username)}!
           </h2>
           <Button
             variant="secondary"

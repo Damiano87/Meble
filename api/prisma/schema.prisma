@@ -183,7 +183,7 @@ model Order {
   paymentMethod String?
   paymentStatus String? // "PENDING", "PAID", "FAILED"
 
-  @@index([userId])
+  @@unique([userId, id])
 }
 
 type ShippingAddress {

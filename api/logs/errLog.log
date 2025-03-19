@@ -1,0 +1,2 @@
+20250319	01:19:56	SyntaxError: Unexpected token '"', ""67da0dab6"... is not valid JSON	POST	/stripe/api/create-checkout-session	http://localhost:5173
+20250319	01:25:56	SyntaxError: Unexpected token '"', ""67da0f14c"... is not valid JSON	POST	/stripe/api/create-checkout-session	http://localhost:5173

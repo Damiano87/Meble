@@ -1,11 +1,13 @@
 import { createStripeApi } from "@/api/stripe/stripeApi";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
+import useAxiosPrivate from "../auth/useAxiosPrivate";
 
 export const useVerifyPayment = () => {
   const [searchParams] = useSearchParams();
+  const axiosPrivate = useAxiosPrivate();
   const sessionId = searchParams.get("session_id");
-  const { verifyPaymentApi } = createStripeApi();
+  const { verifyPaymentApi } = createStripeApi(axiosPrivate);
   // use useQuery hook to fetch payment status
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["verifyPayment", sessionId],
