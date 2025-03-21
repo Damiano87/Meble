@@ -127,14 +127,32 @@ const createOrder = async (req, res) => {
   }
 };
 
-// @desc Get order ===============================================================
+// @desc Get user orders ===============================================================
 // @route GET /orders
 // @access Private
-const getOrderDetails = async (req, res, next) => {
-  try {
-    const { orderId } = req.params;
-    const { userId } = req.user;
+const getUserOrders = async (req, res) => {
+  const userId = req.userId;
 
+  try {
+    const orders = await prisma.order.findMany({
+      where: { userId },
+      include: { orderItems: true },
+    });
+    res.status(200).json({ message: "success", data: orders });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// @desc Get order ===============================================================
+// @route GET /orders/order
+// @access Private
+const getOrderDetails = async (req, res) => {
+  const { orderId } = req.params;
+  const userId = req.userId;
+
+  try {
     const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
@@ -174,11 +192,12 @@ const getOrderDetails = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Błąd podczas pobierania szczegółów zamówienia:", error);
-    return next(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
 export default {
   createOrder,
+  getUserOrders,
   getOrderDetails,
 };

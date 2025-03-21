@@ -41,6 +41,7 @@ export const ENDPOINTS = {
   },
   ORDERS: {
     GET_ORDERS: "/orders",
+    GET_ORDER: "/orders/order",
     CREATE_ORDER: "/orders",
   },
 };

@@ -14,6 +14,7 @@ import Wishlist from "./routes/wishlist/Wishlist";
 import Cabinet from "./routes/cabinet/Cabinet";
 import CheckoutForm from "./routes/checkoutForm/CheckoutForm";
 import OrderSummary from "./routes/order-summary/OrderSummary";
+import PersonOrders from "./routes/personOrders/PersonOrders";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
           {
             path: "order-summary",
             element: <OrderSummary />,
+          },
+          {
+            path: "person_orders",
+            element: <PersonOrders />,
           },
         ],
       },

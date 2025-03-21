@@ -49,12 +49,12 @@ const ReusableModal = ({
     >
       <div
         ref={ref}
-        className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl"
+        className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl mx-3"
         onClick={handleContentClick}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 id="modal-title" className="text-2xl font-semibold">
-            {title} {username && capitalizeFirstLetter(username)}!
+          <h2 id="modal-title" className="text-xl sm:text-2xl font-semibold">
+            {title} {username && capitalizeFirstLetter(username) + "!"}
           </h2>
           <Button
             variant="secondary"

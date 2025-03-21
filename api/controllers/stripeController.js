@@ -133,7 +133,7 @@ const verifyPayment = async (req, res) => {
       };
 
       // change order status to "COMPLETED" and payment status to "PAID"
-      const orderId = session.metadata.orderId; // session metadata
+      const orderId = session.metadata?.orderId; // session metadata
       const updatedOrder = await prisma.order.update({
         where: { id: orderId },
         data: {

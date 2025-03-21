@@ -150,3 +150,41 @@ export type OrderDetails = {
   currency: string | undefined;
   customer: string;
 };
+
+// type for order
+export type Order = {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  orderItems: OrderItem[];
+  paymentMethod?: string;
+  paymentStatus: string;
+  shippingAddress: ShippingAddress;
+  shippingCost?: number;
+  shippingMethod?: string;
+  status: string;
+  totalAmount: number;
+  updatedAt: Date;
+};
+
+type OrderItem = {
+  id: string;
+  orderId: string;
+  price: number;
+  productId: string;
+  quantity: number;
+};
+
+type ShippingAddress = {
+  username: string;
+  lastName: string;
+  NIP?: string;
+  apartmentNr: string;
+  city: string;
+  company?: string;
+  country: string;
+  email: string;
+  phoneNumbers: string[];
+  postalCode: string;
+  street: string;
+};

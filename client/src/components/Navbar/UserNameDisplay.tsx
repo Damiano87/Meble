@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ReusableModal from "../ReusableModal";
-import Logout from "./Logout";
 import UserModalPanel from "./UserModalPanel";
 
 const UserNameDisplay = ({ username }: { username: string }) => {
@@ -15,14 +14,13 @@ const UserNameDisplay = ({ username }: { username: string }) => {
       <div className="cursor-pointer flex items-center justify-center">
         <span className="text-[1rem]">{username.toUpperCase()}</span>
       </div>
-      {/* <Logout /> */}
       {isOpen && (
         <ReusableModal
           title="Witamy, "
           handleClose={closeModal}
           username={username}
         >
-          <UserModalPanel />
+          <UserModalPanel handleClose={closeModal} />
         </ReusableModal>
       )}
     </div>

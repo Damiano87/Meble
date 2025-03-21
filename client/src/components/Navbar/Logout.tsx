@@ -1,7 +1,7 @@
-import { MdOutlineDashboard } from "react-icons/md";
 import { CiLogin } from "react-icons/ci";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import useLogout from "@/hooks/auth/useLogout";
+import { Button } from "../ui/button";
 
 const Logout = () => {
   const logout = useLogout();
@@ -13,23 +13,14 @@ const Logout = () => {
   };
 
   return (
-    <div className="absolute hidden group-hover:block right-0 bg-white px-1 py-1 rounded-md shadow-md">
-      <Link
-        to={"/dashboard"}
-        className="w-full flex items-center justify-between gap-4 px-3 py-1 hover:bg-slate-100"
-      >
-        <span className="text-nowrap">Dashboard</span>
-        <MdOutlineDashboard size={25} />
-      </Link>
-
-      <button
-        className="w-full flex items-center justify-between gap-4 px-3 py-1 hover:bg-slate-100"
-        onClick={logoutUser}
-      >
-        <span className="text-nowrap">Wyloguj się</span>
-        <CiLogin size={25} />
-      </button>
-    </div>
+    <Button
+      variant={"secondary"}
+      className="flex items-center gap-4 text-[1.2rem] text-red-900 hover:text-red-600 px-3 [&_svg]:size-7"
+      onClick={logoutUser}
+    >
+      <span className="text-nowrap">Wyloguj się</span>
+      <CiLogin className="mt-1" />
+    </Button>
   );
 };
 export default Logout;
