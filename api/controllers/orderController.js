@@ -132,11 +132,29 @@ const createOrder = async (req, res) => {
 // @access Private
 const getUserOrders = async (req, res) => {
   const userId = req.userId;
+  const { status, sort } = req.query;
 
+  console.log(sort);
   try {
     const orders = await prisma.order.findMany({
-      where: { userId },
-      include: { orderItems: true },
+      where: {
+        userId,
+        ...(status && { status: status.toUpperCase() }),
+      },
+      include: {
+        orderItems: {
+          include: {
+            product: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                images: true,
+              },
+            },
+          },
+        },
+      },
     });
     res.status(200).json({ message: "success", data: orders });
   } catch (error) {

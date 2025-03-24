@@ -172,6 +172,7 @@ type OrderItem = {
   orderId: string;
   price: number;
   productId: string;
+  product: Product;
   quantity: number;
 };
 

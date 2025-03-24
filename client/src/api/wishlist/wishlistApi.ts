@@ -4,7 +4,6 @@ import { ENDPOINTS } from "../endpoints";
 
 export const createWishlistApi = (axiosPrivate: AxiosInstance) => ({
   getWishlistApi: async (): Promise<WishlistItem[]> => {
-    console.log("Executing getWishlist API call...");
     const { data } = await axiosPrivate.get(ENDPOINTS.WISHLIST.GET);
     return data.data.items;
   },

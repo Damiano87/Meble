@@ -18,3 +18,17 @@ export const sliceName = (name: string, isAsideCart?: boolean): string => {
     name.length > 10 && isAsideCart ? name.slice(0, 10) + "..." : name;
   return capitalizeFirstLetter(slicedName);
 };
+
+// Format to local date function
+export const getLocalDate = (dateString: Date) => {
+  const date = new Date(dateString);
+  return date
+    .toLocaleDateString("pl-PL", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .split(".")
+    .reverse()
+    .join("-");
+};

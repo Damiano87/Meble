@@ -2,7 +2,12 @@ import { createOrderApi } from "@/api/orders/ordersApi";
 import useAxiosPrivate from "../auth/useAxiosPrivate";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetUserOrders = () => {
+type QueryParamsProps = {
+  status?: string;
+  sort?: string;
+};
+
+export const useGetUserOrders = (queryParams: QueryParamsProps) => {
   const axiosPrivate = useAxiosPrivate();
   const { getUserOrdersApi } = createOrderApi(axiosPrivate);
 
@@ -11,8 +16,8 @@ export const useGetUserOrders = () => {
     isPending: isFetchingOrders,
     error,
   } = useQuery({
-    queryKey: ["orders"],
-    queryFn: getUserOrdersApi,
+    queryKey: ["orders", queryParams],
+    queryFn: () => getUserOrdersApi(queryParams.status, queryParams.sort),
   });
 
   return { orders, isFetchingOrders, error };
