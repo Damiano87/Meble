@@ -3,9 +3,14 @@ import { ENDPOINTS } from "../endpoints";
 
 export const createOrderApi = (axiosPrivate: AxiosInstance) => ({
   //   get order api
-  getUserOrdersApi: async (status?: string, sort?: string) => {
+  getUserOrdersApi: async (
+    status?: string,
+    sort?: string,
+    price?: string,
+    productName?: string
+  ) => {
     const response = await axiosPrivate.get(ENDPOINTS.ORDERS.GET_ORDERS, {
-      params: { status, sort },
+      params: { status, sort, price, productName },
     });
     return response.data.data;
   },

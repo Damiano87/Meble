@@ -132,14 +132,32 @@ const createOrder = async (req, res) => {
 // @access Private
 const getUserOrders = async (req, res) => {
   const userId = req.userId;
-  const { status, sort } = req.query;
+  const { status, sort, price, productName } = req.query;
 
-  console.log(sort);
+  const newest = sort === "newest" && "desc";
+  const oldest = sort === "oldest" && "asc";
+
+  const highestSum = price === "highest" && "desc";
+  const lowestSum = price === "lowest" && "asc";
+
+  console.log(productName);
   try {
     const orders = await prisma.order.findMany({
       where: {
         userId,
         ...(status && { status: status.toUpperCase() }),
+        ...(productName && {
+          orderItems: {
+            some: {
+              product: {
+                name: {
+                  contains: productName,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        }),
       },
       include: {
         orderItems: {
@@ -155,6 +173,14 @@ const getUserOrders = async (req, res) => {
           },
         },
       },
+      orderBy: [
+        ...(oldest || newest
+          ? [{ createdAt: oldest || newest }]
+          : [{ createdAt: "desc" }]),
+        ...(highestSum || lowestSum
+          ? [{ totalAmount: highestSum || lowestSum }]
+          : []),
+      ],
     });
     res.status(200).json({ message: "success", data: orders });
   } catch (error) {

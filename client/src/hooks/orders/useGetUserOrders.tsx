@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 type QueryParamsProps = {
   status?: string;
   sort?: string;
+  price?: string;
+  productName?: string;
 };
 
 export const useGetUserOrders = (queryParams: QueryParamsProps) => {
@@ -17,7 +19,13 @@ export const useGetUserOrders = (queryParams: QueryParamsProps) => {
     error,
   } = useQuery({
     queryKey: ["orders", queryParams],
-    queryFn: () => getUserOrdersApi(queryParams.status, queryParams.sort),
+    queryFn: () =>
+      getUserOrdersApi(
+        queryParams.status,
+        queryParams.sort,
+        queryParams.price,
+        queryParams.productName
+      ),
   });
 
   return { orders, isFetchingOrders, error };
