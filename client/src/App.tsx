@@ -15,6 +15,7 @@ import Cabinet from "./routes/cabinet/Cabinet";
 import CheckoutForm from "./routes/checkoutForm/CheckoutForm";
 import OrderSummary from "./routes/order-summary/OrderSummary";
 import PersonOrders from "./routes/personOrders/PersonOrders";
+import OrderDetails from "./routes/order-details/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
           {
             path: "person_orders",
             element: <PersonOrders />,
+          },
+          {
+            path: "person_orders/:orderId",
+            element: <OrderDetails />,
           },
         ],
       },

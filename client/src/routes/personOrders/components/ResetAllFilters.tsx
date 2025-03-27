@@ -6,18 +6,13 @@ const ResetAllFilters = () => {
   // count of query params
   const paramsCount = Array.from(searchParams.keys()).length;
 
-  // clear query params
-  const clearParams = () => {
-    setSearchParams({});
-  };
-
   if (paramsCount === 0) return null;
 
   return (
     <Button
       variant={"secondary"}
       className="bg-amber-600 text-white hover:bg-amber-400"
-      onClick={clearParams}
+      onClick={() => setSearchParams({})}
     >
       Resetuj filtry
     </Button>

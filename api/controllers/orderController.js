@@ -140,7 +140,6 @@ const getUserOrders = async (req, res) => {
   const highestSum = price === "highest" && "desc";
   const lowestSum = price === "lowest" && "asc";
 
-  console.log(productName);
   try {
     const orders = await prisma.order.findMany({
       where: {
@@ -196,6 +195,8 @@ const getOrderDetails = async (req, res) => {
   const { orderId } = req.params;
   const userId = req.userId;
 
+  console.log(orderId);
+
   try {
     const order = await prisma.order.findUnique({
       where: { id: orderId },
@@ -208,6 +209,7 @@ const getOrderDetails = async (req, res) => {
                 name: true,
                 description: true,
                 images: true,
+                price: true,
               },
             },
           },

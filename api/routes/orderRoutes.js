@@ -6,7 +6,7 @@ const router = express.Router();
 router.use(verifyJWT);
 
 router.route("/").get(orderController.getUserOrders);
-router.route("/order").get(orderController.getOrderDetails);
+router.route("/order/:orderId").get(orderController.getOrderDetails);
 router.route("/").post(orderController.createOrder);
 
 export default router;

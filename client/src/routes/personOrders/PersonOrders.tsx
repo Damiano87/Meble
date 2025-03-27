@@ -23,7 +23,12 @@ const PersonOrders = () => {
     return null;
   }
 
-  if (isFetchingOrders) return <LoadingIndicator />;
+  if (isFetchingOrders)
+    return (
+      <div className="h-screen">
+        <LoadingIndicator />
+      </div>
+    );
 
   if (error) {
     return (

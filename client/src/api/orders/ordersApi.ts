@@ -16,9 +16,11 @@ export const createOrderApi = (axiosPrivate: AxiosInstance) => ({
   },
 
   //   get order api
-  getOrderApi: async () => {
-    const response = await axiosPrivate.get(ENDPOINTS.ORDERS.GET_ORDER);
-    return response.data;
+  getOrderDetailsApi: async (orderId?: string) => {
+    const response = await axiosPrivate.get(
+      ENDPOINTS.ORDERS.GET_ORDER(orderId)
+    );
+    return response.data.data;
   },
 
   // create order api

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -6,12 +6,17 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const SearchOrders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("productName") || ""
+  );
+
+  useEffect(() => {
+    // sync input state with search param
+    setSearchTerm(searchParams.get("productName") || "");
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const searchTerm = formData.get("productName") as string;
 
     if (searchTerm.trim()) {
       searchParams.set("productName", searchTerm.trim());
@@ -28,7 +33,8 @@ const SearchOrders = () => {
         type="text"
         name="productName"
         placeholder="Szukaj produktu..."
-        defaultValue={searchParams.get("productName") || ""}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="border border-black"
       />
       <Button

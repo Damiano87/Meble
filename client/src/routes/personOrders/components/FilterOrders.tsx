@@ -12,8 +12,6 @@ const FilterOrders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleChange = (value: string) => {
-    console.log(value);
-
     const params = new URLSearchParams(searchParams);
 
     const statusValues = ["completed", "pending", "cancelled"];

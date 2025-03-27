@@ -176,6 +176,16 @@ type OrderItem = {
   quantity: number;
 };
 
+export type SubOrderItem = {
+  id: string;
+  quantity: number;
+  product: {
+    name: string;
+    images: string[];
+    price: number;
+  };
+};
+
 type ShippingAddress = {
   username: string;
   lastName: string;

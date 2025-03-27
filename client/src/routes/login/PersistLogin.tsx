@@ -34,10 +34,10 @@ const PersistLogin = () => {
     };
   }, [username, persist, refresh]);
 
-  useEffect(() => {
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`user: ${username}`);
-  }, [isLoading, username]);
+  // useEffect(() => {
+  //   console.log(`isLoading: ${isLoading}`);
+  //   console.log(`user: ${username}`);
+  // }, [isLoading, username]);
 
   return (
     <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
