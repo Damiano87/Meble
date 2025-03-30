@@ -4,11 +4,19 @@ import OrderInfo from "../personOrders/components/OrderInfo";
 import SubOrderItem from "../personOrders/components/SubOrderItem";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import ShippingAddress from "../order-summary/components/ShippingAddress";
+import { Order } from "@/utils/types";
+import CancellOrderBtn from "../personOrders/components/CancellOrderBtn";
+import { Toaster } from "react-hot-toast";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
-  const { orderDetails, isFetchingOrderDetails, error } =
-    useGetOrderDetails(orderId);
+  const { orderDetails, isFetchingOrderDetails, error } = useGetOrderDetails(
+    orderId
+  ) as {
+    orderDetails: Order;
+    isFetchingOrderDetails: boolean;
+    error: Error | null;
+  };
 
   console.log(orderDetails);
   if (!orderId) {
@@ -36,7 +44,8 @@ const OrderDetails = () => {
   }
   return (
     <div className="pt-44 max-w-7xl mx-auto px-4">
-      <OrderInfo key={orderDetails.id} {...orderDetails} />
+      <Toaster />
+      <OrderInfo key={orderDetails.id} {...orderDetails} history={true} />
       <div className="space-y-4 mt-4">
         {orderDetails?.orderItems?.map((subOrderItem) => {
           return (
@@ -45,6 +54,9 @@ const OrderDetails = () => {
         })}
       </div>
       <ShippingAddress />
+      {orderDetails.status === "PENDING" && (
+        <CancellOrderBtn orderId={orderDetails.id} />
+      )}
     </div>
   );
 };

@@ -1,18 +1,23 @@
 import { formatToPLN, getLocalDate } from "@/utils/functions";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 type OrderInfoProps = {
   id: string;
   createdAt: Date;
   status: string;
+  statusHistory: string[];
   paymentStatus: string;
   totalAmount: number;
+  history?: boolean;
 };
 const OrderInfo = ({
   id,
   createdAt,
   status,
+  statusHistory,
   paymentStatus,
   totalAmount,
+  history,
 }: OrderInfoProps) => {
   // set status text and text color
   const setStatus = (status: string, isColor?: boolean) => {
@@ -31,6 +36,15 @@ const OrderInfo = ({
     }
   };
 
+  // rename status history
+  const renamestatusHistory = (item: string): string => {
+    return item === "PENDING"
+      ? "W toku"
+      : item === "COMPLETED"
+      ? "Zakończony"
+      : "Anulowany";
+  };
+
   return (
     <div className="flex flex-col">
       <span>Numer zamówienia: {id}</span>
@@ -39,6 +53,23 @@ const OrderInfo = ({
         <span>Status: </span>
         <span className={setStatus(status, true)}>{setStatus(status)}</span>
       </div>
+      {history && (
+        <div className="flex gap-2">
+          <span>Historia statusów: </span>
+          <div className="flex gap-2">
+            {statusHistory?.map((item, index) => {
+              return (
+                <span key={index} className="flex items-center gap-2 italic">
+                  {renamestatusHistory(item)}
+                  {!(statusHistory.length - 1 === index) ? (
+                    <FaLongArrowAltRight />
+                  ) : null}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
       <div className="flex gap-2">
         <span>Status płatności: </span>
         <span className={setStatus(paymentStatus, true)}>

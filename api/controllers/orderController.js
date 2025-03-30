@@ -1,15 +1,5 @@
 import prisma from "../lib/prisma.js";
 
-const calculateShippingCost = (shippingMethod) => {
-  const shippingCosts = {
-    STANDARD: 9.99,
-    EXPRESS: 19.99,
-    PICKUP: 0,
-  };
-
-  return shippingCosts[shippingMethod] || 9.99;
-};
-
 // @desc Create order ============================================================
 // @route POST /orders
 // @access Private
@@ -90,6 +80,7 @@ const createOrder = async (req, res) => {
           userId,
           totalAmount,
           status: "PENDING",
+          statusHistory: ["PENDING"],
           shippingAddress,
           paymentStatus: "PENDING",
           orderItems: {
@@ -195,9 +186,8 @@ const getOrderDetails = async (req, res) => {
   const { orderId } = req.params;
   const userId = req.userId;
 
-  console.log(orderId);
-
   try {
+    // find specific order
     const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
@@ -242,8 +232,53 @@ const getOrderDetails = async (req, res) => {
   }
 };
 
+// @desc Cancell order ===============================================================
+// @route PATCH /orders/cancell-order
+// @access Private
+const cancellOrder = async (req, res) => {
+  const userId = req.userId;
+  const { orderId } = req.body;
+
+  try {
+    // get statusHistory if exists
+    const order = await prisma.order.findUnique({
+      where: {
+        userId_id: {
+          userId,
+          id: orderId,
+        },
+      },
+      select: {
+        statusHistory: true,
+      },
+    });
+
+    // update order
+    await prisma.order.update({
+      where: {
+        userId_id: {
+          userId,
+          id: orderId,
+        },
+      },
+      data: {
+        status: "CANCELLED",
+        paymentStatus: "FAILED",
+        statusHistory: {
+          set: [...(order?.statusHistory || []), "CANCELLED"],
+        },
+      },
+    });
+    res.json({ message: "Anulowano zamówienie" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export default {
   createOrder,
   getUserOrders,
   getOrderDetails,
+  cancellOrder,
 };

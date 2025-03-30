@@ -28,4 +28,12 @@ export const createOrderApi = (axiosPrivate: AxiosInstance) => ({
     const response = await axiosPrivate.post(ENDPOINTS.ORDERS.CREATE_ORDER);
     return response.data.data;
   },
+
+  // cancell order api
+  cancellOrderApi: async (orderId: string) => {
+    const response = await axiosPrivate.patch(ENDPOINTS.ORDERS.CANCELL_ORDER, {
+      orderId,
+    });
+    return response.data;
+  },
 });

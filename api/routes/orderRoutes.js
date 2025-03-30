@@ -8,5 +8,6 @@ router.use(verifyJWT);
 router.route("/").get(orderController.getUserOrders);
 router.route("/order/:orderId").get(orderController.getOrderDetails);
 router.route("/").post(orderController.createOrder);
+router.route("/cancell-order").patch(orderController.cancellOrder);
 
 export default router;

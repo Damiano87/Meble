@@ -11,8 +11,6 @@ const handler = async (req, res) => {
   const { orderId } = req.body;
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
-  console.log(orderId);
-
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -34,6 +32,8 @@ const handler = async (req, res) => {
         },
       },
     });
+
+    console.log(latestOrder?.statusHistory);
 
     // 2.1. subtotal of the cart items
     const subtotal = latestOrder?.orderItems?.reduce(
@@ -92,6 +92,7 @@ const handler = async (req, res) => {
       ],
       metadata: {
         orderId: latestOrder.id,
+        userId,
       },
       mode: "payment",
       success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
@@ -133,12 +134,33 @@ const verifyPayment = async (req, res) => {
       };
 
       // change order status to "COMPLETED" and payment status to "PAID"
-      const orderId = session.metadata?.orderId; // session metadata
+      // session metadata
+      const orderId = session.metadata?.orderId;
+      const userId = session.metadata?.userId;
+
+      // get statusHistory
+      // 4.1. get statusHistory if exists
+      const order = await prisma.order.findUnique({
+        where: {
+          userId_id: {
+            userId,
+            id: orderId,
+          },
+        },
+        select: {
+          statusHistory: true,
+        },
+      });
+
+      // update order
       const updatedOrder = await prisma.order.update({
         where: { id: orderId },
         data: {
           status: "COMPLETED",
           paymentStatus: "PAID",
+          statusHistory: {
+            set: [...(order?.statusHistory || []), "COMPLETED"],
+          },
         },
       });
 

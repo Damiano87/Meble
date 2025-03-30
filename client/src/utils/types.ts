@@ -163,6 +163,7 @@ export type Order = {
   shippingCost?: number;
   shippingMethod?: string;
   status: string;
+  statusHistory: string[];
   totalAmount: number;
   updatedAt: Date;
 };
