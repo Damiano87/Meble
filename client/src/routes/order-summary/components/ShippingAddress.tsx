@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useGetUser } from "@/hooks/users/useGetUser";
 import { User } from "@/utils/types";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const ShippingAddress = () => {
   const user = useGetUser();
+  const location = useLocation();
+  const PersonOrdersLocation = location.pathname.split("/").filter(Boolean)[0];
+
+  const isPersonOrdersPath = PersonOrdersLocation === "person_orders";
 
   if (!user) {
     return null;
@@ -46,13 +50,15 @@ const ShippingAddress = () => {
           </div>
         </div>
       </div>
-      <Button
-        variant={"secondary"}
-        className="bg-red-900 text-white hover:text-red-900 border border-red-900 mt-4"
-        asChild
-      >
-        <Link to={"/shipping-address-form"}>Edytuj</Link>
-      </Button>
+      {!isPersonOrdersPath && (
+        <Button
+          variant={"secondary"}
+          className="bg-red-900 text-white hover:text-red-900 border border-red-900 mt-4"
+          asChild
+        >
+          <Link to={"/shipping-address-form"}>Edytuj</Link>
+        </Button>
+      )}
     </div>
   );
 };

@@ -179,6 +179,7 @@ type OrderItem = {
 
 export type SubOrderItem = {
   id: string;
+  productId: string;
   quantity: number;
   product: {
     name: string;
