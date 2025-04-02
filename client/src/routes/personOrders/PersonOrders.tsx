@@ -2,13 +2,16 @@ import { useGetUserOrders } from "@/hooks/orders/useGetUserOrders";
 import OrdersList from "./components/OrdersList";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import FilterOrders from "./components/FilterOrders";
-import { useSearchParams } from "react-router";
+import { Navigate, useLocation, useSearchParams } from "react-router";
 import SearchOrders from "./components/SearchOrders";
 import ResetAllFilters from "./components/ResetAllFilters";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const PersonOrders = () => {
-  const [searchParams] = useSearchParams();
+  const { username } = useAuth();
 
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
   // get url params for filtering
   const queryParams = {
     status: searchParams.get("status") || undefined,
@@ -19,8 +22,8 @@ const PersonOrders = () => {
 
   const { orders, isFetchingOrders, error } = useGetUserOrders(queryParams);
 
-  if (!orders) {
-    return null;
+  if (!username) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
   if (isFetchingOrders)
@@ -37,6 +40,7 @@ const PersonOrders = () => {
       </div>
     );
   }
+
   return (
     <div className="pt-44 max-w-7xl mx-auto px-4">
       <div className="flex gap-14 justify-end">

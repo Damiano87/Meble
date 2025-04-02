@@ -16,6 +16,7 @@ import CheckoutForm from "./routes/checkoutForm/CheckoutForm";
 import OrderSummary from "./routes/order-summary/OrderSummary";
 import PersonOrders from "./routes/personOrders/PersonOrders";
 import OrderDetails from "./routes/order-details/OrderDetails";
+import MyData from "./routes/my-data/MyData";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
           {
             path: "person_orders/:orderId",
             element: <OrderDetails />,
+          },
+          {
+            path: "my-data",
+            element: <MyData />,
           },
         ],
       },

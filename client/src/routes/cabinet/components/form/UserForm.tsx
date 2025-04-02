@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { userSchema, UserSchemaType } from "@/schemas/userSchema";
 import { useUpdateUserDelivery } from "@/hooks/users/useUpdateUserDelivery";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Form } from "@/components/ui/form";
 import { CompanyField } from "./CompanyField";
@@ -21,24 +21,71 @@ import SubmitFormBtn from "./SubmitFormBtn";
 import { Toaster } from "react-hot-toast";
 import { useCheckout } from "@/hooks/stripe/useCheckout";
 import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
+import { useGetUser } from "@/hooks/users/useGetUser";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
   const { username, email } = useAuth();
-  const [selectedCountry1, setSelectedCountry1] = useState<string>("48");
-  const [selectedCountry2, setSelectedCountry2] = useState<string>("48");
+  const { user, isFetchingUser } = useGetUser();
   const { updateUserInfoForDelivery, isPending } = useUpdateUserDelivery();
   const { checkout } = useCheckout();
   const { data: cartItems } = useGetCartItems();
+
+  // dial numbers
+  const dialNumber1 = user?.phoneNumbers[0]?.slice(0, 2);
+  const dialNumber2 = user?.phoneNumbers[1]?.slice(0, 2);
+
+  // phone numbers
+  const phoneNumber1 = user?.phoneNumbers[0]?.slice(2);
+  const phoneNumber2 = user?.phoneNumbers[1]?.slice(2);
+
+  const [selectedCountry1, setSelectedCountry1] = useState<string>(
+    dialNumber1 || "48"
+  );
+  const [selectedCountry2, setSelectedCountry2] = useState<string>(
+    dialNumber2 || "48"
+  );
 
   // hook form
   const form = useForm<UserSchemaType>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       email: email || "",
-      country: "Polska",
+      country: user?.country || "Polska",
       name: username || "",
+      lastName: user?.lastName || "",
+      company: user?.company || "",
+      NIP: user?.NIP || "",
+      apartmentNr: user?.apartmentNr || "",
+      city: user?.city || "",
+      postalCode: user?.postalCode || "",
+      street: user?.street || "",
+      phone: phoneNumber1 || "",
+      phone2: phoneNumber2 || "",
+    },
+    resetOptions: {
+      keepDefaultValues: true,
     },
   });
+
+  // reset form if user or form changes
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        ...form.getValues(),
+        company: user.company || "",
+        NIP: user.NIP || "",
+        apartmentNr: user.apartmentNr || "",
+        city: user.city || "",
+        country: user.country || "Polska",
+        lastName: user.lastName || "",
+        postalCode: user.postalCode || "",
+        street: user.street || "",
+        phone: phoneNumber1 || "",
+        phone2: phoneNumber2 || "",
+      });
+    }
+  }, [user, form, phoneNumber1, phoneNumber2]);
 
   // handle country code change
   const handleCountryCodeChange1 = (countryCode: string) => {
@@ -82,6 +129,14 @@ const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
       2000
     );
   };
+
+  if (isFetchingUser) {
+    return (
+      <div className="h-screen">
+        <LoadingIndicator />
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>

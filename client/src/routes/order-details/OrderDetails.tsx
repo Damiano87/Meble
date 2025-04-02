@@ -8,6 +8,7 @@ import { Order } from "@/utils/types";
 import CancellOrderBtn from "./components/CancellOrderBtn";
 import { Toaster } from "react-hot-toast";
 import RepeatOrderBtn from "./components/RepeatOrderBtn";
+import GoBack from "./components/GoBack";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -19,7 +20,9 @@ const OrderDetails = () => {
     error: Error | null;
   };
 
-  console.log(orderDetails);
+  if (!orderDetails) {
+    return <GoBack />;
+  }
 
   if (!orderId) {
     return (

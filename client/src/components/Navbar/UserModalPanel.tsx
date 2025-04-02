@@ -6,7 +6,11 @@ import Logout from "./Logout";
 const UserModalPanel = ({ handleClose }: { handleClose: () => void }) => {
   return (
     <div className="space-y-4 mt-4">
-      <Link to={"#"} className="flex items-center gap-4 border-b-2 pb-2">
+      <Link
+        to={"my-data"}
+        className="flex items-center gap-4 border-b-2 pb-2"
+        onClick={handleClose}
+      >
         <CiUser size={30} />
         <span className="text-[1.2rem] font-medium">Moje dane</span>
       </Link>

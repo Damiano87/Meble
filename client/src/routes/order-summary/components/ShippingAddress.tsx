@@ -4,7 +4,7 @@ import { User } from "@/utils/types";
 import { Link, useLocation } from "react-router";
 
 const ShippingAddress = () => {
-  const user = useGetUser();
+  const { user } = useGetUser();
   const location = useLocation();
   const PersonOrdersLocation = location.pathname.split("/").filter(Boolean)[0];
 
@@ -24,6 +24,7 @@ const ShippingAddress = () => {
     phoneNumbers,
     apartmentNr,
   } = user as User;
+
   return (
     <div className="flex-1">
       <h2 className="text-[1.3rem] font-semibold mb-2">Dane dostawy</h2>
