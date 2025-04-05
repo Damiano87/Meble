@@ -17,7 +17,7 @@ export const NameField = ({ form }: NameFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="name"
+      name="username"
       render={({ field }) => (
         <FormItem className="grow">
           <FormLabel>Imię*</FormLabel>

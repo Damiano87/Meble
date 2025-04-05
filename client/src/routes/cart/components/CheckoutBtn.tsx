@@ -5,7 +5,7 @@ import { useGetUser } from "@/hooks/users/useGetUser";
 import { useNavigate } from "react-router";
 
 const CheckoutBtn = () => {
-  const user = useGetUser();
+  const { user } = useGetUser();
   const { setOpenCart } = useCart();
   const { setIsOverlayVisible } = useOverlay();
   const navigate = useNavigate();

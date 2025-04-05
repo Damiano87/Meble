@@ -9,7 +9,7 @@ const CheckoutForm = () => {
         <h1 className="text-[1.6rem] font-semibold mb-10">
           Podaj dane do wysyłki
         </h1>
-        <UserForm withCheckout />
+        <UserForm withCheckout={true} />
       </div>
     </div>
   );

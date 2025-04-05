@@ -21,6 +21,7 @@ export const createStripeApi = (axiosPrivate: AxiosInstance) => ({
     const { data } = await apiRequest.get(ENDPOINTS.STRIPE.VERIFY_PAYMENT, {
       params: { session_id: sessionId },
     });
+
     return data;
   },
 });

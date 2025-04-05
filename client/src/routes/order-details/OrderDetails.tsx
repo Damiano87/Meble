@@ -59,10 +59,12 @@ const OrderDetails = () => {
         })}
       </div>
       <ShippingAddress />
-      {orderDetails?.status === "PENDING" && (
-        <CancellOrderBtn orderId={orderDetails.id} />
-      )}
-      <RepeatOrderBtn orderItems={orderDetails.orderItems} />
+      <div className="flex flex-col w-full max-w-[15rem] gap-y-3">
+        {orderDetails?.status === "PENDING" && (
+          <CancellOrderBtn orderId={orderDetails.id} />
+        )}
+        <RepeatOrderBtn orderItems={orderDetails.orderItems} />
+      </div>
     </div>
   );
 };

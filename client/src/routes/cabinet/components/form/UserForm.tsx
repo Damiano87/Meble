@@ -19,17 +19,15 @@ import { PhoneField } from "./PhoneField";
 import SecondPhoneField from "./SecondPhoneField";
 import SubmitFormBtn from "./SubmitFormBtn";
 import { Toaster } from "react-hot-toast";
-import { useCheckout } from "@/hooks/stripe/useCheckout";
-import { useGetCartItems } from "@/hooks/cart/useGetCartItems";
 import { useGetUser } from "@/hooks/users/useGetUser";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import { useNavigate } from "react-router";
 
 const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
-  const { username, email } = useAuth();
+  const { email } = useAuth();
   const { user, isFetchingUser } = useGetUser();
   const { updateUserInfoForDelivery, isPending } = useUpdateUserDelivery();
-  const { checkout } = useCheckout();
-  const { data: cartItems } = useGetCartItems();
+  const navigate = useNavigate();
 
   // dial numbers
   const dialNumber1 = user?.phoneNumbers[0]?.slice(0, 2);
@@ -52,7 +50,7 @@ const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
     defaultValues: {
       email: email || "",
       country: user?.country || "Polska",
-      name: username || "",
+      username: user?.username || "",
       lastName: user?.lastName || "",
       company: user?.company || "",
       NIP: user?.NIP || "",
@@ -78,6 +76,7 @@ const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
         apartmentNr: user.apartmentNr || "",
         city: user.city || "",
         country: user.country || "Polska",
+        username: user.username || "",
         lastName: user.lastName || "",
         postalCode: user.postalCode || "",
         street: user.street || "",
@@ -119,15 +118,11 @@ const UserForm = ({ withCheckout }: { withCheckout?: boolean }) => {
   }
 
   // update user delivery data and redirect to stripe payment
-  const updateDeliveryDataAndRedirectToPayment = (values: UserSchemaType) => {
+  const updateDeliveryDataAndRedirectToPayment = async (
+    values: UserSchemaType
+  ) => {
     onSubmit(values);
-    setTimeout(
-      () =>
-        checkout({
-          cartItems: cartItems ? cartItems : [],
-        }),
-      2000
-    );
+    setTimeout(() => navigate("/order-summary"), 2000);
   };
 
   if (isFetchingUser) {

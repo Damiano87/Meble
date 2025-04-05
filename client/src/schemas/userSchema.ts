@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const userSchema = z.object({
-  name: z
+  username: z
     .string()
     .min(2, {
       message: "Imię musi się składać minimum z 2 znaków.",
