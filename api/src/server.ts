@@ -7,6 +7,7 @@ import path from "path";
 import errorHandler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
+import morgan from "morgan";
 import root from "./routes/root.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -20,9 +21,16 @@ import orderRoutes from "./routes/orderRoutes.js";
 const PORT: string | 3500 = process.env.PORT || 3500;
 
 dotenv.config();
+
 console.log(process.env.NODE_ENV);
 
 const app = express();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
+} else {
+  app.use(morgan("dev"));
+}
 
 app.use(cookieParser());
 
