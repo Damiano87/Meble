@@ -1,2 +1,2 @@
-const allowedOrigins = ["https://h-furniture-store.onrender.com"];
+const allowedOrigins = [process.env.FRONTEND_URL];
 export default allowedOrigins;
