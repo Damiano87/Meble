@@ -6,7 +6,6 @@ import MaterialDetails from "./components/materialDetails";
 import Offer from "./components/offer";
 import Resistance from "./components/resistance";
 import AdditionalInfo from "./components/additionalInfo";
-import CareTips from "./components/pielegnation";
 
 const AddItemPage = () => {
   return (
@@ -30,8 +29,6 @@ const AddItemPage = () => {
         <MaterialDetails />
         {/* additional info */}
         <AdditionalInfo />
-        {/* care tips */}
-        {/* <CareTips /> */}
       </div>
     </main>
   );
