@@ -54,10 +54,6 @@ app.use("/wishlist", wishListRoutes);
 app.use("/stripe", stripeRoutes);
 app.use("/orders", orderRoutes);
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "API działa poprawnie" });
-});
-
 app.all("*", (req, res) => {
   res.status(404).json({ message: "404 Not Found" });
 });
