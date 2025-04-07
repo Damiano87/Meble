@@ -7,9 +7,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --watch src --ext ts --exec \"npm run build && node dist/server.js\"",
-    "clean": "rm -rf dist",
-    "build": "npm run clean && tsc --skipLibCheck",
-    "render-build": "npm install && npm run build && tsc --skipLibCheck && npx prisma generate",
+    "build": "tsc",
     "lint": "eslint src --ext .ts",
     "prisma": "prisma"
   },
