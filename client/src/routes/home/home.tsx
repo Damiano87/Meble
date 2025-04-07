@@ -10,7 +10,7 @@ const PopularProducts = React.lazy(
 
 const Trendy = React.lazy(() => import("./components/Trendy"));
 
-export default function Home() {
+const Home = () => {
   const { products, trendyProducts } = useGetCombined();
 
   return (
@@ -37,4 +37,6 @@ export default function Home() {
       </Suspense>
     </div>
   );
-}
+};
+
+export default Home;
