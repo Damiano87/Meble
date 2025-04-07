@@ -30,10 +30,6 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use("/", express.static(path.join(__dirname, "/public")));
-
 app.use("/", root);
 app.use("/users", userRoutes);
 app.use("/products", productsRoutes);
@@ -43,6 +39,14 @@ app.use("/cart", cartRoutes);
 app.use("/wishlist", wishListRoutes);
 app.use("/stripe", stripeRoutes);
 app.use("/orders", orderRoutes);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use("/", express.static(path.join(__dirname, "/public")));
+
+app.all("*", (req, res) => {
+  res.status(404).json({ message: "404 Not Found" });
+});
 
 app.use(errorHandler);
 const checkDatabaseConnection = async () => {
