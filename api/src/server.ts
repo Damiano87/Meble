@@ -54,9 +54,9 @@ app.use("/wishlist", wishListRoutes);
 app.use("/stripe", stripeRoutes);
 app.use("/orders", orderRoutes);
 
-app.all("*", (req, res) => {
-  res.status(404).json({ message: "404 Not Found" });
-});
+// app.all("*", (req, res) => {
+//   res.status(404).json({ message: "404 Not Found" });
+// });
 
 app.use(errorHandler);
 
