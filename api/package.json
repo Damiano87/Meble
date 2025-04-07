@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "dev": "nodemon --watch src --ext ts --exec \"npm run build && node dist/server.js\"",
     "build": "tsc",
-    "build:render": "node node_modules/typescript/bin/tsc && npx prisma generate",
+    "render-build": "npm install && npm run build && npx prisma generate",
     "lint": "eslint src --ext .ts",
     "prisma": "prisma"
   },
