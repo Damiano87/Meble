@@ -5,10 +5,11 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "npm run prisma-generate && node dist/server.js",
     "dev": "nodemon --watch src --ext ts --exec \"npm run build && node dist/server.js\"",
     "build": "tsc",
     "lint": "eslint src --ext .ts",
+    "prisma-generate": "prisma generate",
     "prisma": "prisma"
   },
   "keywords": [],
