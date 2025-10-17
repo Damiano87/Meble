@@ -30,6 +30,8 @@ const Product = ({ id, name, price, images, className }: ProductProps) => {
       <div className="relative h-[20rem] mb-6">
         <img
           src={isHovered && images[1] ? images[1] : images[0]}
+          loading="lazy"
+          decoding="async"
           className="object-contain w-full h-full"
           alt={name}
         />

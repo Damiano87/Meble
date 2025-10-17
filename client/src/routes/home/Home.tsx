@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Mosaic from "./components/Mosaic";
+// import Mosaic from "./components/Mosaic";
 import ShopNow from "./components/ShopNow";
 import MetaData from "@/components/Meta";
 import { useGetCombined } from "@/hooks/products/useGetCombined";
@@ -19,7 +19,7 @@ const Home = () => {
         title="H Meble"
         content="Odkryj wyjątkowe meble na wymiar, nowoczesne kolekcje oraz klasyczne wzornictwo. Profesjonalne doradztwo, konkurencyjne ceny i najwyższa jakość wykonania. Sprawdź naszą ofertę mebli do domu i biura."
       />
-      <Mosaic />
+      {/* <Mosaic /> */}
       <Suspense
         fallback={
           <div className="text-[1.5rem] font-semibold">Ładowanie...</div>

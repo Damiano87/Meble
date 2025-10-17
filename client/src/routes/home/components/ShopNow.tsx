@@ -24,6 +24,8 @@ const ShopNow = () => {
         <div className="hidden md:block relative  w-1/2">
           <img
             src={cozyroom2}
+            loading="lazy"
+            decoding="async"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover h-full w-full"
             alt="cozy room"

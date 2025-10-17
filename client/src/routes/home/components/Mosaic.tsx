@@ -10,6 +10,8 @@ const Mosaic = () => {
         <div className="overflow-hidden h-[300px] md:h-full relative row-span-2">
           <img
             src={cozyroom}
+            loading="lazy"
+            decoding="async"
             sizes="(max-width: 768px) 100vw"
             className="object-cover hover:brightness-75 duration-500 w-full h-full"
             alt="cozyroom"
@@ -21,6 +23,8 @@ const Mosaic = () => {
         <div className="overflow-hidden h-[300px] md:h-full row-span-2 relative">
           <img
             src={livingroom}
+            loading="lazy"
+            decoding="async"
             sizes="(max-width: 768px) 100vw"
             className="object-cover hover:brightness-75 duration-500 h-full w-full"
             alt="livingroom"
@@ -32,6 +36,8 @@ const Mosaic = () => {
         <div className="overflow-hidden h-[300px] md:h-full relative">
           <img
             src={bedroom}
+            loading="lazy"
+            decoding="async"
             sizes="(max-width: 768px) 100vw"
             className="hover:brightness-75 duration-500"
             alt="bedroom"
@@ -43,6 +49,8 @@ const Mosaic = () => {
         <div className="overflow-hidden h-[300px] md:h-full relative">
           <img
             src={kitchen}
+            loading="lazy"
+            decoding="async"
             sizes="(max-width: 768px) 100vw"
             className="hover:brightness-75 duration-500 h-full w-full"
             alt="kitchen"
