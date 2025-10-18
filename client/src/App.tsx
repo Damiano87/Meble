@@ -17,6 +17,7 @@ import OrderSummary from "./routes/order-summary/OrderSummary";
 import PersonOrders from "./routes/personOrders/PersonOrders";
 import OrderDetails from "./routes/order-details/OrderDetails";
 import MyData from "./routes/my-data/MyData";
+import NotFound from "./routes/not-found/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -87,9 +88,17 @@ const router = createBrowserRouter([
             path: "my-data",
             element: <MyData />,
           },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
