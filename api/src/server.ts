@@ -6,7 +6,7 @@ import corsOptions from "./config/corsOptions.js";
 import path from "path";
 import errorHandler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 import morgan from "morgan";
 import root from "./routes/root.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -50,9 +50,9 @@ app.use("/stripe", stripeRoutes);
 app.use("/orders", orderRoutes);
 
 // Serve static files from the "public" directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use("/", express.static(path.join(__dirname, "/public")));
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// app.use("/", express.static(path.join(__dirname, "/public")));
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "404 Not Found" });

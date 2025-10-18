@@ -6,7 +6,7 @@ import corsOptions from "./config/corsOptions.js";
 import path from "path";
 import errorHandler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 import morgan from "morgan";
 import root from "./routes/root.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -17,10 +17,15 @@ import cartRoutes from "./routes/cartRoutes.js";
 import wishListRoutes from "./routes/wishListRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+
 const PORT = process.env.PORT || 3500;
+
 dotenv.config();
+
 console.log(process.env.NODE_ENV);
+
 const app = express();
+
 if (process.env.NODE_ENV === "production") {
   app.use(morgan("combined"));
 } else {
@@ -40,9 +45,9 @@ app.use("/wishlist", wishListRoutes);
 app.use("/stripe", stripeRoutes);
 app.use("/orders", orderRoutes);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use("/", express.static(path.join(__dirname, "/public")));
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// app.use("/", express.static(path.join(__dirname, "/public")));
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "404 Not Found" });
