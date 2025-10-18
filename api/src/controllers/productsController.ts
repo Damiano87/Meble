@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import prisma from "../lib/prisma.js";
 
 // @desc Get all products
@@ -103,25 +103,30 @@ export const getTrendyProducts = async (
 // @access Public
 export const getSingleProduct = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  if (!id) {
-    res.status(400).json({ message: "Please provide an ID" });
-    return;
+    if (!id) {
+      res.status(400).json({ message: "Please provide an ID" });
+      return;
+    }
+
+    const product = await prisma.product.findUnique({ where: { id } });
+
+    if (!product) {
+      res.status(404).json({ message: "Product not found" });
+      return;
+    }
+
+    const wishProductCount = await prisma.wishlist.count({
+      where: { productId: id },
+    });
+
+    res.status(200).json({ ...product, wishProductCount });
+  } catch (error) {
+    next(error);
   }
-
-  const product = await prisma.product.findUnique({ where: { id } });
-
-  if (!product) {
-    res.status(404).json({ message: "Product not found" });
-    return;
-  }
-
-  const wishProductCount = await prisma.wishlist.count({
-    where: { productId: id },
-  });
-
-  res.status(200).json({ ...product, wishProductCount });
 };

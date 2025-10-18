@@ -1,11 +1,16 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { logEvents } from "./logger.js";
 
 interface ErrorWithStack extends Error {
   stack?: string;
 }
 
-const errorHandler = (err: ErrorWithStack, req: Request, res: Response) => {
+const errorHandler = (
+  err: ErrorWithStack,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   logEvents(
     `${err.name}: ${err.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
     "errLog.log"
@@ -18,8 +23,6 @@ const errorHandler = (err: ErrorWithStack, req: Request, res: Response) => {
   res.status(status);
 
   res.json({ message: err.message });
-
-  // next();
 };
 
 export default errorHandler;
