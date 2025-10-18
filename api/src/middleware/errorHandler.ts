@@ -18,6 +18,15 @@ const errorHandler = (
 
   console.log(err.stack);
 
+  // Set CORS headers
+  const allowedOrigins = ["https://h-furniture-store.onrender.com"];
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+
   const status = res.statusCode ? res.statusCode : 500; // server error
 
   res.status(status);
