@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../lib/prisma.js";
-
+import { validate as isValidUUID } from "uuid";
 // rate product ======================================================
 export const rateProduct = async (
   req: Request,
@@ -126,6 +126,11 @@ export const getProductRatings = async (
     // check if productId exists
     if (!productId) {
       res.status(400).json({ message: "Nie podano ID produktu" });
+      return;
+    }
+
+    if (!isValidUUID(productId)) {
+      res.status(400).json({ message: "Invalid ID format" });
       return;
     }
 

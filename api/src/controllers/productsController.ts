@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from "../lib/prisma.js";
+import { validate as isValidUUID } from "uuid";
 
 // @desc Get all products
 // @route GET /products
@@ -111,6 +112,11 @@ export const getSingleProduct = async (
 
     if (!id) {
       res.status(400).json({ message: "Please provide an ID" });
+      return;
+    }
+
+    if (!isValidUUID(id)) {
+      res.status(400).json({ message: "Invalid ID format" });
       return;
     }
 
