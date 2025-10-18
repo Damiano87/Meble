@@ -8,7 +8,7 @@
     "prisma-generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "start": "node dist/server.js",
     "render-build": "npm install && prisma generate --schema=./src/prisma/schema.prisma",
-    "dev": "nodemon --watch src --ext ts --exec \"npm run build && node dist/server.js\"",
+    "dev": "nodemon server.ts",
     "lint": "eslint src --ext .ts",
     "prisma": "prisma"
   },
