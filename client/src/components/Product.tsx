@@ -31,8 +31,7 @@ const Product = ({ id, name, price, images, className }: ProductProps) => {
         <img
           src={isHovered && images[1] ? images[1] : images[0]}
           loading="lazy"
-          width="256"
-          height="320"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           decoding="async"
           className="object-contain w-full h-full"
           alt={name}
